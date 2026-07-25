@@ -1674,6 +1674,641 @@
               }
           ],
           socialCopy: "Playeras y gorras personalizadas ayudan a que tu equipo se vea uniforme, profesional y alineado a tu marca.\n\nCotizamos prendas para negocios, eventos, escuelas, equipos y campañas promocionales.\n\nCotiza prendas personalizadas para tu equipo.\n\n#PlayerasPersonalizadas #GorrasPersonalizadas #VinilTextil #Ixmati"
+      },
+      {
+          id: "OP-031",
+          page: "op-detalle.html?id=OP-031",
+          type: "POST / CARRUSEL",
+          calendarType: "Contenido de valor",
+          dueDate: "10 agosto 2026",
+          title: "¿Tu negocio depende demasiado de WhatsApp?",
+          status: "Pendiente",
+          priority: "Alta",
+          platform: "Facebook / Instagram",
+          format: "1080x1350",
+          pieces: "1 carrusel de 5 slides",
+          objective: "Generar interés por automatización y plataformas administrativas mostrando señales de desorden operativo.",
+          simpleBrief: "Carrusel educativo/comercial para que el dueño de negocio identifique problemas cotidianos: mensajes perdidos, cotizaciones tardías, citas manuales y clientes sin seguimiento.",
+          cta: "Descubre qué procesos de tu negocio podemos automatizar.",
+          refs: [
+              "WhatsApp saturado",
+              "Cotizaciones",
+              "Citas manuales",
+              "Seguimiento de clientes",
+              "Automatización"
+          ],
+          instructions: [
+              "Abre con una pregunta directa sobre dependencia de WhatsApp.",
+              "Muestra 3 o 4 señales de desorden operativo.",
+              "Conecta cada problema con una solución digital simple.",
+              "Cierra con CTA hacia automatización y plataformas administrativas."
+          ],
+          examples: [
+              "Señal 1: mensajes que se pierden entre chats.",
+              "Señal 2: cotizaciones que tardan demasiado en salir.",
+              "Señal 3: clientes que preguntan y ya nadie les da seguimiento."
+          ],
+          deliverableGuide: "Sube carrusel final en PNG/JPG por slide.",
+          avoid: [
+              "No culpes al cliente por usar WhatsApp.",
+              "No prometas automatización total sin diagnóstico.",
+              "No uses capturas reales con datos privados."
+          ],
+          slides: [
+              {
+                  title: "Slide 1",
+                  text: "¿Tu negocio depende demasiado de WhatsApp?",
+                  visual: "Celular con muchos chats y notificaciones."
+              },
+              {
+                  title: "Slide 2",
+                  text: "Si se pierden mensajes, cotizaciones o citas, el problema no es vender más: es ordenar mejor.",
+                  visual: "Lista de pendientes mezclada con chats."
+              },
+              {
+                  title: "Slide 3",
+                  text: "Una plataforma puede registrar solicitudes, guardar datos y dar seguimiento sin depender de memoria.",
+                  visual: "Dashboard simple con clientes, citas y cotizaciones."
+              },
+              {
+                  title: "Slide 4",
+                  text: "Automatizar no reemplaza tu atención: la hace más rápida, clara y medible.",
+                  visual: "Flujo de cliente a sistema y aviso al negocio."
+              },
+              {
+                  title: "Slide 5",
+                  text: "Descubre qué procesos de tu negocio podemos automatizar.",
+                  visual: "CTA con marca Ixmati Digital."
+              }
+          ],
+          socialCopy: "WhatsApp es útil, pero no debería cargar con toda la operación de tu negocio.\n\nSi se pierden mensajes, las cotizaciones tardan, las citas se manejan a mano o los clientes se quedan sin seguimiento, quizá ya necesitas ordenar tus procesos digitales.\n\nDescubre qué procesos de tu negocio podemos automatizar.\n\n#Automatización #ProcesosDigitales #IxmatiDigital #Negocios"
+      },
+      {
+          id: "OP-032",
+          page: "op-detalle.html?id=OP-032",
+          type: "REEL",
+          calendarType: "Proceso",
+          dueDate: "12 agosto 2026",
+          title: "Así funciona una plataforma hecha para tu negocio",
+          status: "Pendiente",
+          priority: "Alta",
+          platform: "Facebook / Instagram / TikTok",
+          format: "Reel vertical 1080x1920",
+          pieces: "1 reel",
+          objective: "Demostrar capacidad técnica y generar confianza mostrando interfaces desarrolladas por Ixmati.",
+          simpleBrief: "Reel dinámico con pantallas de paneles, calendarios, CMS, formularios, tiendas y sistemas de citas. Debe sentirse como demo profesional, no tutorial largo.",
+          cta: "Tu operación también puede tener una plataforma propia.",
+          refs: [
+              "Panel administrativo",
+              "Calendario",
+              "CMS",
+              "Formulario",
+              "Tienda",
+              "Sistema de citas"
+          ],
+          instructions: [
+              "Usa cortes rápidos de distintas interfaces.",
+              "Evita datos privados: usa blur, datos demo o pantallas limpias.",
+              "Incluye textos cortos sobre cada función.",
+              "Cierra con promesa de plataforma a la medida."
+          ],
+          examples: [
+              "Pantalla 1: agenda y calendario.",
+              "Pantalla 2: CMS para editar contenidos.",
+              "Pantalla 3: tienda o formulario conectado a seguimiento."
+          ],
+          deliverableGuide: "Sube reel MP4 vertical y, si aplica, portada JPG.",
+          avoid: [
+              "No muestres contraseñas, clientes reales ni datos privados.",
+              "No grabes demasiado lento.",
+              "No uses tecnicismos que el cliente no entienda."
+          ],
+          slides: [
+              {
+                  title: "Escena 1",
+                  text: "Una plataforma hecha para tu negocio",
+                  visual: "Entrada con mockups de varias pantallas."
+              },
+              {
+                  title: "Escena 2",
+                  text: "Paneles, calendarios, CMS, formularios, tiendas y citas",
+                  visual: "Cortes rápidos de interfaces."
+              },
+              {
+                  title: "Escena 3",
+                  text: "Todo adaptado a tu operación real",
+                  visual: "Flujo visual de datos entrando a dashboard."
+              },
+              {
+                  title: "Escena 4",
+                  text: "Tu operación también puede tener una plataforma propia.",
+                  visual: "Cierre con CTA y marca Ixmati Digital."
+              }
+          ],
+          socialCopy: "Una plataforma bien hecha se adapta a cómo trabaja tu negocio.\n\nEn Ixmati desarrollamos paneles, calendarios, CMS, formularios, tiendas, sistemas de citas y herramientas administrativas para ordenar procesos reales.\n\nTu operación también puede tener una plataforma propia.\n\n#PlataformasDigitales #DesarrolloWeb #SistemasAdministrativos #IxmatiDigital"
+      },
+      {
+          id: "OP-033",
+          page: "op-detalle.html?id=OP-033",
+          type: "POST servicio",
+          calendarType: "Servicio",
+          dueDate: "14 agosto 2026",
+          title: "Tu página web debería trabajar por ti",
+          status: "Pendiente",
+          priority: "Alta",
+          platform: "Facebook / Instagram",
+          format: "1080x1350",
+          pieces: "1 post",
+          objective: "Promover desarrollo web orientado a resultados.",
+          simpleBrief: "Post comercial para explicar que una web profesional no solo informa: capta clientes, agenda citas, muestra productos y responde dudas aunque el negocio esté cerrado.",
+          cta: "Convierte tu sitio web en una herramienta de ventas.",
+          refs: [
+              "Página web",
+              "Clientes",
+              "Citas",
+              "Productos",
+              "Ventas"
+          ],
+          instructions: [
+              "Presenta la web como herramienta activa de ventas.",
+              "Incluye beneficios concretos: captar, agendar, mostrar y responder.",
+              "Usa visual de sitio web en laptop y celular.",
+              "Cierra con CTA comercial."
+          ],
+          examples: [
+              "Texto principal: Tu página web debería trabajar por ti.",
+              "Apoyos: capta clientes, agenda citas, muestra productos, responde dudas.",
+              "CTA: Convierte tu sitio web en una herramienta de ventas."
+          ],
+          deliverableGuide: "Sube imagen final en PNG/JPG.",
+          avoid: [
+              "No lo hagas parecer solo tarjeta de presentación.",
+              "No uses mockups genéricos sin contexto de negocio.",
+              "No prometas resultados específicos sin pauta o estrategia."
+          ],
+          slides: [
+              {
+                  title: "Post único",
+                  text: "Tu página web debería trabajar por ti: captar clientes, agendar citas, mostrar productos y responder dudas.",
+                  visual: "Mockup de web en laptop y celular con iconos de ventas, citas y contacto."
+              }
+          ],
+          socialCopy: "Tu página web no debería ser solo una tarjeta de presentación.\n\nUna web profesional puede captar clientes, agendar citas, mostrar productos y resolver dudas incluso cuando tu negocio está cerrado.\n\nConvierte tu sitio web en una herramienta de ventas.\n\n#PáginaWeb #DiseñoWeb #VentasDigitales #IxmatiDigital"
+      },
+      {
+          id: "OP-034",
+          page: "op-detalle.html?id=OP-034",
+          type: "CARRUSEL educativo",
+          calendarType: "Contenido de valor",
+          dueDate: "17 agosto 2026",
+          title: "Landing page, sitio web o plataforma: ¿qué necesita tu negocio?",
+          status: "Pendiente",
+          priority: "Media",
+          platform: "Facebook / Instagram",
+          format: "1080x1350",
+          pieces: "1 carrusel de 5 slides",
+          objective: "Educar al prospecto y facilitar la contratación del servicio correcto.",
+          simpleBrief: "Comparar landing page, sitio web y plataforma de forma breve, clara y orientada a decisión. El usuario debe entender cuál le conviene según su necesidad.",
+          cta: "Cuéntanos qué quieres resolver y te ayudamos a elegir.",
+          refs: [
+              "Landing page",
+              "Sitio web",
+              "Plataforma",
+              "Comparativo",
+              "Diagnóstico"
+          ],
+          instructions: [
+              "Define cada opción con una frase simple.",
+              "Da un caso de uso por opción.",
+              "Evita lenguaje técnico innecesario.",
+              "Cierra invitando a diagnóstico."
+          ],
+          examples: [
+              "Landing page: ideal para una campaña o servicio específico.",
+              "Sitio web: ideal para presentar toda tu empresa.",
+              "Plataforma: ideal para administrar procesos internos o clientes."
+          ],
+          deliverableGuide: "Sube carrusel final en PNG/JPG por slide.",
+          avoid: [
+              "No des una respuesta única para todos.",
+              "No uses demasiado texto por slide.",
+              "No confundas plataforma con página informativa."
+          ],
+          slides: [
+              {
+                  title: "Slide 1",
+                  text: "Landing page, sitio web o plataforma: ¿qué necesita tu negocio?",
+                  visual: "Tres tarjetas comparativas."
+              },
+              {
+                  title: "Slide 2",
+                  text: "Landing page: para campañas, promociones o una acción específica.",
+                  visual: "Página simple con botón de contacto."
+              },
+              {
+                  title: "Slide 3",
+                  text: "Sitio web: para presentar tu empresa, servicios, productos y contacto.",
+                  visual: "Web con varias secciones."
+              },
+              {
+                  title: "Slide 4",
+                  text: "Plataforma: para administrar citas, pedidos, clientes, contenidos o procesos.",
+                  visual: "Dashboard administrativo."
+              },
+              {
+                  title: "Slide 5",
+                  text: "Cuéntanos qué quieres resolver y te ayudamos a elegir.",
+                  visual: "CTA con marca Ixmati Digital."
+              }
+          ],
+          socialCopy: "No todos los negocios necesitan lo mismo.\n\nUna landing page sirve para campañas específicas, un sitio web presenta tu empresa y una plataforma te ayuda a administrar procesos, clientes, citas o pedidos.\n\nCuéntanos qué quieres resolver y te ayudamos a elegir.\n\n#LandingPage #SitioWeb #PlataformaDigital #IxmatiDigital"
+      },
+      {
+          id: "OP-035",
+          page: "op-detalle.html?id=OP-035",
+          type: "REEL",
+          calendarType: "Proceso",
+          dueDate: "19 agosto 2026",
+          title: "3 tareas que tu negocio ya debería tener automatizadas",
+          status: "Pendiente",
+          priority: "Alta",
+          platform: "Facebook / Instagram / TikTok",
+          format: "Reel vertical 1080x1920",
+          pieces: "1 reel",
+          objective: "Generar deseo por automatizaciones aplicadas a negocios reales.",
+          simpleBrief: "Reel claro y rápido sobre tres automatizaciones útiles: seguimiento de clientes, recordatorios de citas y registro de solicitudes o pedidos.",
+          cta: "Menos tareas repetitivas. Más tiempo para crecer.",
+          refs: [
+              "Seguimiento de clientes",
+              "Recordatorios",
+              "Solicitudes",
+              "Pedidos",
+              "Automatización"
+          ],
+          instructions: [
+              "Abre con gancho de 3 tareas automatizables.",
+              "Dedica una escena a cada tarea.",
+              "Muestra antes/después de forma visual.",
+              "Cierra con beneficio de tiempo y crecimiento."
+          ],
+          examples: [
+              "1. Seguimiento automático de clientes.",
+              "2. Recordatorios de citas.",
+              "3. Registro ordenado de solicitudes o pedidos."
+          ],
+          deliverableGuide: "Sube reel MP4 vertical y portada JPG si aplica.",
+          avoid: [
+              "No lo hagas demasiado técnico.",
+              "No uses interfaces con datos reales.",
+              "No prometas que todo se automatiza sin evaluar proceso."
+          ],
+          slides: [
+              {
+                  title: "Escena 1",
+                  text: "3 tareas que tu negocio ya debería tener automatizadas",
+                  visual: "Texto grande y fondo de dashboard."
+              },
+              {
+                  title: "Escena 2",
+                  text: "Seguimiento de clientes",
+                  visual: "Cliente entra a lista de seguimiento."
+              },
+              {
+                  title: "Escena 3",
+                  text: "Recordatorios de citas",
+                  visual: "Calendario con aviso automático."
+              },
+              {
+                  title: "Escena 4",
+                  text: "Registro de solicitudes o pedidos",
+                  visual: "Formulario guardando información en panel."
+              },
+              {
+                  title: "Escena 5",
+                  text: "Menos tareas repetitivas. Más tiempo para crecer.",
+                  visual: "CTA final con marca."
+              }
+          ],
+          socialCopy: "Hay tareas que tu negocio no debería seguir haciendo a mano.\n\nSeguimiento de clientes, recordatorios de citas y registro de solicitudes o pedidos pueden automatizarse para trabajar con más orden y menos errores.\n\nMenos tareas repetitivas. Más tiempo para crecer.\n\n#Automatización #Negocios #ProcesosDigitales #IxmatiDigital"
+      },
+      {
+          id: "OP-036",
+          page: "op-detalle.html?id=OP-036",
+          type: "CASO DE PROYECTO",
+          calendarType: "Trabajo realizado",
+          dueDate: "21 agosto 2026",
+          title: "Photos Time: de vender fotografías manualmente a una plataforma propia",
+          status: "Pendiente",
+          priority: "Alta",
+          platform: "Facebook / Instagram / TikTok",
+          format: "Reel o carrusel de proyecto",
+          pieces: "1 reel o carrusel",
+          objective: "Mostrar que Ixmati desarrolla sistemas completos, no solamente páginas web.",
+          simpleBrief: "Caso de proyecto sin revelar información privada. Enfocar en el problema, la solución y las funciones generales: códigos, galerías privadas, selección de fotos, pagos y administración.",
+          cta: "¿Tu negocio también necesita digitalizar un proceso?",
+          refs: [
+              "Photos Time",
+              "Galerías privadas",
+              "Códigos de acceso",
+              "Pagos",
+              "Panel administrativo"
+          ],
+          instructions: [
+              "No revelar datos privados, precios internos, usuarios reales ni información sensible.",
+              "Presenta el antes: venta manual de fotografías.",
+              "Presenta la solución: plataforma propia con acceso y administración.",
+              "Cierra comunicando que Ixmati desarrolla sistemas completos."
+          ],
+          examples: [
+              "Antes: selección y venta manual.",
+              "Después: galerías privadas por código.",
+              "Funciones: selección, pagos y administración desde panel."
+          ],
+          deliverableGuide: "Sube reel MP4 vertical o carrusel en PNG/JPG.",
+          avoid: [
+              "No mostrar datos privados del proyecto.",
+              "No revelar detalles técnicos internos.",
+              "No usar pantallas reales sin revisar información visible."
+          ],
+          slides: [
+              {
+                  title: "Escena/Slide 1",
+                  text: "Photos Time: de vender fotografías manualmente a una plataforma propia",
+                  visual: "Mockup con galería fotográfica limpia."
+              },
+              {
+                  title: "Escena/Slide 2",
+                  text: "Acceso por códigos y galerías privadas para cada cliente.",
+                  visual: "Pantalla de acceso con código demo."
+              },
+              {
+                  title: "Escena/Slide 3",
+                  text: "Selección de fotos, pagos y administración desde un sistema propio.",
+                  visual: "Panel demo con módulos generales."
+              },
+              {
+                  title: "Escena/Slide 4",
+                  text: "¿Tu negocio también necesita digitalizar un proceso?",
+                  visual: "CTA con marca Ixmati Digital."
+              }
+          ],
+          socialCopy: "Photos Time necesitaba algo más que una página web: necesitaba ordenar un proceso completo.\n\nDesarrollamos una plataforma con acceso por códigos, galerías privadas, selección de fotos, pagos y administración, sin depender de un flujo manual para cada cliente.\n\n¿Tu negocio también necesita digitalizar un proceso?\n\n#CasoDeProyecto #PlataformaDigital #DesarrolloWeb #IxmatiDigital"
+      },
+      {
+          id: "OP-037",
+          page: "op-detalle.html?id=OP-037",
+          type: "POST / CARRUSEL",
+          calendarType: "Contenido de valor",
+          dueDate: "24 agosto 2026",
+          title: "Lo barato sale caro también en una página web",
+          status: "Pendiente",
+          priority: "Media",
+          platform: "Facebook / Instagram",
+          format: "1080x1350",
+          pieces: "1 carrusel de 5 slides",
+          objective: "Defender el valor del desarrollo profesional sin atacar directamente a competidores.",
+          simpleBrief: "Carrusel educativo/comercial sobre problemas frecuentes de sitios improvisados: lentitud, mala imagen, falta de seguridad, dependencia de terceros y poca capacidad de crecimiento.",
+          cta: "Construye una base digital preparada para crecer.",
+          refs: [
+              "Sitio lento",
+              "Mala imagen",
+              "Seguridad",
+              "Dependencia",
+              "Escalabilidad"
+          ],
+          instructions: [
+              "Habla del problema sin burlarte de competidores.",
+              "Usa tono profesional y preventivo.",
+              "Menciona riesgos concretos.",
+              "Cierra con valor de una base digital bien construida."
+          ],
+          examples: [
+              "Un sitio lento puede hacer que el cliente se vaya.",
+              "Una mala imagen digital afecta la confianza.",
+              "Si no puede crecer contigo, pronto tendrás que rehacerlo."
+          ],
+          deliverableGuide: "Sube carrusel final en PNG/JPG por slide.",
+          avoid: [
+              "No ataques marcas, freelancers ni competidores.",
+              "No uses miedo exagerado.",
+              "No prometas perfección absoluta."
+          ],
+          slides: [
+              {
+                  title: "Slide 1",
+                  text: "Lo barato sale caro también en una página web",
+                  visual: "Web rota o lenta comparada con web profesional."
+              },
+              {
+                  title: "Slide 2",
+                  text: "Lentitud, mala imagen y poca claridad pueden costarte clientes.",
+                  visual: "Iconos de velocidad, diseño y confianza."
+              },
+              {
+                  title: "Slide 3",
+                  text: "También importa la seguridad, el mantenimiento y la capacidad de crecer.",
+                  visual: "Candado, soporte y módulos."
+              },
+              {
+                  title: "Slide 4",
+                  text: "Una web profesional es una base digital, no solo una pantalla bonita.",
+                  visual: "Estructura de sitio como cimientos."
+              },
+              {
+                  title: "Slide 5",
+                  text: "Construye una base digital preparada para crecer.",
+                  visual: "CTA con marca Ixmati Digital."
+              }
+          ],
+          socialCopy: "Una página web barata puede salir cara si es lenta, se ve improvisada, no es segura o no puede crecer con tu negocio.\n\nUn desarrollo profesional no solo busca que la web se vea bien: también debe ser clara, funcional y preparada para operar mejor con el tiempo.\n\nConstruye una base digital preparada para crecer.\n\n#DiseñoWeb #DesarrolloWeb #PáginaWeb #IxmatiDigital"
+      },
+      {
+          id: "OP-038",
+          page: "op-detalle.html?id=OP-038",
+          type: "REEL",
+          calendarType: "Proceso",
+          dueDate: "26 agosto 2026",
+          title: "Del formulario al seguimiento automático",
+          status: "Pendiente",
+          priority: "Alta",
+          platform: "Facebook / Instagram / TikTok",
+          format: "Reel vertical 1080x1920",
+          pieces: "1 reel",
+          objective: "Hacer comprensible el valor de una automatización.",
+          simpleBrief: "Reel visual mostrando flujo simple: cliente llena formulario, información se guarda, negocio recibe aviso y se inicia seguimiento.",
+          cta: "Cada prospecto debería entrar a un proceso, no perderse en un chat.",
+          refs: [
+              "Formulario",
+              "Base de datos",
+              "Aviso automático",
+              "Seguimiento",
+              "Prospectos"
+          ],
+          instructions: [
+              "Mostrar flujo paso a paso con flechas o transiciones.",
+              "Usar datos ficticios.",
+              "Mantener cada pantalla clara y legible.",
+              "Cerrar explicando el beneficio: ningún prospecto perdido."
+          ],
+          examples: [
+              "Cliente llena formulario.",
+              "La información se guarda automáticamente.",
+              "El negocio recibe aviso y se activa seguimiento."
+          ],
+          deliverableGuide: "Sube reel MP4 vertical y portada JPG si aplica.",
+          avoid: [
+              "No mostrar datos reales de clientes.",
+              "No usar demasiados pasos.",
+              "No hacerlo parecer complicado."
+          ],
+          slides: [
+              {
+                  title: "Escena 1",
+                  text: "Del formulario al seguimiento automático",
+                  visual: "Formulario llenándose con datos demo."
+              },
+              {
+                  title: "Escena 2",
+                  text: "La información se guarda en tu sistema.",
+                  visual: "Dato entrando a tabla o panel."
+              },
+              {
+                  title: "Escena 3",
+                  text: "Tu negocio recibe aviso y sabe qué hacer después.",
+                  visual: "Notificación o tarea creada."
+              },
+              {
+                  title: "Escena 4",
+                  text: "Cada prospecto debería entrar a un proceso, no perderse en un chat.",
+                  visual: "CTA final con flujo completo."
+              }
+          ],
+          socialCopy: "Un formulario puede ser mucho más que una caja para recibir datos.\n\nCuando está conectado a un proceso, la información se guarda, el negocio recibe aviso y el seguimiento empieza sin depender de que alguien revise chats todo el día.\n\nCada prospecto debería entrar a un proceso, no perderse en un chat.\n\n#Automatización #Formularios #Prospectos #IxmatiDigital"
+      },
+      {
+          id: "OP-039",
+          page: "op-detalle.html?id=OP-039",
+          type: "POST servicio",
+          calendarType: "Servicio",
+          dueDate: "28 agosto 2026",
+          title: "Panel administrativo: controla tu negocio desde un solo lugar",
+          status: "Pendiente",
+          priority: "Alta",
+          platform: "Facebook / Instagram",
+          format: "1080x1350",
+          pieces: "1 post",
+          objective: "Vender CMS y sistemas administrativos personalizados.",
+          simpleBrief: "Post comercial sobre paneles donde el cliente administra productos, citas, pedidos, contenidos, usuarios o reportes sin depender del desarrollador.",
+          cta: "Administra tu operación de forma más simple.",
+          refs: [
+              "Panel administrativo",
+              "CMS",
+              "Productos",
+              "Citas",
+              "Pedidos",
+              "Reportes"
+          ],
+          instructions: [
+              "Mostrar un dashboard como centro de control.",
+              "Incluir módulos administrables por el cliente.",
+              "Comunicar independencia operativa sin decir que nunca necesitará soporte.",
+              "Cerrar con CTA simple."
+          ],
+          examples: [
+              "Administra productos, citas, pedidos y contenidos.",
+              "Consulta reportes y usuarios desde un solo lugar.",
+              "No dependas de pedir cambios pequeños cada semana."
+          ],
+          deliverableGuide: "Sube imagen final en PNG/JPG.",
+          avoid: [
+              "No usar pantallas con datos reales.",
+              "No saturar el post con demasiadas funciones.",
+              "No prometer que todo se puede editar sin límites."
+          ],
+          slides: [
+              {
+                  title: "Post único",
+                  text: "Panel administrativo: controla productos, citas, pedidos, contenidos, usuarios o reportes desde un solo lugar.",
+                  visual: "Dashboard moderno con módulos y CTA."
+              }
+          ],
+          socialCopy: "Un panel administrativo te permite controlar partes clave de tu negocio desde un solo lugar.\n\nProductos, citas, pedidos, contenidos, usuarios o reportes pueden gestionarse en una plataforma hecha a la medida de tu operación.\n\nAdministra tu operación de forma más simple.\n\n#PanelAdministrativo #CMS #SistemasWeb #IxmatiDigital"
+      },
+      {
+          id: "OP-040",
+          page: "op-detalle.html?id=OP-040",
+          type: "CARRUSEL comercial",
+          calendarType: "Promoción",
+          dueDate: "31 agosto 2026",
+          title: "¿Qué podemos desarrollar para tu empresa?",
+          status: "Pendiente",
+          priority: "Alta",
+          platform: "Facebook / Instagram",
+          format: "1080x1350",
+          pieces: "1 carrusel de 6 slides",
+          objective: "Cerrar el mes con una publicación comercial amplia y captar prospectos.",
+          simpleBrief: "Carrusel comercial para presentar los principales servicios digitales de Ixmati y captar prospectos con necesidades variadas.",
+          cta: "Cuéntanos qué proceso quieres mejorar.",
+          refs: [
+              "Sitios web",
+              "Tiendas en línea",
+              "Sistemas de citas",
+              "Plataformas administrativas",
+              "Automatizaciones",
+              "CMS",
+              "Landing pages",
+              "Integraciones de pago"
+          ],
+          instructions: [
+              "Presenta servicios digitales como soluciones de negocio.",
+              "Agrupa servicios para no saturar cada slide.",
+              "Usa visuales de interfaces, web, tienda y automatización.",
+              "Cierra con CTA abierto a diagnóstico."
+          ],
+          examples: [
+              "Podemos desarrollar sitios web y landing pages.",
+              "También tiendas en línea, sistemas de citas y CMS.",
+              "Además plataformas administrativas, automatizaciones e integraciones de pago."
+          ],
+          deliverableGuide: "Sube carrusel final en PNG/JPG por slide.",
+          avoid: [
+              "No hacer una lista plana sin jerarquía.",
+              "No prometer servicios fuera del alcance digital.",
+              "No usar capturas con información privada."
+          ],
+          slides: [
+              {
+                  title: "Slide 1",
+                  text: "¿Qué podemos desarrollar para tu empresa?",
+                  visual: "Collage de interfaces digitales."
+              },
+              {
+                  title: "Slide 2",
+                  text: "Sitios web, landing pages y tiendas en línea.",
+                  visual: "Mockups web y ecommerce."
+              },
+              {
+                  title: "Slide 3",
+                  text: "Sistemas de citas, CMS y plataformas administrativas.",
+                  visual: "Calendario, editor y dashboard."
+              },
+              {
+                  title: "Slide 4",
+                  text: "Automatizaciones e integraciones de pago para ordenar procesos.",
+                  visual: "Flujo automatizado y pago en línea."
+              },
+              {
+                  title: "Slide 5",
+                  text: "Desarrollamos herramientas adaptadas a la operación real de tu negocio.",
+                  visual: "Sistema conectado a clientes y equipo."
+              },
+              {
+                  title: "Slide 6",
+                  text: "Cuéntanos qué proceso quieres mejorar.",
+                  visual: "CTA con marca Ixmati Digital."
+              }
+          ],
+          socialCopy: "En Ixmati Digital desarrollamos herramientas para que tu empresa venda, atienda y administre mejor.\n\nSitios web, tiendas en línea, sistemas de citas, plataformas administrativas, automatizaciones, CMS, landing pages e integraciones de pago.\n\nCuéntanos qué proceso quieres mejorar.\n\n#IxmatiDigital #DesarrolloWeb #Automatización #Ecommerce #CMS"
       }
   ];
 
