@@ -22,6 +22,7 @@
       <span>Web Vision</span>
     </a>
     <nav aria-label="Navegación Web Vision">
+      <button id="immersiveToggle" class="wv-immersive-toggle" type="button" aria-pressed="false">Experiencia inmersiva</button>
       <a href="../servicios-digitales.html">Servicios digitales</a>
       <a href="../contact.html">Contacto</a>
     </nav>
@@ -57,7 +58,6 @@
             </div>
             <div class="wv-hero wv-hero-premium">
               <div class="wv-hero-copy">
-                <p class="wv-pill">Sistema interactivo · 5-7 minutos</p>
                 <h2><span>Visualiza</span> tu negocio antes de construirlo.</h2>
                 <p>Responde unas preguntas y mira una simulación navegable de tu sitio, con diagnóstico, funciones recomendadas y una inversión estimada calculada por reglas.</p>
                 <div class="wv-hero-actions">
@@ -98,119 +98,156 @@
             </div>
           </section>
 
-          <section class="wv-screen" data-screen="business">
-            <div class="wv-question">
-              <p class="wv-kicker">Paso 1</p>
-              <h2>Cuéntanos de tu negocio.</h2>
-              <div class="wv-grid">
-                <label>Nombre del negocio<input name="businessName" required maxlength="80" placeholder="Ej. Pan Comido"></label>
-                <label>Giro<select name="businessType" required>
-                    <option value="">Selecciona una opción</option>
-                    <option>Profesionista o servicio</option>
-                    <option>Consultorio</option>
-                    <option>Clínica</option>
-                    <option>Belleza</option>
-                    <option>Tienda</option>
-                    <option>Restaurante</option>
-                    <option>Cafetería</option>
-                    <option>Alimentos</option>
-                    <option>Escuela</option>
-                    <option>Organización</option>
-                    <option>Inmobiliaria</option>
-                    <option>Fotografía</option>
-                    <option>Eventos</option>
-                    <option>Agencia</option>
-                    <option>Otro</option>
-                  </select></label>
-                <label class="wv-span">Descripción<textarea name="description" maxlength="420" placeholder="Qué vendes, a quién atiendes y qué te hace diferente"></textarea></label>
-                <label>Ciudad<input name="city" maxlength="80" placeholder="Tulancingo, Hidalgo"></label>
-                <label>Número de sucursales<input name="branches" type="number" min="1" max="30" value="1"></label>
-                <label>Años operando<input name="yearsOperating" type="number" min="0" max="100" placeholder="3"></label>
-                <label>Público objetivo<input name="audience" maxlength="120" placeholder="Familias, empresas, pacientes..."></label>
-                <label>Productos o servicios principales<input name="mainProducts" maxlength="180" placeholder="Menú, consultas, productos..."></label>
-                <label>Redes sociales actuales<input name="socials" maxlength="180" placeholder="@instagram, Facebook..."></label>
-                <label>Sitio web actual<input name="currentWebsite" type="url" placeholder="https://"></label>
-                <label>WhatsApp<input name="whatsapp" inputmode="tel" maxlength="20" placeholder="775 106 4629"></label>
-                <label>Correo<input name="email" type="email" maxlength="120" placeholder="correo@negocio.com"></label>
+          <section class="wv-screen" data-screen="businessName">
+            <div class="wv-scene">
+              <div class="wv-scene-copy">
+                <p class="wv-kicker">01 / 08</p>
+                <h2>¿Cómo se llama tu negocio?</h2>
+                <p class="wv-help">Escribe el nombre como quieres que aparezca en tu futura web.</p>
+                <label class="wv-giant-input">Nombre del negocio<input name="businessName" required maxlength="80" placeholder="Ej. Pan Comido" autocomplete="organization"></label>
+              </div>
+              <div class="wv-live-brand" aria-hidden="true"><span id="liveBrandName">Tu marca</span></div>
+            </div>
+          </section>
+
+          <section class="wv-screen" data-screen="businessType">
+            <div class="wv-scene">
+              <div class="wv-scene-copy">
+                <p class="wv-kicker">02 / 08</p>
+                <h2>¿Qué tipo de negocio tienes?</h2>
+                <p class="wv-help">Esto define la estructura inicial de tu Web Vision.</p>
+              </div>
+              <div class="wv-choice-grid wv-business-types">
+                <label><input type="radio" name="businessType" value="Profesionista o servicio"><span>Servicios</span><small>Consultas, asesorías, oficios, profesionales.</small></label>
+                <label><input type="radio" name="businessType" value="Tienda"><span>Tienda</span><small>Catálogo, productos, pedidos y ventas.</small></label>
+                <label><input type="radio" name="businessType" value="Restaurante"><span>Restaurante</span><small>Menú, pedidos, QR, operación local.</small></label>
+                <label><input type="radio" name="businessType" value="Clínica"><span>Salud</span><small>Citas, pacientes, servicios y confianza.</small></label>
+                <label><input type="radio" name="businessType" value="Escuela"><span>Educación</span><small>Cursos, inscripciones y comunidad.</small></label>
+                <label><input type="radio" name="businessType" value="Fotografía"><span>Creativo</span><small>Portafolio, eventos, proyectos visuales.</small></label>
+                <label><input type="radio" name="businessType" value="Organización"><span>Organización</span><small>Programas, contacto y posicionamiento.</small></label>
+                <label><input type="radio" name="businessType" value="Otro"><span>Otro</span><small>Construiremos una base personalizada.</small></label>
               </div>
             </div>
           </section>
 
-          <section class="wv-screen" data-screen="branding">
-            <div class="wv-question">
-              <p class="wv-kicker">Paso 2</p>
-              <h2>Define la identidad visual.</h2>
-              <div class="wv-grid">
-                <label class="wv-file">Logotipo<input name="logo" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml"><span>Subir PNG, JPG, WEBP o SVG · máx. 2 MB</span></label>
-                <label>Color principal<input name="primaryColor" type="color" value="#2f7de1"></label>
-                <label>Color de acento<input name="accentColor" type="color" value="#6ac13b"></label>
-                <div class="wv-font-field">
-                  <span class="wv-label">Tipografía preferida</span>
-                  <input name="typography" type="hidden" value="Inter">
-                  <button class="wv-font-trigger" type="button" aria-expanded="false" aria-controls="fontMenu">
-                    <span>
-                      <strong id="fontSelectedName">Inter</strong>
-                      <small id="fontSelectedTone">Limpia, digital y flexible</small>
-                    </span>
-                    <b>⌄</b>
-                  </button>
-                  <div id="fontMenu" class="wv-font-menu" role="listbox" hidden></div>
-                  <p id="fontPreviewText" class="wv-font-preview">Tu negocio visto como una marca digital profesional.</p>
+          <section class="wv-screen" data-screen="offer">
+            <div class="wv-scene">
+              <div class="wv-scene-copy">
+                <p class="wv-kicker">03 / 08</p>
+                <h2>¿Qué vendes o qué servicio ofreces?</h2>
+                <p class="wv-help">Dilo simple. Web Vision lo convertirá en estructura.</p>
+                <label class="wv-giant-input">Productos o servicios principales<input name="mainProducts" maxlength="180" placeholder="Ej. desayunos, café, comida corrida y postres"></label>
+                <label class="wv-quiet-field">Descripción breve<textarea name="description" maxlength="420" placeholder="Qué haces, a quién atiendes y qué te hace diferente"></textarea></label>
+              </div>
+              <div class="wv-live-orbit" aria-hidden="true"><span></span><span></span><span></span></div>
+            </div>
+          </section>
+
+          <section class="wv-screen" data-screen="style">
+            <div class="wv-scene">
+              <div class="wv-scene-copy">
+                <p class="wv-kicker">04 / 08</p>
+                <h2>¿Cómo quieres que se sienta tu marca?</h2>
+                <p class="wv-help">Cada estilo cambia la composición de la vista previa.</p>
+              </div>
+              <input name="visualStyle" type="hidden" value="Moderno">
+              <div class="wv-style-grid">
+                <button type="button" data-style-choice="Moderno"><span>Moderna</span><i></i></button>
+                <button type="button" data-style-choice="Elegante"><span>Elegante</span><i></i></button>
+                <button type="button" data-style-choice="Minimalista"><span>Minimalista</span><i></i></button>
+                <button type="button" data-style-choice="Premium"><span>Premium</span><i></i></button>
+                <button type="button" data-style-choice="Creativo"><span>Creativa</span><i></i></button>
+                <button type="button" data-style-choice="Natural"><span>Natural</span><i></i></button>
+                <button type="button" data-style-choice="Tecnológico"><span>Tecnológica</span><i></i></button>
+                <button type="button" data-style-choice="Corporativo"><span>Corporativa</span><i></i></button>
+              </div>
+              <div class="wv-font-field">
+                <span class="wv-label">Tipografía preferida</span>
+                <input name="typography" type="hidden" value="Inter">
+                <button class="wv-font-trigger" type="button" aria-expanded="false" aria-controls="fontMenu">
+                  <span><strong id="fontSelectedName">Inter</strong><small id="fontSelectedTone">Limpia, digital y flexible</small></span><b>⌄</b>
+                </button>
+                <div id="fontMenu" class="wv-font-menu" role="listbox" hidden></div>
+                <p id="fontPreviewText" class="wv-font-preview">Tu negocio visto como una marca digital profesional.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="wv-screen" data-screen="brand">
+            <div class="wv-scene">
+              <div class="wv-scene-copy">
+                <p class="wv-kicker">05 / 08</p>
+                <h2>Selecciona colores o sube tu logotipo.</h2>
+                <p class="wv-help">Si no tienes logo, crearemos una marca temporal con el nombre de tu negocio.</p>
+              </div>
+              <div class="wv-brand-lab">
+                <label class="wv-logo-drop">Logotipo<input name="logo" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml"><span>Arrastra o selecciona tu logo</span><small>PNG, JPG, WEBP o SVG · máx. 2 MB</small></label>
+                <div class="wv-color-lab">
+                  <label>Color principal<input name="primaryColor" type="color" value="#2f7de1"></label>
+                  <label>Color de acento<input name="accentColor" type="color" value="#6ac13b"></label>
                 </div>
-                <label>Estilo visual<select name="visualStyle">
-                    <option>Moderno</option>
-                    <option>Elegante</option>
-                    <option>Minimalista</option>
-                    <option>Premium</option>
-                    <option>Corporativo</option>
-                    <option>Creativo</option>
-                    <option>Juvenil</option>
-                    <option>Natural</option>
-                    <option>Tecnológico</option>
-                    <option>Editorial</option>
-                  </select></label>
-                <label class="wv-span">Referencias<textarea name="references" maxlength="300" placeholder="Sitios, marcas o estilos que te gustan"></textarea></label>
               </div>
             </div>
           </section>
 
           <section class="wv-screen" data-screen="objectives">
-            <div class="wv-question">
-              <p class="wv-kicker">Paso 3</p>
-              <h2>Elige tus objetivos principales.</h2>
-              <p class="wv-help">Selecciona varios. El primero seleccionado se toma como prioridad inicial.</p>
+            <div class="wv-scene">
+              <div class="wv-scene-copy">
+                <p class="wv-kicker">06 / 08</p>
+                <h2>¿Qué quieres lograr con tu sitio?</h2>
+                <p class="wv-help">Puedes elegir más de una intención.</p>
+              </div>
               <div class="wv-options" data-checkbox-group="objectives"></div>
             </div>
           </section>
 
           <section class="wv-screen" data-screen="features">
-            <div class="wv-question">
-              <p class="wv-kicker">Paso 4</p>
-              <h2>Funciones que necesitaría tu sitio.</h2>
-              <div class="wv-grid">
-                <label class="wv-check"><input name="needsAppointments" type="checkbox"> Mis clientes necesitan agendar horarios</label>
-                <label class="wv-check"><input name="hasProducts" type="checkbox"> Tengo productos con precios</label>
-                <label data-conditional="hasProducts">¿Cuántos productos manejas?<input name="productCount" type="number" min="0" max="5000" value="0"></label>
-                <label class="wv-check"><input name="needsOrders" type="checkbox"> Necesito recibir pedidos</label>
-                <label class="wv-check"><input name="needsPayments" type="checkbox"> Quiero cobrar desde la página</label>
-                <label class="wv-check"><input name="needsAdmin" type="checkbox"> Necesito controlar pedidos o solicitudes desde un panel</label>
-                <label class="wv-check"><input name="needsUsers" type="checkbox"> Trabajarán varias personas dentro del sistema</label>
-                <label class="wv-check"><input name="needsConfirmations" type="checkbox"> Necesito enviar confirmaciones</label>
-                <label class="wv-check"><input name="needsReminders" type="checkbox"> Necesito recordatorios</label>
-                <label class="wv-check"><input name="needsReports" type="checkbox"> Necesito reportes</label>
-                <label class="wv-check"><input name="needsGoogleAds" type="checkbox"> Quiero aparecer cuando me busquen en Google</label>
-                <label class="wv-check"><input name="needsMetaAds" type="checkbox"> Quiero anunciarme en Facebook e Instagram</label>
-                <label class="wv-check"><input name="needsThirdParty" type="checkbox"> Necesito conectar otra herramienta</label>
-                <label class="wv-check"><input name="priorityDelivery" type="checkbox"> Necesito entrega prioritaria</label>
-                <label>Páginas o secciones adicionales<input name="extraPages" type="number" min="0" max="30" value="0"></label>
-                <label class="wv-span">Función especial<textarea name="specialFeature" maxlength="260" placeholder="Describe algo que no aparezca en la lista"></textarea></label>
+            <div class="wv-scene">
+              <div class="wv-scene-copy">
+                <p class="wv-kicker">07 / 08</p>
+                <h2>¿Qué funciones necesitas?</h2>
+                <p class="wv-help">Activa solo lo que realmente debe hacer tu sitio.</p>
               </div>
-              <div class="wv-conditional-box" data-conditional="needsAppointments">
-                <h3>Detalles de agenda</h3>
-                <div class="wv-grid">
-                  <label>Número de profesionales<input name="professionals" type="number" min="1" max="50" value="1"></label>
-                  <label>Duración promedio del servicio<input name="serviceDuration" maxlength="80" placeholder="30 min, 1 hora..."></label>
-                </div>
+              <div class="wv-feature-deck" id="featureDeck" aria-live="polite"></div>
+              <div class="wv-hidden-feature-fields">
+                <input name="needsAppointments" type="checkbox" hidden>
+                <input name="hasProducts" type="checkbox" hidden>
+                <input name="productCount" type="number" min="0" max="5000" value="0" hidden>
+                <input name="needsOrders" type="checkbox" hidden>
+                <input name="needsPayments" type="checkbox" hidden>
+                <input name="needsAdmin" type="checkbox" hidden>
+                <input name="needsUsers" type="checkbox" hidden>
+                <input name="needsReminders" type="checkbox" hidden>
+                <input name="needsReports" type="checkbox" hidden>
+                <input name="needsGoogleAds" type="checkbox" hidden>
+                <input name="needsMetaAds" type="checkbox" hidden>
+                <input name="needsThirdParty" type="checkbox" hidden>
+                <input name="priorityDelivery" type="checkbox" hidden>
+                <textarea name="specialFeature" maxlength="260" hidden></textarea>
+                <input name="needsConfirmations" type="checkbox" hidden>
+                <input name="extraPages" type="number" min="0" max="30" value="0" hidden>
+                <input name="professionals" type="number" min="1" max="50" value="1" hidden>
+                <input name="serviceDuration" maxlength="80" hidden>
+              </div>
+            </div>
+          </section>
+
+          <section class="wv-screen" data-screen="contact">
+            <div class="wv-scene">
+              <div class="wv-scene-copy">
+                <p class="wv-kicker">08 / 08</p>
+                <h2>¿Dónde debe llegar tu diagnóstico?</h2>
+                <p class="wv-help">Guardamos tu avance cuando tenemos nombre, giro y contacto.</p>
+              </div>
+              <div class="wv-contact-grid">
+                <label>WhatsApp<input name="whatsapp" inputmode="tel" maxlength="20" placeholder="775 106 4629"></label>
+                <label>Correo<input name="email" type="email" maxlength="120" placeholder="correo@negocio.com"></label>
+                <label>Ciudad<input name="city" maxlength="80" placeholder="Tulancingo, Hidalgo"></label>
+                <label>Número de sucursales<input name="branches" type="number" min="1" max="30" value="1"></label>
+                <input name="yearsOperating" type="number" min="0" max="100" hidden>
+                <input name="audience" maxlength="120" hidden>
+                <input name="socials" maxlength="180" hidden>
+                <input name="currentWebsite" type="url" hidden>
               </div>
             </div>
           </section>
@@ -304,6 +341,10 @@
             <div id="finalMessage" class="wv-final-message" hidden></div>
           </section>
         </form>
+        <aside class="wv-live-preview" aria-label="Vista previa en tiempo real">
+          <div class="wv-live-preview-label">Construyendo tu sitio</div>
+          <div id="livePreviewMount" class="wv-live-preview-frame"></div>
+        </aside>
 
         <div class="wv-actions">
           <button id="backBtn" class="wv-button wv-button-ghost" type="button">Atrás</button>

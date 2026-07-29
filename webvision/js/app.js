@@ -5,24 +5,21 @@ import { formatMoney } from "./pricing-engine.js";
 import { renderSimulation } from "./simulation.js";
 import { captureLead, loadSession, saveSession, sendToServer } from "./storage.js";
 import { trackEvent } from "./analytics.js";
+import { runIntro } from "./webvision-intro.js";
+import { transitionScene } from "./webvision-transitions.js";
+import { animatePriceChange, animateStartTransition, initMotionFX, pulseSelection } from "./webvision-motion.js";
 
-const SCREENS = ["welcome", "business", "branding", "objectives", "features", "generating", "vision", "diagnosis", "conversion"];
-const STEP_LABELS = ["Inicio", "Negocio", "Identidad", "Objetivos", "Funciones", "Simulación", "Diagnóstico", "Conversión"];
+const SCREENS = ["welcome", "businessName", "businessType", "offer", "style", "brand", "objectives", "features", "contact", "generating", "diagnosis", "conversion"];
+const STEP_LABELS = ["Inicio", "Nombre", "Tipo", "Oferta", "Estilo", "Marca", "Objetivos", "Funciones", "Contacto", "Generando", "Revelación", "Conversión"];
 const OBJECTIVES = [
-  ["present", "Presentar mi negocio"],
-  ["messages", "Recibir mensajes"],
-  ["appointments", "Agendar citas"],
-  ["showProducts", "Mostrar productos"],
-  ["orders", "Recibir pedidos"],
-  ["onlineSales", "Vender en línea"],
-  ["payments", "Recibir pagos"],
-  ["clients", "Administrar clientes"],
-  ["automations", "Automatizar procesos"],
-  ["branches", "Mostrar sucursales"],
   ["newClients", "Conseguir clientes"],
-  ["community", "Crear comunidad"],
-  ["users", "Administrar usuarios"],
-  ["other", "Otro"]
+  ["showProducts", "Mostrar servicios"],
+  ["onlineSales", "Vender productos"],
+  ["orders", "Recibir pedidos"],
+  ["appointments", "Agendar citas"],
+  ["payments", "Recibir pagos"],
+  ["automations", "Automatizar procesos"],
+  ["branches", "Mostrar sucursales"]
 ];
 
 const FONT_OPTIONS = [
@@ -37,6 +34,21 @@ const FONT_OPTIONS = [
   ["Oswald", "Fuerte y directa", "Oswald, sans-serif"]
 ];
 
+const FEATURE_QUESTIONS = [
+  ["needsAppointments", "¿Tus clientes necesitan agendar horarios?"],
+  ["hasProducts", "¿Tienes productos con precios?"],
+  ["needsOrders", "¿Necesitas recibir pedidos?"],
+  ["needsPayments", "¿Quieres recibir pagos desde la página?"],
+  ["needsAdmin", "¿Necesitas administrar pedidos o solicitudes?"],
+  ["needsUsers", "¿Trabajarán varias personas dentro del sistema?"],
+  ["needsReminders", "¿Necesitas recordatorios automáticos?"],
+  ["needsReports", "¿Quieres reportes?"],
+  ["needsGoogleAds", "¿Quieres aparecer en Google?"],
+  ["needsMetaAds", "¿Quieres anuncios en Facebook e Instagram?"],
+  ["needsThirdParty", "¿Necesitas conectar otra herramienta?"],
+  ["priorityDelivery", "¿Necesitas entrega prioritaria?"]
+];
+
 const generationMessages = [
   "Analizando tu negocio.",
   "Definiendo la estructura.",
@@ -46,12 +58,11 @@ const generationMessages = [
   "Calculando la solución ideal."
 ];
 
-const INTRO_SESSION_KEY = "ixmati_webvision_intro_seen";
-
 let session = loadSession();
 let current = Math.max(0, SCREENS.indexOf(session.currentScreen || "welcome"));
 let selectedFeatureIds = session.selectedFeatureIds?.length ? session.selectedFeatureIds : [];
 let excludedFeatureIds = session.excludedFeatureIds?.length ? session.excludedFeatureIds : [];
+let featureQuestionIndex = 0;
 
 const form = document.querySelector("#webvisionForm");
 const screens = Array.from(document.querySelectorAll(".wv-screen"));
@@ -61,6 +72,10 @@ const progressFill = document.querySelector("#progressFill");
 const progressText = document.querySelector("#progressText");
 const progressCount = document.querySelector("#progressCount");
 const stepList = document.querySelector("#stepList");
+const liveBrandName = document.querySelector("#liveBrandName");
+const livePreviewMount = document.querySelector("#livePreviewMount");
+let immersiveAudio = false;
+let audioContext = null;
 
 init();
 
@@ -68,19 +83,19 @@ function init() {
   renderStepList();
   renderObjectives();
   renderFontSelector();
+  renderFeatureDeck();
   hydrateForm();
   bindEvents();
   updateConditionals();
   showScreen(current);
-  bootPremiumMotion();
+  runIntro({ onReady: initMotionFX });
+  renderLivePreview();
 }
 
 function bindEvents() {
   document.querySelector("[data-action='start']").addEventListener("click", () => {
     trackEvent("webvision_started", { sessionId: session.id });
-    animateStartTransition();
-    current = 1;
-    window.setTimeout(() => showScreen(current), window.gsap ? 420 : 0);
+    animateStartTransition(() => goTo(1));
   });
 
   nextBtn.addEventListener("click", next);
@@ -89,6 +104,8 @@ function bindEvents() {
   form.addEventListener("input", () => {
     collectAnswers();
     updateConditionals();
+    syncVisualState();
+    renderLivePreview();
     persist("input");
   });
 
@@ -96,7 +113,41 @@ function bindEvents() {
     if (event.target.name === "logo") await handleLogo(event.target.files[0]);
     collectAnswers();
     updateConditionals();
+    syncVisualState(event.target);
+    renderLivePreview();
     persist("change");
+  });
+
+  document.querySelectorAll("[data-style-choice]").forEach((button) => {
+    button.addEventListener("click", () => {
+      form.elements.visualStyle.value = button.dataset.styleChoice;
+      syncVisualState(button);
+      collectAnswers();
+      renderLivePreview();
+      persist("style_selected");
+      pulseSelection(button);
+    });
+  });
+
+  document.querySelector("#featureDeck")?.addEventListener("click", (event) => {
+    const action = event.target.closest("[data-feature-answer]")?.dataset.featureAnswer;
+    const backFeature = event.target.closest("[data-feature-back]");
+    if (backFeature) {
+      featureQuestionIndex = Math.max(0, featureQuestionIndex - 1);
+      renderFeatureDeck();
+      return;
+    }
+    if (!action) return;
+    const fieldName = FEATURE_QUESTIONS[featureQuestionIndex]?.[0];
+    const field = form.elements[fieldName];
+    if (field) field.checked = action === "yes";
+    if (fieldName === "hasProducts" && action === "no") form.elements.productCount.value = 0;
+    featureQuestionIndex = Math.min(FEATURE_QUESTIONS.length, featureQuestionIndex + 1);
+    collectAnswers();
+    syncVisualState(event.target);
+    renderFeatureDeck();
+    renderLivePreview();
+    persist("feature_answered");
   });
 
   document.querySelectorAll("[data-device]").forEach((button) => {
@@ -120,6 +171,13 @@ function bindEvents() {
     button.addEventListener("click", () => finish(button.dataset.finalAction));
   });
 
+  document.querySelector("#immersiveToggle")?.addEventListener("click", (event) => {
+    immersiveAudio = !immersiveAudio;
+    event.currentTarget.setAttribute("aria-pressed", String(immersiveAudio));
+    event.currentTarget.classList.toggle("is-active", immersiveAudio);
+    playCue("click");
+  });
+
   window.addEventListener("beforeunload", () => {
     if (current > 0 && current < SCREENS.length - 1) {
       trackEvent("webvision_abandoned", { sessionId: session.id, progress: SCREENS[current] });
@@ -127,78 +185,45 @@ function bindEvents() {
   });
 }
 
-function bootPremiumMotion() {
-  rotateHeroTicker();
-  const intro = document.querySelector(".wv-intro");
-  const introSeen = sessionStorage.getItem(INTRO_SESSION_KEY) === "true";
-  if (introSeen && intro) {
-    intro.hidden = true;
-    intro.style.display = "none";
-  }
-  if (!window.gsap) return;
-  const gsap = window.gsap;
-  gsap.set([".wv-hero-copy > *", ".wv-vision-stage"], { opacity: 0, y: 26 });
-  const introDuration = introSeen ? 0 : 2.35;
-  const timeline = gsap.timeline({
-    defaults: { ease: "power3.out" },
-    onComplete: () => sessionStorage.setItem(INTRO_SESSION_KEY, "true")
-  });
-  if (!introSeen) {
-    timeline
-      .fromTo(".wv-intro-line", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.55, ease: "power4.out" })
-      .fromTo(".wv-intro-mark", { opacity: 0, rotateY: -38, scale: 0.74 }, { opacity: 1, rotateY: 0, scale: 1, duration: 0.72 }, "-=0.08")
-      .fromTo(".wv-intro span", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.58 }, "-=0.28")
-      .fromTo(".wv-intro p", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.58 }, "-=0.24")
-      .to(".wv-intro", { opacity: 0, scale: 1.04, duration: 0.5, delay: 0.34, pointerEvents: "none" });
-  }
-  timeline
-    .to(".wv-hero-copy > *", { opacity: 1, y: 0, duration: 0.78, stagger: 0.08 }, introSeen ? 0 : `-=${Math.min(0.2, introDuration)}`)
-    .to(".wv-vision-stage", { opacity: 1, y: 0, duration: 0.9 }, "-=0.55");
-  gsap.to(".wv-device-stack", { y: -14, rotateX: 3, rotateY: -4, duration: 3.4, repeat: -1, yoyo: true, ease: "sine.inOut" });
-  gsap.to(".wv-floating-chip", { y: -18, duration: 2.4, stagger: 0.3, repeat: -1, yoyo: true, ease: "sine.inOut" });
-  gsap.to(".wv-holo-ring", { rotate: 360, duration: 22, repeat: -1, ease: "none" });
-}
-
-function animateStartTransition() {
-  if (!window.gsap) return;
-  window.gsap.to(".wv-hero-premium", { opacity: 0, y: -18, scale: 0.98, duration: 0.36, ease: "power2.in" });
-}
-
-function rotateHeroTicker() {
-  const ticker = document.querySelector("#heroTicker");
-  if (!ticker) return;
-  const messages = ["Analizando giro", "Diseñando estructura", "Calculando precio", "Generando demo"];
-  let index = 0;
-  window.setInterval(() => {
-    index = (index + 1) % messages.length;
-    ticker.textContent = messages[index];
-  }, 1300);
-}
-
 function next() {
+  playCue("whoosh");
   clearErrors();
   if (!validateCurrent()) return;
   collectAnswers();
 
-  if (SCREENS[current] === "business") trackEvent("business_info_completed", { sessionId: session.id });
-  if (SCREENS[current] === "branding") trackEvent("branding_completed", { sessionId: session.id });
-  if (SCREENS[current] === "features") {
+  if (SCREENS[current] === "contact") trackEvent("business_info_completed", { sessionId: session.id });
+  if (SCREENS[current] === "brand") trackEvent("branding_completed", { sessionId: session.id });
+  if (SCREENS[current] === "contact") {
     trackEvent("requirements_completed", { sessionId: session.id });
     runGeneration();
     return;
   }
 
-  current = Math.min(SCREENS.length - 1, current + 1);
-  showScreen(current);
+  goTo(Math.min(SCREENS.length - 1, current + 1));
 }
 
 function back() {
-  current = Math.max(0, current - 1);
-  if (SCREENS[current] === "generating") current -= 1;
-  showScreen(current);
+  playCue("click");
+  let target = Math.max(0, current - 1);
+  if (SCREENS[target] === "generating") target -= 1;
+  goTo(target);
 }
 
 function showScreen(index) {
+  activateScreen(index);
+}
+
+function goTo(index) {
+  const from = screens[current];
+  const to = screens[index];
+  transitionScene({
+    from,
+    to,
+    done: () => activateScreen(index)
+  });
+}
+
+function activateScreen(index) {
   current = index;
   screens.forEach((screen, screenIndex) => screen.classList.toggle("is-active", screenIndex === current));
   const screen = SCREENS[current];
@@ -213,15 +238,16 @@ function showScreen(index) {
     trackEvent("recommendation_viewed", { sessionId: session.id });
   }
   if (screen === "vision") renderVision();
+  renderLivePreview();
 }
 
 function updateProgress() {
-  const visibleIndex = Math.min(current, STEP_LABELS.length - 1);
-  const percent = Math.round((visibleIndex / (STEP_LABELS.length - 1)) * 100);
+  const flowIndex = Math.max(0, Math.min(8, current));
+  const percent = Math.round((flowIndex / 8) * 100);
   progressFill.style.width = `${percent}%`;
-  progressText.textContent = STEP_LABELS[visibleIndex];
-  progressCount.textContent = `${percent}%`;
-  Array.from(stepList.children).forEach((item, index) => item.classList.toggle("is-active", index === visibleIndex));
+  progressText.textContent = current > 0 && current < 9 ? `${String(current).padStart(2, "0")} / 08` : STEP_LABELS[current] || "Web Vision";
+  progressCount.textContent = current > 0 && current < 9 ? `${String(current).padStart(2, "0")}` : `${percent}%`;
+  Array.from(stepList.children).forEach((item, index) => item.classList.toggle("is-active", index === current));
 }
 
 function renderStepList() {
@@ -240,6 +266,49 @@ function renderObjectives() {
     mount.querySelectorAll(".wv-option").forEach((label) => {
       label.classList.toggle("is-selected", label.querySelector("input").checked);
     });
+  });
+}
+
+function renderFeatureDeck() {
+  const mount = document.querySelector("#featureDeck");
+  if (!mount) return;
+  const done = featureQuestionIndex >= FEATURE_QUESTIONS.length;
+  if (done) {
+    mount.innerHTML = `
+      <article class="wv-feature-card">
+        <small>Funciones listas</small>
+        <h3>Ya tenemos la base funcional.</h3>
+        <p>Si necesitas algo especial, déjalo aquí y lo consideramos en la recomendación.</p>
+        <textarea data-special-feature maxlength="260" placeholder="Función especial opcional">${form.elements.specialFeature.value || ""}</textarea>
+        <button class="wv-button wv-button-ghost" type="button" data-feature-back>Revisar anterior</button>
+      </article>
+    `;
+    mount.querySelector("[data-special-feature]").addEventListener("input", (event) => {
+      form.elements.specialFeature.value = event.target.value;
+      collectAnswers();
+      renderLivePreview();
+      persist("special_feature");
+    });
+    return;
+  }
+  const [fieldName, question] = FEATURE_QUESTIONS[featureQuestionIndex];
+  const checked = Boolean(form.elements[fieldName]?.checked);
+  mount.innerHTML = `
+    <article class="wv-feature-card">
+      <small>${String(featureQuestionIndex + 1).padStart(2, "0")} / ${String(FEATURE_QUESTIONS.length).padStart(2, "0")}</small>
+      <h3>${question}</h3>
+      ${fieldName === "hasProducts" && checked ? `<label class="wv-product-count">Cantidad aproximada<input data-product-count-visual type="number" min="0" max="5000" value="${form.elements.productCount.value || 0}"></label>` : ""}
+      <div class="wv-feature-actions">
+        <button type="button" data-feature-answer="yes" class="${checked ? "is-active" : ""}">Sí</button>
+        <button type="button" data-feature-answer="no" class="${!checked ? "is-active" : ""}">No</button>
+      </div>
+      ${featureQuestionIndex > 0 ? `<button class="wv-button wv-button-ghost" type="button" data-feature-back>Anterior</button>` : ""}
+    </article>
+  `;
+  mount.querySelector("[data-product-count-visual]")?.addEventListener("input", (event) => {
+    form.elements.productCount.value = event.target.value;
+    collectAnswers();
+    renderLivePreview();
   });
 }
 
@@ -293,19 +362,34 @@ function renderFontSelector() {
 
 function validateCurrent() {
   const active = screens[current];
+  const screen = SCREENS[current];
+  if (screen === "businessName" && !form.elements.businessName.value.trim()) {
+    showError(form.elements.businessName.closest("label"), "Escribe el nombre para construir la vista previa.");
+    form.elements.businessName.focus();
+    return false;
+  }
+  if (screen === "businessType" && !new FormData(form).get("businessType")) {
+    showError(active.querySelector(".wv-business-types"), "Selecciona el tipo de negocio.");
+    return false;
+  }
+  if (screen === "offer" && !form.elements.mainProducts.value.trim() && !form.elements.description.value.trim()) {
+    showError(form.elements.mainProducts.closest("label"), "Cuéntanos qué vendes o qué servicio ofreces.");
+    form.elements.mainProducts.focus();
+    return false;
+  }
+  if (screen === "contact") {
+    const answers = collectAnswers();
+    if (!answers.whatsapp && !answers.email) {
+      showError(active.querySelector("[name='whatsapp']").closest("label"), "Agrega WhatsApp o correo para guardar tu diagnóstico.");
+      return false;
+    }
+  }
   const required = Array.from(active.querySelectorAll("[required]"));
   const invalid = required.find((field) => !String(field.value || "").trim());
   if (invalid) {
     invalid.focus();
     showError(invalid.closest("label") || active, "Completa este dato para continuar.");
     return false;
-  }
-  if (SCREENS[current] === "business") {
-    const answers = collectAnswers();
-    if (!answers.whatsapp && !answers.email) {
-      showError(active.querySelector("[name='whatsapp']").closest("label"), "Agrega WhatsApp o correo para guardar tu diagnóstico.");
-      return false;
-    }
   }
   return true;
 }
@@ -371,6 +455,7 @@ function hydrateForm() {
   document.querySelector("#fontSelectedTone").textContent = fontOption[1];
   document.querySelector("#fontPreviewText").style.fontFamily = fontOption[2];
   document.querySelector(".wv-font-trigger").style.fontFamily = fontOption[2];
+  syncVisualState();
 }
 
 function updateConditionals() {
@@ -380,6 +465,34 @@ function updateConditionals() {
     const visible = field?.type === "checkbox" ? field.checked : Boolean(answers[element.dataset.conditional]);
     element.classList.toggle("is-visible", visible);
   });
+}
+
+function syncVisualState(source) {
+  const answers = collectAnswers();
+  if (liveBrandName) {
+    liveBrandName.textContent = answers.businessName || "Tu marca";
+  }
+  document.querySelectorAll("[name='businessType']").forEach((input) => {
+    input.closest("label")?.classList.toggle("is-selected", input.checked);
+  });
+  document.querySelectorAll("[data-style-choice]").forEach((button) => {
+    button.classList.toggle("is-selected", button.dataset.styleChoice === answers.visualStyle);
+  });
+  document.querySelectorAll(".wv-feature-flow label").forEach((label) => {
+    const input = label.querySelector("input[type='checkbox']");
+    if (input) label.classList.toggle("is-selected", input.checked);
+  });
+  if (source?.closest) pulseSelection(source.closest("label") || source);
+  document.documentElement.style.setProperty("--live-primary", answers.primaryColor || "#2f7de1");
+  document.documentElement.style.setProperty("--live-accent", answers.accentColor || "#6ac13b");
+}
+
+function renderLivePreview() {
+  if (!livePreviewMount) return;
+  const answers = session.answers || collectAnswers();
+  const featureIds = selectedFeatureIds.length ? selectedFeatureIds : inferRequiredFeatures(answers);
+  const recommendation = buildRecommendation(answers, featureIds, excludedFeatureIds);
+  renderSimulation(livePreviewMount, answers, recommendation);
 }
 
 async function handleLogo(file) {
@@ -402,6 +515,7 @@ function fileToDataUrl(file) {
 }
 
 function runGeneration() {
+  playCue("generate");
   current = SCREENS.indexOf("generating");
   showScreen(current);
   let messageIndex = 0;
@@ -420,8 +534,7 @@ function runGeneration() {
     session.recommendation = buildRecommendation(answers, selectedFeatureIds, excludedFeatureIds);
     persist("recommendation");
     trackEvent("simulation_generated", { sessionId: session.id, basePlanId: session.recommendation.basePlanId });
-    current = SCREENS.indexOf("vision");
-    showScreen(current);
+    goTo(SCREENS.indexOf("diagnosis"));
   }, 1600);
 }
 
@@ -433,12 +546,14 @@ function renderVision() {
 }
 
 function renderDiagnosis() {
+  playCue("reveal");
   session.recommendation = buildRecommendation(session.answers, selectedFeatureIds, excludedFeatureIds);
   const recommendation = session.recommendation;
   document.querySelector("#solutionName").textContent = recommendation.customName;
   document.querySelector("#solutionSummary").textContent = recommendation.summary;
   document.querySelector("#estimateBadge").textContent = formatMoney(recommendation.pricing.estimated);
   document.querySelector("#estimatedPrice").textContent = formatMoney(recommendation.pricing.estimated);
+  animatePriceChange(document.querySelector("#estimatedPrice"));
   document.querySelector("#priceRange").textContent = recommendation.pricing.rangeLabel;
   document.querySelector("#timeEstimate").textContent = recommendation.pricing.timeLabel;
   document.querySelector("#complexityLevel").textContent = recommendation.pricing.complexityLevel;
@@ -449,6 +564,28 @@ function renderDiagnosis() {
   renderList("#reasonsList", recommendation.reasons);
   renderFeatureToggles(recommendation);
   persist("diagnosis");
+}
+
+function playCue(type = "click") {
+  if (!immersiveAudio) return;
+  try {
+    audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    const now = audioContext.currentTime;
+    const frequency = type === "reveal" ? 660 : type === "generate" ? 440 : type === "whoosh" ? 520 : 360;
+    oscillator.frequency.setValueAtTime(frequency, now);
+    oscillator.frequency.exponentialRampToValueAtTime(frequency * 1.35, now + 0.08);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.025, now + 0.015);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.14);
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+    oscillator.start(now);
+    oscillator.stop(now + 0.15);
+  } catch (error) {
+    immersiveAudio = false;
+  }
 }
 
 function renderList(selector, items) {
