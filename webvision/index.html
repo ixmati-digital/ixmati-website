@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ixmati Web Vision | Simula tu página web</title>
+  <meta name="description" content="Descubre cómo podría verse el sitio web de tu negocio, qué solución necesitas y cuánto costaría desarrollarla.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Saira:wght@600;700;800&family=Montserrat:wght@500;700;900&family=Playfair+Display:wght@600;800&family=Poppins:wght@500;700;900&family=Space+Grotesk:wght@500;700&family=DM+Serif+Display&family=Oswald:wght@500;700&family=Raleway:wght@500;800&display=swap" rel="stylesheet">
+  <link href="../img/logoixmati.jpg" rel="icon">
+  <link href="../img/logoixmati.jpg" rel="apple-touch-icon">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="./styles.css" rel="stylesheet">
+</head>
+
+<body>
+  <a class="skip-link" href="#webvision-app">Saltar al contenido</a>
+  <header class="wv-topbar">
+    <a class="wv-brand" href="../index.html" aria-label="Ixmati Estudio Visual">
+      <img src="../img/logoixmati.png" alt="Ixmati">
+      <span>Web Vision</span>
+    </a>
+    <nav aria-label="Navegación Web Vision">
+      <a href="../servicios-digitales.html">Servicios digitales</a>
+      <a href="../contact.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main id="webvision-app" class="wv-app" data-step="welcome">
+    <div class="wv-cosmos" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <section class="wv-shell">
+      <aside class="wv-progress-panel" aria-label="Progreso">
+        <div>
+          <p class="wv-kicker">Ixmati Web Vision</p>
+          <h1>No imagines tu página. Mírala antes de construirla.</h1>
+          <p>Diagnóstico, simulación y precio estimado para tomar una decisión comercial con más claridad.</p>
+        </div>
+        <div class="wv-progress">
+          <div class="wv-progress-track"><span id="progressFill"></span></div>
+          <p><strong id="progressText">Inicio</strong><span id="progressCount">0%</span></p>
+        </div>
+        <ol id="stepList" class="wv-steps"></ol>
+      </aside>
+
+      <section class="wv-workspace">
+        <form id="webvisionForm" novalidate>
+          <section class="wv-screen is-active" data-screen="welcome">
+            <div class="wv-hero">
+              <p class="wv-pill">Proceso gratuito · 5-7 minutos</p>
+              <h2>Visualiza tu negocio en internet.</h2>
+              <p>Responde unas preguntas y descubre cómo podría verse tu sitio web funcionando, qué solución necesita tu negocio y cuánto costaría desarrollarla.</p>
+              <button class="wv-button wv-button-primary" type="button" data-action="start">Crear mi Web Vision</button>
+              <small>No necesitas conocimientos técnicos.</small>
+            </div>
+          </section>
+
+          <section class="wv-screen" data-screen="business">
+            <div class="wv-question">
+              <p class="wv-kicker">Paso 1</p>
+              <h2>Cuéntanos de tu negocio.</h2>
+              <div class="wv-grid">
+                <label>Nombre del negocio<input name="businessName" required maxlength="80" placeholder="Ej. Pan Comido"></label>
+                <label>Giro<select name="businessType" required>
+                    <option value="">Selecciona una opción</option>
+                    <option>Profesionista o servicio</option>
+                    <option>Consultorio</option>
+                    <option>Clínica</option>
+                    <option>Belleza</option>
+                    <option>Tienda</option>
+                    <option>Restaurante</option>
+                    <option>Cafetería</option>
+                    <option>Alimentos</option>
+                    <option>Escuela</option>
+                    <option>Organización</option>
+                    <option>Inmobiliaria</option>
+                    <option>Fotografía</option>
+                    <option>Eventos</option>
+                    <option>Agencia</option>
+                    <option>Otro</option>
+                  </select></label>
+                <label class="wv-span">Descripción<textarea name="description" maxlength="420" placeholder="Qué vendes, a quién atiendes y qué te hace diferente"></textarea></label>
+                <label>Ciudad<input name="city" maxlength="80" placeholder="Tulancingo, Hidalgo"></label>
+                <label>Número de sucursales<input name="branches" type="number" min="1" max="30" value="1"></label>
+                <label>Años operando<input name="yearsOperating" type="number" min="0" max="100" placeholder="3"></label>
+                <label>Público objetivo<input name="audience" maxlength="120" placeholder="Familias, empresas, pacientes..."></label>
+                <label>Productos o servicios principales<input name="mainProducts" maxlength="180" placeholder="Menú, consultas, productos..."></label>
+                <label>Redes sociales actuales<input name="socials" maxlength="180" placeholder="@instagram, Facebook..."></label>
+                <label>Sitio web actual<input name="currentWebsite" type="url" placeholder="https://"></label>
+                <label>WhatsApp<input name="whatsapp" inputmode="tel" maxlength="20" placeholder="775 106 4629"></label>
+                <label>Correo<input name="email" type="email" maxlength="120" placeholder="correo@negocio.com"></label>
+              </div>
+            </div>
+          </section>
+
+          <section class="wv-screen" data-screen="branding">
+            <div class="wv-question">
+              <p class="wv-kicker">Paso 2</p>
+              <h2>Define la identidad visual.</h2>
+              <div class="wv-grid">
+                <label class="wv-file">Logotipo<input name="logo" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml"><span>Subir PNG, JPG, WEBP o SVG · máx. 2 MB</span></label>
+                <label>Color principal<input name="primaryColor" type="color" value="#2f7de1"></label>
+                <label>Color de acento<input name="accentColor" type="color" value="#6ac13b"></label>
+                <div class="wv-font-field">
+                  <span class="wv-label">Tipografía preferida</span>
+                  <input name="typography" type="hidden" value="Inter">
+                  <button class="wv-font-trigger" type="button" aria-expanded="false" aria-controls="fontMenu">
+                    <span>
+                      <strong id="fontSelectedName">Inter</strong>
+                      <small id="fontSelectedTone">Limpia, digital y flexible</small>
+                    </span>
+                    <b>⌄</b>
+                  </button>
+                  <div id="fontMenu" class="wv-font-menu" role="listbox" hidden></div>
+                  <p id="fontPreviewText" class="wv-font-preview">Tu negocio visto como una marca digital profesional.</p>
+                </div>
+                <label>Estilo visual<select name="visualStyle">
+                    <option>Moderno</option>
+                    <option>Elegante</option>
+                    <option>Minimalista</option>
+                    <option>Premium</option>
+                    <option>Corporativo</option>
+                    <option>Creativo</option>
+                    <option>Juvenil</option>
+                    <option>Natural</option>
+                    <option>Tecnológico</option>
+                    <option>Editorial</option>
+                  </select></label>
+                <label class="wv-span">Referencias<textarea name="references" maxlength="300" placeholder="Sitios, marcas o estilos que te gustan"></textarea></label>
+              </div>
+            </div>
+          </section>
+
+          <section class="wv-screen" data-screen="objectives">
+            <div class="wv-question">
+              <p class="wv-kicker">Paso 3</p>
+              <h2>Elige tus objetivos principales.</h2>
+              <p class="wv-help">Selecciona varios. El primero seleccionado se toma como prioridad inicial.</p>
+              <div class="wv-options" data-checkbox-group="objectives"></div>
+            </div>
+          </section>
+
+          <section class="wv-screen" data-screen="features">
+            <div class="wv-question">
+              <p class="wv-kicker">Paso 4</p>
+              <h2>Funciones que necesitaría tu sitio.</h2>
+              <div class="wv-grid">
+                <label class="wv-check"><input name="needsAppointments" type="checkbox"> Mis clientes necesitan agendar horarios</label>
+                <label class="wv-check"><input name="hasProducts" type="checkbox"> Tengo productos con precios</label>
+                <label data-conditional="hasProducts">¿Cuántos productos manejas?<input name="productCount" type="number" min="0" max="5000" value="0"></label>
+                <label class="wv-check"><input name="needsOrders" type="checkbox"> Necesito recibir pedidos</label>
+                <label class="wv-check"><input name="needsPayments" type="checkbox"> Quiero cobrar desde la página</label>
+                <label class="wv-check"><input name="needsAdmin" type="checkbox"> Necesito controlar pedidos o solicitudes desde un panel</label>
+                <label class="wv-check"><input name="needsUsers" type="checkbox"> Trabajarán varias personas dentro del sistema</label>
+                <label class="wv-check"><input name="needsConfirmations" type="checkbox"> Necesito enviar confirmaciones</label>
+                <label class="wv-check"><input name="needsReminders" type="checkbox"> Necesito recordatorios</label>
+                <label class="wv-check"><input name="needsReports" type="checkbox"> Necesito reportes</label>
+                <label class="wv-check"><input name="needsGoogleAds" type="checkbox"> Quiero aparecer cuando me busquen en Google</label>
+                <label class="wv-check"><input name="needsMetaAds" type="checkbox"> Quiero anunciarme en Facebook e Instagram</label>
+                <label class="wv-check"><input name="needsThirdParty" type="checkbox"> Necesito conectar otra herramienta</label>
+                <label class="wv-check"><input name="priorityDelivery" type="checkbox"> Necesito entrega prioritaria</label>
+                <label>Páginas o secciones adicionales<input name="extraPages" type="number" min="0" max="30" value="0"></label>
+                <label class="wv-span">Función especial<textarea name="specialFeature" maxlength="260" placeholder="Describe algo que no aparezca en la lista"></textarea></label>
+              </div>
+              <div class="wv-conditional-box" data-conditional="needsAppointments">
+                <h3>Detalles de agenda</h3>
+                <div class="wv-grid">
+                  <label>Número de profesionales<input name="professionals" type="number" min="1" max="50" value="1"></label>
+                  <label>Duración promedio del servicio<input name="serviceDuration" maxlength="80" placeholder="30 min, 1 hora..."></label>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="wv-screen" data-screen="generating">
+            <div class="wv-generating" role="status" aria-live="polite">
+              <div class="wv-orbit"></div>
+              <h2 id="generationMessage">Analizando tu negocio.</h2>
+              <p>Estamos preparando una recomendación basada en tus respuestas.</p>
+            </div>
+          </section>
+
+          <section class="wv-screen" data-screen="vision">
+            <div class="wv-result-head">
+              <div>
+                <p class="wv-kicker">Paso 5</p>
+                <h2>Web Vision generada.</h2>
+              </div>
+              <div class="wv-device-toggle" role="group" aria-label="Vista de simulación">
+                <button type="button" class="is-active" data-device="desktop">Escritorio</button>
+                <button type="button" data-device="mobile">Celular</button>
+                <button type="button" data-action="open-preview">Abrir demo real</button>
+              </div>
+            </div>
+            <div id="simulationMount" class="wv-simulation-frame is-desktop"></div>
+          </section>
+
+          <section class="wv-screen" data-screen="diagnosis">
+            <div class="wv-result-head">
+              <div>
+                <p class="wv-kicker">Paso 6</p>
+                <h2>Esto es lo que tu negocio necesita.</h2>
+              </div>
+              <strong id="estimateBadge" class="wv-estimate"></strong>
+            </div>
+            <div class="wv-diagnosis">
+              <article>
+                <h3 id="solutionName"></h3>
+                <p id="solutionSummary"></p>
+                <dl class="wv-metrics">
+                  <div><dt>Inversión estimada</dt><dd id="estimatedPrice"></dd></div>
+                  <div><dt>Rango previsto</dt><dd id="priceRange"></dd></div>
+                  <div><dt>Tiempo estimado</dt><dd id="timeEstimate"></dd></div>
+                  <div><dt>Complejidad</dt><dd id="complexityLevel"></dd></div>
+                </dl>
+              </article>
+              <aside>
+                <h3>Ajusta funciones</h3>
+                <div id="featureToggles" class="wv-feature-toggles"></div>
+              </aside>
+            </div>
+            <div class="wv-lists">
+              <section><h3>Incluye</h3><ul id="includedList"></ul></section>
+              <section><h3>Beneficios</h3><ul id="benefitsList"></ul></section>
+              <section><h3>No necesitas todavía</h3><ul id="notNeededList"></ul></section>
+              <section><h3>Razones</h3><ul id="reasonsList"></ul></section>
+            </div>
+          </section>
+
+          <section class="wv-screen" data-screen="conversion">
+            <div class="wv-result-head">
+              <div>
+                <p class="wv-kicker">Paso 7</p>
+                <h2>Siguiente paso.</h2>
+              </div>
+            </div>
+            <div class="wv-conversion">
+              <article>
+                <h3>Agendar asesoría gratuita</h3>
+                <div class="wv-grid">
+                  <label>Fecha<input name="appointmentDate" type="date"></label>
+                  <label>Horario<select name="appointmentTime"><option>10:00</option><option>12:00</option><option>16:00</option><option>18:00</option></select></label>
+                  <label>Nombre<input name="contactName" maxlength="80"></label>
+                  <label>WhatsApp<input name="contactWhatsapp" inputmode="tel" maxlength="20"></label>
+                  <label class="wv-span">Correo<input name="contactEmail" type="email" maxlength="120"></label>
+                </div>
+                <button class="wv-button wv-button-primary" type="button" data-final-action="consultation">Solicitar asesoría</button>
+              </article>
+              <article>
+                <h3>Quiero este proyecto</h3>
+                <p id="purchaseSummary"></p>
+                <label class="wv-check"><input name="termsAccepted" type="checkbox"> Acepto compartir mis datos para recibir seguimiento comercial.</label>
+                <button class="wv-button wv-button-dark" type="button" data-final-action="purchase">Guardar intención de compra</button>
+              </article>
+              <article class="wv-muted-card">
+                <h3>Recibir diagnóstico por correo</h3>
+                <p>Te enviamos el resumen para revisarlo con tu equipo.</p>
+                <button class="wv-button wv-button-ghost" type="button" data-final-action="diagnosis">Enviar diagnóstico</button>
+              </article>
+            </div>
+            <div id="finalMessage" class="wv-final-message" hidden></div>
+          </section>
+        </form>
+
+        <div class="wv-actions">
+          <button id="backBtn" class="wv-button wv-button-ghost" type="button">Atrás</button>
+          <button id="nextBtn" class="wv-button wv-button-primary" type="button">Continuar</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+
+</html>
