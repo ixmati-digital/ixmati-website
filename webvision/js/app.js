@@ -46,6 +46,8 @@ const generationMessages = [
   "Calculando la solución ideal."
 ];
 
+const INTRO_SESSION_KEY = "ixmati_webvision_intro_seen";
+
 let session = loadSession();
 let current = Math.max(0, SCREENS.indexOf(session.currentScreen || "welcome"));
 let selectedFeatureIds = session.selectedFeatureIds?.length ? session.selectedFeatureIds : [];
@@ -70,13 +72,15 @@ function init() {
   bindEvents();
   updateConditionals();
   showScreen(current);
+  bootPremiumMotion();
 }
 
 function bindEvents() {
   document.querySelector("[data-action='start']").addEventListener("click", () => {
     trackEvent("webvision_started", { sessionId: session.id });
+    animateStartTransition();
     current = 1;
-    showScreen(current);
+    window.setTimeout(() => showScreen(current), window.gsap ? 420 : 0);
   });
 
   nextBtn.addEventListener("click", next);
@@ -121,6 +125,54 @@ function bindEvents() {
       trackEvent("webvision_abandoned", { sessionId: session.id, progress: SCREENS[current] });
     }
   });
+}
+
+function bootPremiumMotion() {
+  rotateHeroTicker();
+  const intro = document.querySelector(".wv-intro");
+  const introSeen = sessionStorage.getItem(INTRO_SESSION_KEY) === "true";
+  if (introSeen && intro) {
+    intro.hidden = true;
+    intro.style.display = "none";
+  }
+  if (!window.gsap) return;
+  const gsap = window.gsap;
+  gsap.set([".wv-hero-copy > *", ".wv-vision-stage"], { opacity: 0, y: 26 });
+  const introDuration = introSeen ? 0 : 2.35;
+  const timeline = gsap.timeline({
+    defaults: { ease: "power3.out" },
+    onComplete: () => sessionStorage.setItem(INTRO_SESSION_KEY, "true")
+  });
+  if (!introSeen) {
+    timeline
+      .fromTo(".wv-intro-line", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.55, ease: "power4.out" })
+      .fromTo(".wv-intro-mark", { opacity: 0, rotateY: -38, scale: 0.74 }, { opacity: 1, rotateY: 0, scale: 1, duration: 0.72 }, "-=0.08")
+      .fromTo(".wv-intro span", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.58 }, "-=0.28")
+      .fromTo(".wv-intro p", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.58 }, "-=0.24")
+      .to(".wv-intro", { opacity: 0, scale: 1.04, duration: 0.5, delay: 0.34, pointerEvents: "none" });
+  }
+  timeline
+    .to(".wv-hero-copy > *", { opacity: 1, y: 0, duration: 0.78, stagger: 0.08 }, introSeen ? 0 : `-=${Math.min(0.2, introDuration)}`)
+    .to(".wv-vision-stage", { opacity: 1, y: 0, duration: 0.9 }, "-=0.55");
+  gsap.to(".wv-device-stack", { y: -14, rotateX: 3, rotateY: -4, duration: 3.4, repeat: -1, yoyo: true, ease: "sine.inOut" });
+  gsap.to(".wv-floating-chip", { y: -18, duration: 2.4, stagger: 0.3, repeat: -1, yoyo: true, ease: "sine.inOut" });
+  gsap.to(".wv-holo-ring", { rotate: 360, duration: 22, repeat: -1, ease: "none" });
+}
+
+function animateStartTransition() {
+  if (!window.gsap) return;
+  window.gsap.to(".wv-hero-premium", { opacity: 0, y: -18, scale: 0.98, duration: 0.36, ease: "power2.in" });
+}
+
+function rotateHeroTicker() {
+  const ticker = document.querySelector("#heroTicker");
+  if (!ticker) return;
+  const messages = ["Analizando giro", "Diseñando estructura", "Calculando precio", "Generando demo"];
+  let index = 0;
+  window.setInterval(() => {
+    index = (index + 1) % messages.length;
+    ticker.textContent = messages[index];
+  }, 1300);
 }
 
 function next() {

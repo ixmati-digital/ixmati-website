@@ -11,7 +11,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Saira:wght@600;700;800&family=Montserrat:wght@500;700;900&family=Playfair+Display:wght@600;800&family=Poppins:wght@500;700;900&family=Space+Grotesk:wght@500;700&family=DM+Serif+Display&family=Oswald:wght@500;700&family=Raleway:wght@500;800&display=swap" rel="stylesheet">
   <link href="../img/logoixmati.jpg" rel="icon">
   <link href="../img/logoixmati.jpg" rel="apple-touch-icon">
-  <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="./styles.css" rel="stylesheet">
 </head>
 
@@ -35,28 +34,67 @@
       <span></span>
     </div>
     <section class="wv-shell">
-      <aside class="wv-progress-panel" aria-label="Progreso">
-        <div>
-          <p class="wv-kicker">Ixmati Web Vision</p>
-          <h1>No imagines tu página. Mírala antes de construirla.</h1>
-          <p>Diagnóstico, simulación y precio estimado para tomar una decisión comercial con más claridad.</p>
-        </div>
-        <div class="wv-progress">
-          <div class="wv-progress-track"><span id="progressFill"></span></div>
-          <p><strong id="progressText">Inicio</strong><span id="progressCount">0%</span></p>
-        </div>
+      <aside class="wv-progress-panel" aria-label="Progreso" hidden>
         <ol id="stepList" class="wv-steps"></ol>
       </aside>
 
       <section class="wv-workspace">
+        <div class="wv-experience-status" aria-label="Progreso de Web Vision">
+          <span>Ixmati Web Vision</span>
+          <strong id="progressText">Inicio</strong>
+          <div class="wv-progress-track"><span id="progressFill"></span></div>
+          <em id="progressCount">0%</em>
+        </div>
         <form id="webvisionForm" novalidate>
           <section class="wv-screen is-active" data-screen="welcome">
-            <div class="wv-hero">
-              <p class="wv-pill">Proceso gratuito · 5-7 minutos</p>
-              <h2>Visualiza tu negocio en internet.</h2>
-              <p>Responde unas preguntas y descubre cómo podría verse tu sitio web funcionando, qué solución necesita tu negocio y cuánto costaría desarrollarla.</p>
-              <button class="wv-button wv-button-primary" type="button" data-action="start">Crear mi Web Vision</button>
-              <small>No necesitas conocimientos técnicos.</small>
+            <div class="wv-intro" aria-hidden="true">
+              <div class="wv-intro-line"></div>
+              <div class="wv-intro-mark">
+                <img src="../img/logoixmati.png" alt="">
+              </div>
+              <span>Ixmati Web Vision</span>
+              <p>No imagines tu página. Mírala antes de construirla.</p>
+            </div>
+            <div class="wv-hero wv-hero-premium">
+              <div class="wv-hero-copy">
+                <p class="wv-pill">Sistema interactivo · 5-7 minutos</p>
+                <h2><span>Visualiza</span> tu negocio antes de construirlo.</h2>
+                <p>Responde unas preguntas y mira una simulación navegable de tu sitio, con diagnóstico, funciones recomendadas y una inversión estimada calculada por reglas.</p>
+                <div class="wv-hero-actions">
+                  <button class="wv-button wv-button-primary" type="button" data-action="start">Crear mi Web Vision</button>
+                  <a class="wv-micro-link" href="../servicios-digitales.html">Ver servicios digitales</a>
+                </div>
+                <div class="wv-signal-row" aria-label="Capacidades">
+                  <span>Diagnóstico</span>
+                  <span>Simulación</span>
+                  <span>Precio dinámico</span>
+                </div>
+              </div>
+              <div class="wv-vision-stage" aria-label="Vista conceptual de Ixmati Web Vision">
+                <div class="wv-holo-ring"></div>
+                <div class="wv-scanline"></div>
+                <div class="wv-device-stack">
+                  <article class="wv-browser-card">
+                    <div class="wv-browser-dots"><span></span><span></span><span></span></div>
+                    <div class="wv-browser-hero"></div>
+                    <div class="wv-browser-grid"><span></span><span></span><span></span></div>
+                  </article>
+                  <article class="wv-phone-card">
+                    <div></div>
+                    <span></span>
+                    <span></span>
+                    <b></b>
+                  </article>
+                  <article class="wv-ai-card">
+                    <small>Motor de recomendación</small>
+                    <strong id="heroTicker">Analizando giro</strong>
+                    <span></span>
+                  </article>
+                </div>
+                <div class="wv-floating-chip chip-a">+ pagos</div>
+                <div class="wv-floating-chip chip-b">+ agenda</div>
+                <div class="wv-floating-chip chip-c">+ pedidos</div>
+              </div>
             </div>
           </section>
 
@@ -275,6 +313,7 @@
     </section>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
   <script type="module" src="./js/app.js"></script>
 </body>
 
