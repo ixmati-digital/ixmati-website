@@ -30,6 +30,51 @@ export function animatePriceChange(element) {
   window.gsap.fromTo(element, { y: 8, opacity: 0.45 }, { y: 0, opacity: 1, duration: 0.28 });
 }
 
+export function animatePriceCounter(element, value, formatter) {
+  if (!element) return;
+  if (!window.gsap || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    element.textContent = formatter(value);
+    return;
+  }
+  const state = { amount: Math.max(0, value * 0.72) };
+  window.gsap.to(state, {
+    amount: value,
+    duration: 0.8,
+    ease: "power3.out",
+    onUpdate: () => {
+      element.textContent = formatter(Math.round(state.amount / 50) * 50);
+    },
+    onComplete: () => {
+      element.textContent = formatter(value);
+    }
+  });
+}
+
+export function runGenerationVisual() {
+  if (!window.gsap || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const gsap = window.gsap;
+  gsap.fromTo(".wv-gen-node", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, stagger: 0.14, ease: "back.out(2)" });
+  gsap.fromTo(".wv-gen-wire", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.9, stagger: 0.18, repeat: -1, yoyo: true, ease: "sine.inOut" });
+  gsap.fromTo(".wv-gen-frame span", { opacity: 0, y: 18, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.16, repeat: -1, repeatDelay: 0.7, yoyo: true });
+}
+
+export function revealSimulation() {
+  if (!window.gsap || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const gsap = window.gsap;
+  gsap.timeline({ defaults: { ease: "power3.out" } })
+    .fromTo(".wv-reveal .wv-kicker", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35 })
+    .fromTo(".wv-reveal h2", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.52 }, "-=0.08")
+    .fromTo(".wv-reveal-stage", { opacity: 0, y: 44, scale: 0.96, filter: "blur(14px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.72 }, "-=0.1")
+    .fromTo(".wv-reveal-stage .preview-nav", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.34 }, "-=0.15")
+    .fromTo(".wv-reveal-stage .preview-hero > *", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.08 }, "-=0.05")
+    .fromTo(".wv-reveal-stage .preview-card", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.32, stagger: 0.06 }, "-=0.1");
+}
+
+export function celebrateReveal() {
+  if (!window.gsap || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  window.gsap.fromTo(".wv-estimate", { boxShadow: "0 0 0 rgba(140,255,102,0)" }, { boxShadow: "0 0 54px rgba(140,255,102,0.34)", duration: 1.2, repeat: 1, yoyo: true });
+}
+
 function rotateHeroTicker() {
   const ticker = document.querySelector("#heroTicker");
   if (!ticker) return;

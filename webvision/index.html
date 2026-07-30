@@ -254,32 +254,46 @@
 
           <section class="wv-screen" data-screen="generating">
             <div class="wv-generating" role="status" aria-live="polite">
-              <div class="wv-orbit"></div>
-              <h2 id="generationMessage">Analizando tu negocio.</h2>
-              <p>Estamos preparando una recomendación basada en tus respuestas.</p>
+              <div class="wv-generation-lab" aria-hidden="true">
+                <div class="wv-gen-node node-a"></div>
+                <div class="wv-gen-node node-b"></div>
+                <div class="wv-gen-node node-c"></div>
+                <div class="wv-gen-wire wire-a"></div>
+                <div class="wv-gen-wire wire-b"></div>
+                <div class="wv-gen-wire wire-c"></div>
+                <div class="wv-gen-frame">
+                  <span></span><span></span><span></span><span></span>
+                </div>
+              </div>
+              <p class="wv-kicker">Generando Web Vision</p>
+              <h2 id="generationMessage">Interpretando tu negocio.</h2>
+              <p>Estamos construyendo una visión personalizada, no calculando una plantilla.</p>
             </div>
           </section>
 
           <section class="wv-screen" data-screen="vision">
-            <div class="wv-result-head">
-              <div>
-                <p class="wv-kicker">Paso 5</p>
-                <h2>Web Vision generada.</h2>
-              </div>
+            <div class="wv-reveal">
+              <p class="wv-kicker">Tu Web Vision está lista.</p>
+              <h2>Explora cómo podría verse tu sitio.</h2>
               <div class="wv-device-toggle" role="group" aria-label="Vista de simulación">
                 <button type="button" class="is-active" data-device="desktop">Escritorio</button>
+                <button type="button" data-device="tablet">Tablet</button>
                 <button type="button" data-device="mobile">Celular</button>
                 <button type="button" data-action="open-preview">Abrir demo real</button>
               </div>
             </div>
-            <div id="simulationMount" class="wv-simulation-frame is-desktop"></div>
+            <div id="simulationMount" class="wv-simulation-frame is-desktop wv-reveal-stage"></div>
+            <div class="wv-vision-next">
+              <button class="wv-button wv-button-primary" type="button" data-action="show-diagnosis">Ver diagnóstico y precio</button>
+            </div>
           </section>
 
           <section class="wv-screen" data-screen="diagnosis">
             <div class="wv-result-head">
               <div>
-                <p class="wv-kicker">Paso 6</p>
+                <p class="wv-kicker">Análisis de solución</p>
                 <h2>Esto es lo que tu negocio necesita.</h2>
+                <p class="wv-help">Esta inversión fue calculada según las funciones que seleccionaste.</p>
               </div>
               <strong id="estimateBadge" class="wv-estimate"></strong>
             </div>
@@ -310,12 +324,18 @@
           <section class="wv-screen" data-screen="conversion">
             <div class="wv-result-head">
               <div>
-                <p class="wv-kicker">Paso 7</p>
-                <h2>Siguiente paso.</h2>
+                <p class="wv-kicker">Siguiente paso</p>
+                <h2>Tu negocio ya tiene una visión. Ahora construyámosla.</h2>
               </div>
             </div>
             <div class="wv-conversion">
-              <article>
+              <article class="wv-primary-action">
+                <h3>Quiero este proyecto</h3>
+                <p id="purchaseSummary"></p>
+                <label class="wv-check"><input name="termsAccepted" type="checkbox"> Acepto compartir mis datos para recibir seguimiento comercial.</label>
+                <button class="wv-button wv-button-dark" type="button" data-final-action="purchase">Guardar intención de compra</button>
+              </article>
+              <article class="wv-secondary-action">
                 <h3>Agendar asesoría gratuita</h3>
                 <div class="wv-grid">
                   <label>Fecha<input name="appointmentDate" type="date"></label>
@@ -326,13 +346,7 @@
                 </div>
                 <button class="wv-button wv-button-primary" type="button" data-final-action="consultation">Solicitar asesoría</button>
               </article>
-              <article>
-                <h3>Quiero este proyecto</h3>
-                <p id="purchaseSummary"></p>
-                <label class="wv-check"><input name="termsAccepted" type="checkbox"> Acepto compartir mis datos para recibir seguimiento comercial.</label>
-                <button class="wv-button wv-button-dark" type="button" data-final-action="purchase">Guardar intención de compra</button>
-              </article>
-              <article class="wv-muted-card">
+              <article class="wv-muted-card wv-tertiary-action">
                 <h3>Recibir diagnóstico por correo</h3>
                 <p>Te enviamos el resumen para revisarlo con tu equipo.</p>
                 <button class="wv-button wv-button-ghost" type="button" data-final-action="diagnosis">Enviar diagnóstico</button>

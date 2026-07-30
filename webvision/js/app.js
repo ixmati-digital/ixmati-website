@@ -7,10 +7,10 @@ import { captureLead, loadSession, saveSession, sendToServer } from "./storage.j
 import { trackEvent } from "./analytics.js";
 import { runIntro } from "./webvision-intro.js";
 import { transitionScene } from "./webvision-transitions.js";
-import { animatePriceChange, animateStartTransition, initMotionFX, pulseSelection } from "./webvision-motion.js";
+import { animatePriceChange, animatePriceCounter, animateStartTransition, celebrateReveal, initMotionFX, pulseSelection, revealSimulation, runGenerationVisual } from "./webvision-motion.js";
 
-const SCREENS = ["welcome", "businessName", "businessType", "offer", "style", "brand", "objectives", "features", "contact", "generating", "diagnosis", "conversion"];
-const STEP_LABELS = ["Inicio", "Nombre", "Tipo", "Oferta", "Estilo", "Marca", "Objetivos", "Funciones", "Contacto", "Generando", "Revelación", "Conversión"];
+const SCREENS = ["welcome", "businessName", "businessType", "offer", "style", "brand", "objectives", "features", "contact", "generating", "vision", "diagnosis", "conversion"];
+const STEP_LABELS = ["Inicio", "Nombre", "Tipo", "Oferta", "Estilo", "Marca", "Objetivos", "Funciones", "Contacto", "Generando", "Web Vision", "Diagnóstico", "Conversión"];
 const OBJECTIVES = [
   ["newClients", "Conseguir clientes"],
   ["showProducts", "Mostrar servicios"],
@@ -50,12 +50,15 @@ const FEATURE_QUESTIONS = [
 ];
 
 const generationMessages = [
-  "Analizando tu negocio.",
-  "Definiendo la estructura.",
-  "Interpretando tu identidad.",
-  "Construyendo la experiencia.",
-  "Preparando tu recomendación.",
-  "Calculando la solución ideal."
+  "Interpretando tu negocio.",
+  "Analizando tu identidad.",
+  "Organizando tu contenido.",
+  "Construyendo la arquitectura.",
+  "Diseñando la experiencia.",
+  "Preparando la versión móvil.",
+  "Configurando funcionalidades.",
+  "Optimizando conversión.",
+  "Finalizando Web Vision."
 ];
 
 let session = loadSession();
@@ -156,7 +159,8 @@ function bindEvents() {
       button.classList.add("is-active");
       const mount = document.querySelector("#simulationMount");
       mount.classList.toggle("is-mobile", button.dataset.device === "mobile");
-      mount.classList.toggle("is-desktop", button.dataset.device !== "mobile");
+      mount.classList.toggle("is-tablet", button.dataset.device === "tablet");
+      mount.classList.toggle("is-desktop", button.dataset.device === "desktop");
     });
   });
 
@@ -165,6 +169,11 @@ function bindEvents() {
     session.recommendation = buildRecommendation(session.answers, selectedFeatureIds, excludedFeatureIds);
     persist("open_full_preview");
     window.open("./preview.html", "_blank", "noopener,noreferrer");
+  });
+
+  document.querySelector("[data-action='show-diagnosis']")?.addEventListener("click", () => {
+    playCue("whoosh");
+    goTo(SCREENS.indexOf("diagnosis"));
   });
 
   document.querySelectorAll("[data-final-action]").forEach((button) => {
@@ -237,7 +246,10 @@ function activateScreen(index) {
     renderDiagnosis();
     trackEvent("recommendation_viewed", { sessionId: session.id });
   }
-  if (screen === "vision") renderVision();
+  if (screen === "vision") {
+    renderVision();
+    revealSimulation();
+  }
   renderLivePreview();
 }
 
@@ -520,10 +532,13 @@ function runGeneration() {
   showScreen(current);
   let messageIndex = 0;
   const message = document.querySelector("#generationMessage");
+  const messages = [...generationMessages].sort(() => Math.random() - 0.5);
+  if (message) message.textContent = messages[messageIndex++];
+  runGenerationVisual();
   const interval = window.setInterval(() => {
-    message.textContent = generationMessages[messageIndex % generationMessages.length];
+    message.textContent = messages[messageIndex % messages.length];
     messageIndex += 1;
-  }, 420);
+  }, 620);
 
   window.setTimeout(() => {
     window.clearInterval(interval);
@@ -534,8 +549,9 @@ function runGeneration() {
     session.recommendation = buildRecommendation(answers, selectedFeatureIds, excludedFeatureIds);
     persist("recommendation");
     trackEvent("simulation_generated", { sessionId: session.id, basePlanId: session.recommendation.basePlanId });
-    goTo(SCREENS.indexOf("diagnosis"));
-  }, 1600);
+    playCue("reveal");
+    goTo(SCREENS.indexOf("vision"));
+  }, 5200);
 }
 
 function renderVision() {
@@ -551,8 +567,8 @@ function renderDiagnosis() {
   const recommendation = session.recommendation;
   document.querySelector("#solutionName").textContent = recommendation.customName;
   document.querySelector("#solutionSummary").textContent = recommendation.summary;
-  document.querySelector("#estimateBadge").textContent = formatMoney(recommendation.pricing.estimated);
-  document.querySelector("#estimatedPrice").textContent = formatMoney(recommendation.pricing.estimated);
+  animatePriceCounter(document.querySelector("#estimateBadge"), recommendation.pricing.estimated, formatMoney);
+  animatePriceCounter(document.querySelector("#estimatedPrice"), recommendation.pricing.estimated, formatMoney);
   animatePriceChange(document.querySelector("#estimatedPrice"));
   document.querySelector("#priceRange").textContent = recommendation.pricing.rangeLabel;
   document.querySelector("#timeEstimate").textContent = recommendation.pricing.timeLabel;
@@ -563,6 +579,7 @@ function renderDiagnosis() {
   renderList("#notNeededList", recommendation.notNeededYet);
   renderList("#reasonsList", recommendation.reasons);
   renderFeatureToggles(recommendation);
+  celebrateReveal();
   persist("diagnosis");
 }
 

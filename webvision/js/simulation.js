@@ -66,13 +66,13 @@ export function renderSimulation(mount, answers, recommendation, options = {}) {
 
   mount.innerHTML = `
     <div class="wv-preview ${modeClass}" style="--preview-primary:${primary};--preview-accent:${accent};--preview-ink:#102033;--preview-bg:#ffffff;--preview-font:${fontFamily};">
-      <div class="preview-watermark">Vista previa protegida · Ixmati Web Vision</div>
+      <div class="preview-watermark">Simulación creada con Ixmati Web Vision</div>
       <header class="preview-nav">
         <div class="preview-logo">
           ${logo ? `<img src="${logo}" alt="Logo de ${escapeHtml(businessName)}">` : `<span class="preview-temp-logo">${escapeHtml(businessName.slice(0, 1).toUpperCase())}</span>`}
           <span>${escapeHtml(businessName)}</span>
         </div>
-        <nav class="preview-links">${family.nav.map((item) => `<a>${escapeHtml(item)}</a>`).join("")}</nav>
+        <nav class="preview-links">${family.nav.map((item) => `<a href="#preview-system">${escapeHtml(item)}</a>`).join("")}</nav>
         <a class="preview-cta" href="#preview-contact">${escapeHtml(family.cta)}</a>
       </header>
       <section class="preview-hero">
