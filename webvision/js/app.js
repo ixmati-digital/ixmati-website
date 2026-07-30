@@ -7,7 +7,7 @@ import { trackEvent } from "./analytics.js";
 import { runIntro } from "./webvision-intro.js";
 import { transitionScene } from "./webvision-transitions.js";
 import { animatePriceChange, animatePriceCounter, animateStartTransition, celebrateReveal, initMotionFX, pulseSelection, revealSimulation, runGenerationVisual } from "./webvision-motion.js";
-import { initImmersiveAudio, playCue } from "./webvision-audio.js";
+import { playCue } from "./webvision-audio.js";
 import { initLivingBackground } from "./webvision-background.js";
 import { loadOptionalFonts } from "./webvision-fonts.js";
 import { renderLivePreview as renderPreview, renderVisionPreview, setDeviceView } from "./webvision-preview.js";
@@ -42,7 +42,6 @@ function init() {
   updateConditionals();
   showScreen(current);
   initLivingBackground();
-  initImmersiveAudio(document.querySelector("#immersiveToggle"));
   loadOptionalFonts();
   runIntro({ onReady: initMotionFX });
   renderLivePreview();

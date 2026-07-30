@@ -51,12 +51,11 @@ textarea {
 }
 
 .wv-topbar {
-  min-height: 76px;
-  padding: 14px clamp(18px, 4vw, 54px);
+  min-height: 64px;
+  padding: 10px clamp(16px, 4vw, 42px);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 18px;
+  justify-content: flex-start;
   background: rgba(255, 255, 255, 0.82);
   border-bottom: 1px solid var(--wv-line);
   backdrop-filter: blur(16px);
@@ -65,11 +64,10 @@ textarea {
   z-index: 20;
 }
 
-.wv-brand,
-.wv-topbar nav {
+.wv-brand {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .wv-brand {
@@ -79,31 +77,9 @@ textarea {
 }
 
 .wv-brand img {
-  width: 54px;
-  height: 54px;
+  width: 46px;
+  height: 46px;
   object-fit: contain;
-}
-
-.wv-topbar nav a {
-  color: var(--wv-muted);
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 0.94rem;
-}
-
-.wv-immersive-toggle {
-  border: 1px solid rgba(157, 218, 255, 0.18);
-  border-radius: 999px;
-  padding: 9px 12px;
-  color: rgba(238, 248, 255, 0.78);
-  background: rgba(255, 255, 255, 0.06);
-  font-weight: 800;
-  cursor: pointer;
-}
-
-.wv-immersive-toggle.is-active {
-  color: #04101f;
-  background: var(--wv-neon-green);
 }
 
 .wv-app {
@@ -722,13 +698,7 @@ textarea:focus {
 
 @media (max-width: 760px) {
   .wv-topbar {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .wv-topbar nav {
-    width: 100%;
-    justify-content: space-between;
+    min-height: 58px;
   }
 
   .wv-app {
@@ -779,4 +749,3 @@ textarea:focus {
     flex: 1;
   }
 }
-

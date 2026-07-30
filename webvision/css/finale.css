@@ -59,13 +59,6 @@
   margin-inline: auto;
 }
 
-.wv-app[data-step="generating"] .wv-live-preview,
-.wv-app[data-step="vision"] .wv-live-preview,
-.wv-app[data-step="diagnosis"] .wv-live-preview,
-.wv-app[data-step="conversion"] .wv-live-preview {
-  display: none;
-}
-
 .wv-generating {
   position: relative;
   z-index: 2;
