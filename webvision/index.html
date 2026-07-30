@@ -6,12 +6,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ixmati Web Vision | Simula tu página web</title>
   <meta name="description" content="Descubre cómo podría verse el sitio web de tu negocio, qué solución necesitas y cuánto costaría desarrollarla.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#04101f">
+  <link rel="canonical" href="https://ixmatiestudio.com/webvision/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ixmatiestudio.com/webvision/">
+  <meta property="og:title" content="Ixmati Web Vision | Simula tu página web">
+  <meta property="og:description" content="Descubre cómo podría verse el sitio web de tu negocio, qué solución necesitas y cuánto costaría desarrollarla.">
+  <meta property="og:image" content="https://ixmatiestudio.com/img/logoixmati.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ixmati Web Vision | Simula tu página web">
+  <meta name="twitter:description" content="Descubre cómo podría verse el sitio web de tu negocio, qué solución necesitas y cuánto costaría desarrollarla.">
+  <meta name="twitter:image" content="https://ixmatiestudio.com/img/logoixmati.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Saira:wght@600;700;800&family=Montserrat:wght@500;700;900&family=Playfair+Display:wght@600;800&family=Poppins:wght@500;700;900&family=Space+Grotesk:wght@500;700&family=DM+Serif+Display&family=Oswald:wght@500;700&family=Raleway:wght@500;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Saira:wght@700;800&display=swap" rel="stylesheet">
   <link href="../img/logoixmati.jpg" rel="icon">
   <link href="../img/logoixmati.jpg" rel="apple-touch-icon">
-  <link href="./styles.css" rel="stylesheet">
+  <link href="./styles.min.css" rel="stylesheet">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Ixmati Web Vision",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://ixmatiestudio.com/webvision/",
+      "description": "Experiencia web para simular un sitio, diagnosticar necesidades digitales y estimar una inversión personalizada.",
+      "provider": {
+        "@type": "Organization",
+        "name": "Ixmati Estudio Visual",
+        "url": "https://ixmatiestudio.com/"
+      }
+    }
+  </script>
 </head>
 
 <body>
@@ -40,13 +68,14 @@
       </aside>
 
       <section class="wv-workspace">
-        <div class="wv-experience-status" aria-label="Progreso de Web Vision">
+        <div class="wv-experience-status" role="status" aria-live="polite">
           <span>Ixmati Web Vision</span>
           <strong id="progressText">Inicio</strong>
           <div class="wv-progress-track"><span id="progressFill"></span></div>
           <em id="progressCount">0%</em>
         </div>
         <form id="webvisionForm" novalidate>
+          <button type="submit" hidden aria-hidden="true" tabindex="-1">Continuar</button>
           <section class="wv-screen is-active" data-screen="welcome">
             <div class="wv-intro" aria-hidden="true">
               <div class="wv-intro-line"></div>
@@ -64,13 +93,13 @@
                   <button class="wv-button wv-button-primary" type="button" data-action="start">Crear mi Web Vision</button>
                   <a class="wv-micro-link" href="../servicios-digitales.html">Ver servicios digitales</a>
                 </div>
-                <div class="wv-signal-row" aria-label="Capacidades">
+                <div class="wv-signal-row">
                   <span>Diagnóstico</span>
                   <span>Simulación</span>
                   <span>Precio dinámico</span>
                 </div>
               </div>
-              <div class="wv-vision-stage" aria-label="Vista conceptual de Ixmati Web Vision">
+              <div class="wv-vision-stage" role="img" aria-label="Vista conceptual de Ixmati Web Vision">
                 <div class="wv-holo-ring"></div>
                 <div class="wv-scanline"></div>
                 <div class="wv-device-stack">
@@ -104,7 +133,7 @@
                 <p class="wv-kicker">01 / 08</p>
                 <h2>¿Cómo se llama tu negocio?</h2>
                 <p class="wv-help">Escribe el nombre como quieres que aparezca en tu futura web.</p>
-                <label class="wv-giant-input">Nombre del negocio<input name="businessName" required maxlength="80" placeholder="Ej. Pan Comido" autocomplete="organization"></label>
+                <label class="wv-giant-input">Nombre del negocio<input name="businessName" type="text" required maxlength="80" placeholder="Ej. Pan Comido" autocomplete="organization"></label>
               </div>
               <div class="wv-live-brand" aria-hidden="true"><span id="liveBrandName">Tu marca</span></div>
             </div>
@@ -136,7 +165,7 @@
                 <p class="wv-kicker">03 / 08</p>
                 <h2>¿Qué vendes o qué servicio ofreces?</h2>
                 <p class="wv-help">Dilo simple. Web Vision lo convertirá en estructura.</p>
-                <label class="wv-giant-input">Productos o servicios principales<input name="mainProducts" maxlength="180" placeholder="Ej. desayunos, café, comida corrida y postres"></label>
+                <label class="wv-giant-input">Productos o servicios principales<input name="mainProducts" type="text" maxlength="180" placeholder="Ej. desayunos, café, comida corrida y postres"></label>
                 <label class="wv-quiet-field">Descripción breve<textarea name="description" maxlength="420" placeholder="Qué haces, a quién atiendes y qué te hace diferente"></textarea></label>
               </div>
               <div class="wv-live-orbit" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -167,7 +196,7 @@
                 <button class="wv-font-trigger" type="button" aria-expanded="false" aria-controls="fontMenu">
                   <span><strong id="fontSelectedName">Inter</strong><small id="fontSelectedTone">Limpia, digital y flexible</small></span><b>⌄</b>
                 </button>
-                <div id="fontMenu" class="wv-font-menu" role="listbox" hidden></div>
+                <div id="fontMenu" class="wv-font-menu" hidden></div>
                 <p id="fontPreviewText" class="wv-font-preview">Tu negocio visto como una marca digital profesional.</p>
               </div>
             </div>
@@ -227,7 +256,7 @@
                 <input name="needsConfirmations" type="checkbox" hidden>
                 <input name="extraPages" type="number" min="0" max="30" value="0" hidden>
                 <input name="professionals" type="number" min="1" max="50" value="1" hidden>
-                <input name="serviceDuration" maxlength="80" hidden>
+                <input name="serviceDuration" type="text" maxlength="80" hidden>
               </div>
             </div>
           </section>
@@ -240,13 +269,13 @@
                 <p class="wv-help">Guardamos tu avance cuando tenemos nombre, giro y contacto.</p>
               </div>
               <div class="wv-contact-grid">
-                <label>WhatsApp<input name="whatsapp" inputmode="tel" maxlength="20" placeholder="775 106 4629"></label>
+                <label>WhatsApp<input name="whatsapp" type="tel" inputmode="tel" maxlength="20" placeholder="775 106 4629"></label>
                 <label>Correo<input name="email" type="email" maxlength="120" placeholder="correo@negocio.com"></label>
-                <label>Ciudad<input name="city" maxlength="80" placeholder="Tulancingo, Hidalgo"></label>
+                <label>Ciudad<input name="city" type="text" maxlength="80" placeholder="Tulancingo, Hidalgo"></label>
                 <label>Número de sucursales<input name="branches" type="number" min="1" max="30" value="1"></label>
                 <input name="yearsOperating" type="number" min="0" max="100" hidden>
-                <input name="audience" maxlength="120" hidden>
-                <input name="socials" maxlength="180" hidden>
+                <input name="audience" type="text" maxlength="120" hidden>
+                <input name="socials" type="text" maxlength="180" hidden>
                 <input name="currentWebsite" type="url" hidden>
               </div>
             </div>
@@ -299,7 +328,7 @@
             </div>
             <div class="wv-diagnosis">
               <article>
-                <h3 id="solutionName"></h3>
+                <h3 id="solutionName">Solución recomendada</h3>
                 <p id="solutionSummary"></p>
                 <dl class="wv-metrics">
                   <div><dt>Inversión estimada</dt><dd id="estimatedPrice"></dd></div>
@@ -308,7 +337,7 @@
                   <div><dt>Complejidad</dt><dd id="complexityLevel"></dd></div>
                 </dl>
               </article>
-              <aside>
+              <aside aria-label="Ajuste de funciones recomendadas">
                 <h3>Ajusta funciones</h3>
                 <div id="featureToggles" class="wv-feature-toggles"></div>
               </aside>
@@ -340,8 +369,8 @@
                 <div class="wv-grid">
                   <label>Fecha<input name="appointmentDate" type="date"></label>
                   <label>Horario<select name="appointmentTime"><option>10:00</option><option>12:00</option><option>16:00</option><option>18:00</option></select></label>
-                  <label>Nombre<input name="contactName" maxlength="80"></label>
-                  <label>WhatsApp<input name="contactWhatsapp" inputmode="tel" maxlength="20"></label>
+                  <label>Nombre<input name="contactName" type="text" maxlength="80"></label>
+                  <label>WhatsApp<input name="contactWhatsapp" type="tel" inputmode="tel" maxlength="20"></label>
                   <label class="wv-span">Correo<input name="contactEmail" type="email" maxlength="120"></label>
                 </div>
                 <button class="wv-button wv-button-primary" type="button" data-final-action="consultation">Solicitar asesoría</button>
@@ -352,7 +381,7 @@
                 <button class="wv-button wv-button-ghost" type="button" data-final-action="diagnosis">Enviar diagnóstico</button>
               </article>
             </div>
-            <div id="finalMessage" class="wv-final-message" hidden></div>
+            <div id="finalMessage" class="wv-final-message" role="status" aria-live="polite" hidden></div>
           </section>
         </form>
         <aside class="wv-live-preview" aria-label="Vista previa en tiempo real">

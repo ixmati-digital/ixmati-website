@@ -2,64 +2,16 @@ import { PRICING_CONFIG } from "../config/pricing.js";
 import { buildRecommendation } from "./recommendation-engine.js";
 import { inferRequiredFeatures, sanitizeText } from "./business-rules.js";
 import { formatMoney } from "./pricing-engine.js";
-import { renderSimulation } from "./simulation.js";
 import { captureLead, loadSession, saveSession, sendToServer } from "./storage.js";
 import { trackEvent } from "./analytics.js";
 import { runIntro } from "./webvision-intro.js";
 import { transitionScene } from "./webvision-transitions.js";
 import { animatePriceChange, animatePriceCounter, animateStartTransition, celebrateReveal, initMotionFX, pulseSelection, revealSimulation, runGenerationVisual } from "./webvision-motion.js";
-
-const SCREENS = ["welcome", "businessName", "businessType", "offer", "style", "brand", "objectives", "features", "contact", "generating", "vision", "diagnosis", "conversion"];
-const STEP_LABELS = ["Inicio", "Nombre", "Tipo", "Oferta", "Estilo", "Marca", "Objetivos", "Funciones", "Contacto", "Generando", "Web Vision", "Diagnóstico", "Conversión"];
-const OBJECTIVES = [
-  ["newClients", "Conseguir clientes"],
-  ["showProducts", "Mostrar servicios"],
-  ["onlineSales", "Vender productos"],
-  ["orders", "Recibir pedidos"],
-  ["appointments", "Agendar citas"],
-  ["payments", "Recibir pagos"],
-  ["automations", "Automatizar procesos"],
-  ["branches", "Mostrar sucursales"]
-];
-
-const FONT_OPTIONS = [
-  ["Inter", "Limpia, digital y flexible", "Inter, sans-serif"],
-  ["Saira", "Tecnológica y sólida", "Saira, sans-serif"],
-  ["Montserrat", "Moderna y comercial", "Montserrat, sans-serif"],
-  ["Poppins", "Amigable y premium", "Poppins, sans-serif"],
-  ["Space Grotesk", "Startup, tech y editorial", "'Space Grotesk', sans-serif"],
-  ["Raleway", "Elegante y ligera", "Raleway, sans-serif"],
-  ["Playfair Display", "Editorial y sofisticada", "'Playfair Display', serif"],
-  ["DM Serif Display", "Boutique y distintiva", "'DM Serif Display', serif"],
-  ["Oswald", "Fuerte y directa", "Oswald, sans-serif"]
-];
-
-const FEATURE_QUESTIONS = [
-  ["needsAppointments", "¿Tus clientes necesitan agendar horarios?"],
-  ["hasProducts", "¿Tienes productos con precios?"],
-  ["needsOrders", "¿Necesitas recibir pedidos?"],
-  ["needsPayments", "¿Quieres recibir pagos desde la página?"],
-  ["needsAdmin", "¿Necesitas administrar pedidos o solicitudes?"],
-  ["needsUsers", "¿Trabajarán varias personas dentro del sistema?"],
-  ["needsReminders", "¿Necesitas recordatorios automáticos?"],
-  ["needsReports", "¿Quieres reportes?"],
-  ["needsGoogleAds", "¿Quieres aparecer en Google?"],
-  ["needsMetaAds", "¿Quieres anuncios en Facebook e Instagram?"],
-  ["needsThirdParty", "¿Necesitas conectar otra herramienta?"],
-  ["priorityDelivery", "¿Necesitas entrega prioritaria?"]
-];
-
-const generationMessages = [
-  "Interpretando tu negocio.",
-  "Analizando tu identidad.",
-  "Organizando tu contenido.",
-  "Construyendo la arquitectura.",
-  "Diseñando la experiencia.",
-  "Preparando la versión móvil.",
-  "Configurando funcionalidades.",
-  "Optimizando conversión.",
-  "Finalizando Web Vision."
-];
+import { initImmersiveAudio, playCue } from "./webvision-audio.js";
+import { initLivingBackground } from "./webvision-background.js";
+import { loadOptionalFonts } from "./webvision-fonts.js";
+import { renderLivePreview as renderPreview, renderVisionPreview, setDeviceView } from "./webvision-preview.js";
+import { FEATURE_QUESTIONS, FONT_OPTIONS, GENERATION_MESSAGES, OBJECTIVES, SCREENS, STEP_LABELS } from "./webvision-wizard.js";
 
 let session = loadSession();
 let current = Math.max(0, SCREENS.indexOf(session.currentScreen || "welcome"));
@@ -77,8 +29,6 @@ const progressCount = document.querySelector("#progressCount");
 const stepList = document.querySelector("#stepList");
 const liveBrandName = document.querySelector("#liveBrandName");
 const livePreviewMount = document.querySelector("#livePreviewMount");
-let immersiveAudio = false;
-let audioContext = null;
 
 init();
 
@@ -91,6 +41,9 @@ function init() {
   bindEvents();
   updateConditionals();
   showScreen(current);
+  initLivingBackground();
+  initImmersiveAudio(document.querySelector("#immersiveToggle"));
+  loadOptionalFonts();
   runIntro({ onReady: initMotionFX });
   renderLivePreview();
 }
@@ -103,6 +56,10 @@ function bindEvents() {
 
   nextBtn.addEventListener("click", next);
   backBtn.addEventListener("click", back);
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    next();
+  });
 
   form.addEventListener("input", () => {
     collectAnswers();
@@ -114,6 +71,9 @@ function bindEvents() {
 
   form.addEventListener("change", async (event) => {
     if (event.target.name === "logo") await handleLogo(event.target.files[0]);
+    if (["primaryColor", "accentColor"].includes(event.target.name)) {
+      trackEvent("color_changed", { sessionId: session.id, field: event.target.name });
+    }
     collectAnswers();
     updateConditionals();
     syncVisualState(event.target);
@@ -128,6 +88,7 @@ function bindEvents() {
       collectAnswers();
       renderLivePreview();
       persist("style_selected");
+      trackEvent("style_changed", { sessionId: session.id, style: button.dataset.styleChoice });
       pulseSelection(button);
     });
   });
@@ -157,10 +118,8 @@ function bindEvents() {
     button.addEventListener("click", () => {
       document.querySelectorAll("[data-device]").forEach((item) => item.classList.remove("is-active"));
       button.classList.add("is-active");
-      const mount = document.querySelector("#simulationMount");
-      mount.classList.toggle("is-mobile", button.dataset.device === "mobile");
-      mount.classList.toggle("is-tablet", button.dataset.device === "tablet");
-      mount.classList.toggle("is-desktop", button.dataset.device === "desktop");
+      setDeviceView(document.querySelector("#simulationMount"), button.dataset.device);
+      trackEvent("preview_device_changed", { sessionId: session.id, device: button.dataset.device });
     });
   });
 
@@ -180,13 +139,6 @@ function bindEvents() {
     button.addEventListener("click", () => finish(button.dataset.finalAction));
   });
 
-  document.querySelector("#immersiveToggle")?.addEventListener("click", (event) => {
-    immersiveAudio = !immersiveAudio;
-    event.currentTarget.setAttribute("aria-pressed", String(immersiveAudio));
-    event.currentTarget.classList.toggle("is-active", immersiveAudio);
-    playCue("click");
-  });
-
   window.addEventListener("beforeunload", () => {
     if (current > 0 && current < SCREENS.length - 1) {
       trackEvent("webvision_abandoned", { sessionId: session.id, progress: SCREENS[current] });
@@ -199,6 +151,7 @@ function next() {
   clearErrors();
   if (!validateCurrent()) return;
   collectAnswers();
+  trackEvent("scene_completed", { sessionId: session.id, scene: SCREENS[current] });
 
   if (SCREENS[current] === "contact") trackEvent("business_info_completed", { sessionId: session.id });
   if (SCREENS[current] === "brand") trackEvent("branding_completed", { sessionId: session.id });
@@ -333,7 +286,7 @@ function renderFontSelector() {
   const selectedTone = document.querySelector("#fontSelectedTone");
 
   menu.innerHTML = FONT_OPTIONS.map(([name, tone, family]) => `
-    <button type="button" role="option" data-font-name="${name}" data-font-family="${family}" data-font-tone="${tone}" style="font-family:${family}">
+    <button type="button" data-font-name="${name}" data-font-family="${family}" data-font-tone="${tone}" style="font-family:${family}">
       <span>${name}</span>
       <small>${tone}</small>
     </button>
@@ -409,6 +362,7 @@ function validateCurrent() {
 function showError(target, message) {
   const error = document.createElement("span");
   error.className = "wv-error";
+  error.setAttribute("role", "alert");
   error.textContent = message;
   target.appendChild(error);
 }
@@ -500,11 +454,8 @@ function syncVisualState(source) {
 }
 
 function renderLivePreview() {
-  if (!livePreviewMount) return;
   const answers = session.answers || collectAnswers();
-  const featureIds = selectedFeatureIds.length ? selectedFeatureIds : inferRequiredFeatures(answers);
-  const recommendation = buildRecommendation(answers, featureIds, excludedFeatureIds);
-  renderSimulation(livePreviewMount, answers, recommendation);
+  renderPreview(livePreviewMount, answers, selectedFeatureIds, excludedFeatureIds);
 }
 
 async function handleLogo(file) {
@@ -513,9 +464,11 @@ async function handleLogo(file) {
   if (!allowed.includes(file.type) || file.size > 2 * 1024 * 1024) {
     window.alert("El logotipo debe ser PNG, JPG, WEBP o SVG y pesar máximo 2 MB.");
     form.elements.logo.value = "";
+    trackEvent("logo_upload_rejected", { sessionId: session.id, type: file.type, size: file.size });
     return;
   }
   session.answers.logoDataUrl = await fileToDataUrl(file);
+  trackEvent("logo_uploaded", { sessionId: session.id, type: file.type, size: file.size });
 }
 
 function fileToDataUrl(file) {
@@ -528,11 +481,12 @@ function fileToDataUrl(file) {
 
 function runGeneration() {
   playCue("generate");
+  trackEvent("generation_started", { sessionId: session.id });
   current = SCREENS.indexOf("generating");
   showScreen(current);
   let messageIndex = 0;
   const message = document.querySelector("#generationMessage");
-  const messages = [...generationMessages].sort(() => Math.random() - 0.5);
+  const messages = [...GENERATION_MESSAGES].sort(() => Math.random() - 0.5);
   if (message) message.textContent = messages[messageIndex++];
   runGenerationVisual();
   const interval = window.setInterval(() => {
@@ -558,7 +512,8 @@ function renderVision() {
   if (!session.recommendation) {
     session.recommendation = buildRecommendation(session.answers, selectedFeatureIds, excludedFeatureIds);
   }
-  renderSimulation(document.querySelector("#simulationMount"), session.answers, session.recommendation);
+  renderVisionPreview(document.querySelector("#simulationMount"), session.answers, session.recommendation);
+  trackEvent("result_viewed", { sessionId: session.id });
 }
 
 function renderDiagnosis() {
@@ -581,28 +536,6 @@ function renderDiagnosis() {
   renderFeatureToggles(recommendation);
   celebrateReveal();
   persist("diagnosis");
-}
-
-function playCue(type = "click") {
-  if (!immersiveAudio) return;
-  try {
-    audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gain = audioContext.createGain();
-    const now = audioContext.currentTime;
-    const frequency = type === "reveal" ? 660 : type === "generate" ? 440 : type === "whoosh" ? 520 : 360;
-    oscillator.frequency.setValueAtTime(frequency, now);
-    oscillator.frequency.exponentialRampToValueAtTime(frequency * 1.35, now + 0.08);
-    gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.exponentialRampToValueAtTime(0.025, now + 0.015);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.14);
-    oscillator.connect(gain);
-    gain.connect(audioContext.destination);
-    oscillator.start(now);
-    oscillator.stop(now + 0.15);
-  } catch (error) {
-    immersiveAudio = false;
-  }
 }
 
 function renderList(selector, items) {
