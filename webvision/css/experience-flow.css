@@ -2,7 +2,8 @@
 .wv-shell {
   display: block;
   max-width: none;
-  min-height: calc(100vh - 76px);
+  min-height: calc(100vh - 64px);
+  min-height: calc(100svh - 64px);
 }
 
 .wv-progress-panel {
@@ -11,7 +12,8 @@
 
 .wv-workspace {
   width: 100%;
-  min-height: calc(100vh - 76px);
+  min-height: calc(100vh - 64px);
+  min-height: calc(100svh - 64px);
   padding: 0;
   border: 0;
   border-radius: 0;
@@ -70,7 +72,8 @@
 }
 
 .wv-screen {
-  min-height: calc(100vh - 76px);
+  min-height: calc(100vh - 64px);
+  min-height: calc(100svh - 64px);
   padding: clamp(92px, 11vh, 140px) clamp(18px, 6vw, 96px) clamp(96px, 10vh, 140px);
 }
 
@@ -322,6 +325,7 @@
 .wv-scene {
   width: min(1280px, 100%);
   min-height: calc(100vh - 260px);
+  min-height: calc(100svh - 260px);
   margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(300px, 0.7fr);
@@ -725,6 +729,7 @@
 @media (max-width: 980px) {
   .wv-scene {
     min-height: calc(100vh - 220px);
+    min-height: calc(100svh - 220px);
     grid-template-columns: 1fr;
   }
 

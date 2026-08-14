@@ -18,7 +18,8 @@
 .wv-app[data-step="vision"] .wv-workspace,
 .wv-app[data-step="diagnosis"] .wv-workspace,
 .wv-app[data-step="conversion"] .wv-workspace {
-  min-height: calc(100vh - 76px);
+  min-height: calc(100vh - 64px);
+  min-height: calc(100svh - 64px);
   padding: clamp(18px, 4vw, 64px);
   border: 0;
   border-radius: 0;
@@ -63,6 +64,7 @@
   position: relative;
   z-index: 2;
   min-height: calc(100vh - 190px);
+  min-height: calc(100svh - 190px);
   display: grid;
   place-items: center;
   align-content: center;
@@ -488,7 +490,8 @@
   .wv-app[data-step="vision"] .wv-workspace,
   .wv-app[data-step="diagnosis"] .wv-workspace,
   .wv-app[data-step="conversion"] .wv-workspace {
-    min-height: calc(100vh - 76px);
+    min-height: calc(100vh - 64px);
+    min-height: calc(100svh - 64px);
     padding: 18px 14px calc(92px + env(safe-area-inset-bottom));
   }
 

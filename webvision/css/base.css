@@ -194,11 +194,17 @@ textarea {
 
 .wv-screen {
   display: none;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
   animation: wvFade 180ms ease;
 }
 
 .wv-screen.is-active {
   display: block;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 @keyframes wvFade {

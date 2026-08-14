@@ -171,22 +171,31 @@ function back() {
 }
 
 function showScreen(index) {
-  activateScreen(index);
+  activateScreen(index, { resetVisualState: true });
 }
 
 function goTo(index) {
+  const target = Math.max(0, Math.min(SCREENS.length - 1, index));
   const from = screens[current];
-  const to = screens[index];
+  const to = screens[target];
+  if (!to) return;
+  if (target === current) {
+    activateScreen(target, { resetVisualState: true });
+    return;
+  }
+  current = target;
   transitionScene({
     from,
     to,
-    done: () => activateScreen(index)
+    activate: () => activateScreen(target),
+    done: () => enforceSingleActiveScreen(target)
   });
 }
 
-function activateScreen(index) {
+function activateScreen(index, { resetVisualState = false } = {}) {
   current = index;
   screens.forEach((screen, screenIndex) => screen.classList.toggle("is-active", screenIndex === current));
+  if (resetVisualState) enforceSingleActiveScreen(current);
   const screen = SCREENS[current];
   document.querySelector(".wv-app").dataset.step = screen;
   backBtn.hidden = current === 0;
@@ -203,6 +212,19 @@ function activateScreen(index) {
     revealSimulation();
   }
   renderLivePreview();
+}
+
+function enforceSingleActiveScreen(index) {
+  screens.forEach((screen, screenIndex) => {
+    const isActive = screenIndex === index;
+    screen.classList.toggle("is-active", isActive);
+    screen.style.display = isActive ? "block" : "none";
+    screen.style.visibility = isActive ? "visible" : "hidden";
+    screen.style.opacity = isActive ? "1" : "0";
+    screen.style.pointerEvents = isActive ? "auto" : "none";
+    screen.style.transform = "none";
+    screen.style.filter = "none";
+  });
 }
 
 function updateProgress() {

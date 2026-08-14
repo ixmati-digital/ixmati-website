@@ -3,12 +3,17 @@ export function initMotionFX() {
   initMagneticButtons();
   initCursorParallax();
   if (!window.gsap || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+  const laptop = window.matchMedia("(max-width: 1240px)").matches;
+  const mobile = window.matchMedia("(max-width: 620px)").matches;
+  const floatDistance = mobile ? 6 : laptop || coarsePointer ? 9 : 14;
+  const chipDistance = mobile ? 7 : laptop || coarsePointer ? 10 : 18;
   window.gsap.set([".wv-hero-copy > *", ".wv-vision-stage"], { opacity: 0, y: 26 });
   window.gsap.timeline({ defaults: { ease: "power3.out" } })
     .to(".wv-hero-copy > *", { opacity: 1, y: 0, duration: 0.78, stagger: 0.08 })
     .to(".wv-vision-stage", { opacity: 1, y: 0, duration: 0.9 }, "-=0.55");
-  window.gsap.to(".wv-device-stack", { y: -14, rotateX: 3, rotateY: -4, duration: 3.4, repeat: -1, yoyo: true, ease: "sine.inOut" });
-  window.gsap.to(".wv-floating-chip", { y: -18, duration: 2.4, stagger: 0.3, repeat: -1, yoyo: true, ease: "sine.inOut" });
+  window.gsap.to(".wv-device-stack", { y: -floatDistance, rotateX: coarsePointer ? 0 : 2, rotateY: coarsePointer ? 0 : -3, duration: 3.4, repeat: -1, yoyo: true, ease: "sine.inOut" });
+  window.gsap.to(".wv-floating-chip", { y: -chipDistance, duration: 2.4, stagger: 0.3, repeat: -1, yoyo: true, ease: "sine.inOut" });
   window.gsap.to(".wv-holo-ring", { rotate: 360, duration: 22, repeat: -1, ease: "none" });
 }
 
@@ -32,19 +37,23 @@ export function animatePriceChange(element) {
 
 export function animatePriceCounter(element, value, formatter) {
   if (!element) return;
+  const runId = String(Date.now() + Math.random());
+  element.dataset.counterRun = runId;
+  element.textContent = formatter(value);
   if (!window.gsap || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    element.textContent = formatter(value);
     return;
   }
-  const state = { amount: Math.max(0, value * 0.72) };
+  const state = { amount: Math.max(0, value * 0.96) };
   window.gsap.to(state, {
     amount: value,
     duration: 0.8,
     ease: "power3.out",
     onUpdate: () => {
+      if (element.dataset.counterRun !== runId) return;
       element.textContent = formatter(Math.round(state.amount / 50) * 50);
     },
     onComplete: () => {
+      if (element.dataset.counterRun !== runId) return;
       element.textContent = formatter(value);
     }
   });
@@ -87,7 +96,7 @@ function rotateHeroTicker() {
 }
 
 function initMagneticButtons() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.matchMedia("(pointer: coarse)").matches) return;
   document.addEventListener("pointermove", (event) => {
     const button = event.target.closest?.(".wv-button");
     if (!button) return;

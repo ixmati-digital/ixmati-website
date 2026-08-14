@@ -2,7 +2,7 @@ const INTRO_SESSION_KEY = "ixmati_webvision_intro_seen";
 
 export function runIntro({ onReady } = {}) {
   const intro = document.querySelector(".wv-intro");
-  const introSeen = sessionStorage.getItem(INTRO_SESSION_KEY) === "true";
+  const introSeen = safeSessionGet(INTRO_SESSION_KEY) === "true";
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (introSeen || reduceMotion) {
@@ -16,7 +16,7 @@ export function runIntro({ onReady } = {}) {
 
   if (!window.gsap) {
     window.setTimeout(() => {
-      sessionStorage.setItem(INTRO_SESSION_KEY, "true");
+      safeSessionSet(INTRO_SESSION_KEY, "true");
       onReady?.();
     }, 2200);
     return;
@@ -25,7 +25,8 @@ export function runIntro({ onReady } = {}) {
   window.gsap.timeline({
     defaults: { ease: "power3.out" },
     onComplete: () => {
-      sessionStorage.setItem(INTRO_SESSION_KEY, "true");
+      safeSessionSet(INTRO_SESSION_KEY, "true");
+      if (intro) intro.hidden = true;
       onReady?.();
     }
   })
@@ -34,4 +35,21 @@ export function runIntro({ onReady } = {}) {
     .fromTo(".wv-intro span", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.58 }, "-=0.28")
     .fromTo(".wv-intro p", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.58 }, "-=0.24")
     .to(".wv-intro", { opacity: 0, scale: 1.04, duration: 0.5, delay: 0.34, pointerEvents: "none" });
+}
+
+function safeSessionGet(key) {
+  try {
+    return sessionStorage.getItem(key);
+  } catch (error) {
+    return null;
+  }
+}
+
+function safeSessionSet(key, value) {
+  try {
+    sessionStorage.setItem(key, value);
+  } catch (error) {
+    return false;
+  }
+  return true;
 }

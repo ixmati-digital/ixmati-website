@@ -18,7 +18,11 @@ export function saveSession(session) {
     ...session,
     updatedAt: new Date().toISOString()
   };
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(clean));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(clean));
+  } catch (error) {
+    // Safari can block storage in constrained contexts; the wizard must keep running.
+  }
   return clean;
 }
 
@@ -53,9 +57,13 @@ export function captureLead(session, progress) {
     recommendation: session.recommendation
   };
 
-  const existing = readLeads().filter((item) => item.sessionId !== session.id);
-  existing.push(lead);
-  localStorage.setItem(LEADS_KEY, JSON.stringify(existing.slice(-80)));
+  try {
+    const existing = readLeads().filter((item) => item.sessionId !== session.id);
+    existing.push(lead);
+    localStorage.setItem(LEADS_KEY, JSON.stringify(existing.slice(-80)));
+  } catch (error) {
+    return session;
+  }
   return session;
 }
 
