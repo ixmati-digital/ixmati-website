@@ -189,19 +189,6 @@ a {
   font-size: 1.13rem;
 }
 
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 34px;
-}
-
-.hero .button.secondary {
-  color: var(--white);
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.24);
-}
-
 .eyebrow {
   margin: 0 0 14px;
   color: var(--aqua);
@@ -211,21 +198,6 @@ a {
   text-transform: uppercase;
 }
 
-.proposal-card {
-  padding: 30px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: var(--radius);
-  backdrop-filter: blur(18px);
-  box-shadow: var(--shadow);
-}
-
-.proposal-card div + div {
-  margin-top: 22px;
-  padding-top: 22px;
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
-}
-
 .card-label {
   display: block;
   margin-bottom: 4px;
@@ -233,11 +205,6 @@ a {
   font-size: 0.82rem;
   font-weight: 700;
   text-transform: uppercase;
-}
-
-.proposal-card strong {
-  color: var(--white);
-  font-size: 1.1rem;
 }
 
 .hero-visual {
@@ -820,10 +787,6 @@ a {
 
   .hero-text {
     font-size: 1rem;
-  }
-
-  .hero-actions {
-    flex-direction: column;
   }
 
   .button {
