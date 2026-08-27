@@ -4,20 +4,27 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+  header('Allow: POST');
   http_response_code(405);
   echo json_encode(['ok' => false, 'error' => 'Método no permitido']);
   exit;
 }
 
 $raw = file_get_contents('php://input') ?: '';
-if (strlen($raw) > 180000) {
+if ($raw === '') {
+  http_response_code(400);
+  echo json_encode(['ok' => false, 'error' => 'Payload vacío']);
+  exit;
+}
+
+if (strlen($raw) > 200000) {
   http_response_code(413);
   echo json_encode(['ok' => false, 'error' => 'Solicitud demasiado grande']);
   exit;
 }
 
 $data = json_decode($raw, true);
-if (!is_array($data)) {
+if (json_last_error() !== JSON_ERROR_NONE || !is_array($data) || $data === []) {
   http_response_code(400);
   echo json_encode(['ok' => false, 'error' => 'JSON inválido']);
   exit;
@@ -38,33 +45,25 @@ if (count($hits) >= 12) {
 $hits[] = $now;
 file_put_contents($rateFile, implode("\n", $hits), LOCK_EX);
 
-$sessionId = clean_text($data['id'] ?? '');
-$answers = is_array($data['answers'] ?? null) ? clean_array($data['answers']) : [];
-$recommendation = is_array($data['recommendation'] ?? null) ? clean_array($data['recommendation']) : [];
-$actionFinal = clean_text($data['actionFinal'] ?? '');
+$payload = clean_payload($data);
+$payload['receivedAt'] = gmdate('c');
 
-$stored = store_fallback([
-  'sessionId' => $sessionId,
-  'answers' => $answers,
-  'recommendation' => $recommendation,
-  'actionFinal' => $actionFinal,
-  'createdAt' => gmdate('c')
-]);
-
-$aiCopy = deterministic_copy($answers, $recommendation);
-$openAiKey = getenv('OPENAI_API_KEY') ?: '';
-if ($openAiKey !== '') {
-  $generated = try_openai_copy($openAiKey, $answers, $recommendation);
-  if ($generated !== '') {
-    $aiCopy = $generated;
-  }
+try {
+  $stored = store_lead($payload);
+} catch (RuntimeException $exception) {
+  http_response_code(500);
+  echo json_encode(['ok' => false, 'error' => 'No se pudo guardar el registro']);
+  exit;
 }
 
 echo json_encode([
   'ok' => true,
   'stored' => $stored,
-  'copy' => $aiCopy,
-  'mode' => $openAiKey !== '' ? 'ai_or_fallback' : 'deterministic_fallback'
+  'copy' => deterministic_copy(
+    is_array($payload['answers'] ?? null) ? $payload['answers'] : [],
+    is_array($payload['recommendation'] ?? null) ? $payload['recommendation'] : []
+  ),
+  'mode' => 'json_file'
 ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
 function clean_text(mixed $value, int $max = 500): string {
@@ -90,53 +89,145 @@ function clean_array(array $input): array {
   return $output;
 }
 
-function store_fallback(array $payload): bool {
-  $dir = dirname(__DIR__) . '/webvision-data';
+function clean_payload(array $input): array {
+  $blockedKeys = [
+    'password' => true,
+    'passwd' => true,
+    'token' => true,
+    'apikey' => true,
+    'api_key' => true,
+    'secret' => true,
+    'cookie' => true,
+    'cookies' => true,
+    'authorization' => true
+  ];
+  $output = [];
+  foreach ($input as $key => $value) {
+    $safeKey = preg_replace('/[^a-zA-Z0-9_.-]/', '', (string) $key);
+    if ($safeKey === '' || isset($blockedKeys[strtolower($safeKey)])) continue;
+    if (is_array($value)) {
+      $output[$safeKey] = clean_payload($value);
+    } elseif (is_bool($value) || is_int($value) || is_float($value) || $value === null) {
+      $output[$safeKey] = $value;
+    } else {
+      $output[$safeKey] = clean_text($value, 1200);
+    }
+  }
+  return $output;
+}
+
+function store_lead(array $payload): bool {
+  $file = resolve_leads_file();
+  $dir = dirname($file);
+  if (!is_dir($dir) && !mkdir($dir, 0775, true)) {
+    throw new RuntimeException('Storage directory unavailable');
+  }
+
+  $handle = fopen($file, 'c+');
+  if ($handle === false) {
+    throw new RuntimeException('Storage file unavailable');
+  }
+
+  try {
+    if (!flock($handle, LOCK_EX)) {
+      throw new RuntimeException('Storage lock unavailable');
+    }
+
+    $raw = stream_get_contents($handle);
+    $raw = is_string($raw) ? trim($raw) : '';
+    if ($raw === '') {
+      $records = [];
+    } else {
+      $records = json_decode($raw, true);
+      if (json_last_error() !== JSON_ERROR_NONE || !is_array($records)) {
+        $backup = $file . '.corrupt-' . gmdate('Ymd-His') . '.bak';
+        copy($file, $backup);
+        throw new RuntimeException('Storage JSON corrupt');
+      }
+    }
+
+    if (has_duplicate_lead($records, $payload)) {
+      flock($handle, LOCK_UN);
+      fclose($handle);
+      return false;
+    }
+
+    $records[] = $payload;
+    $json = json_encode($records, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    if (!is_string($json)) {
+      throw new RuntimeException('Storage JSON encode failed');
+    }
+
+    ftruncate($handle, 0);
+    rewind($handle);
+    if (fwrite($handle, $json . PHP_EOL) === false) {
+      throw new RuntimeException('Storage write failed');
+    }
+    fflush($handle);
+    flock($handle, LOCK_UN);
+    fclose($handle);
+    return true;
+  } catch (RuntimeException $exception) {
+    flock($handle, LOCK_UN);
+    fclose($handle);
+    throw $exception;
+  }
+}
+
+function resolve_leads_file(): string {
+  $configured = getenv('WEBVISION_LEADS_FILE');
+  if (is_string($configured) && $configured !== '') {
+    return $configured;
+  }
+
+  $publicRoot = dirname(__DIR__, 2);
+  $privateFile = dirname($publicRoot) . '/webvision-leads.json';
+  $privateDir = dirname($privateFile);
+  if (is_dir($privateDir) && is_writable($privateDir)) {
+    return $privateFile;
+  }
+
+  $protectedDir = __DIR__ . '/webvision-data';
+  protect_storage_dir($protectedDir);
+  return $protectedDir . '/webvision-leads.json';
+}
+
+function protect_storage_dir(string $dir): void {
   if (!is_dir($dir)) {
     mkdir($dir, 0775, true);
   }
-  $file = $dir . '/events.jsonl';
-  return file_put_contents($file, json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . PHP_EOL, FILE_APPEND | LOCK_EX) !== false;
+  $htaccess = $dir . '/.htaccess';
+  if (!file_exists($htaccess)) {
+    file_put_contents($htaccess, "Require all denied\nDeny from all\n", LOCK_EX);
+  }
+}
+
+function has_duplicate_lead(array $records, array $payload): bool {
+  $sessionId = lead_session_id($payload);
+  $actionFinal = clean_text($payload['actionFinal'] ?? '', 120);
+  if ($sessionId === '' || $actionFinal === '') return false;
+
+  foreach ($records as $record) {
+    if (!is_array($record)) continue;
+    if (lead_session_id($record) === $sessionId && clean_text($record['actionFinal'] ?? '', 120) === $actionFinal) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function lead_session_id(array $payload): string {
+  if (isset($payload['session_id'])) return clean_text($payload['session_id'], 120);
+  if (isset($payload['sessionId'])) return clean_text($payload['sessionId'], 120);
+  if (isset($payload['id'])) return clean_text($payload['id'], 120);
+  if (isset($payload['session']) && is_array($payload['session']) && isset($payload['session']['id'])) {
+    return clean_text($payload['session']['id'], 120);
+  }
+  return '';
 }
 
 function deterministic_copy(array $answers, array $recommendation): string {
   $business = clean_text($answers['businessName'] ?? 'tu negocio', 80);
   $solution = clean_text($recommendation['customName'] ?? ($recommendation['solutionType'] ?? 'una solución web personalizada'), 180);
   return "Por lo que nos contaste, {$business} necesita {$solution}. La recomendación se calculó con reglas deterministas y puede ajustarse en una asesoría.";
-}
-
-function try_openai_copy(string $apiKey, array $answers, array $recommendation): string {
-  $prompt = [
-    'model' => getenv('WEBVISION_AI_MODEL') ?: 'gpt-4.1-mini',
-    'messages' => [
-      [
-        'role' => 'system',
-        'content' => 'Redacta un diagnóstico comercial breve en español. No inventes precios, funciones ni tiempos. Usa solo los datos proporcionados.'
-      ],
-      [
-        'role' => 'user',
-        'content' => json_encode(['answers' => $answers, 'recommendation' => $recommendation], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
-      ]
-    ],
-    'temperature' => 0.4,
-    'max_tokens' => 180
-  ];
-
-  $ch = curl_init('https://api.openai.com/v1/chat/completions');
-  curl_setopt_array($ch, [
-    CURLOPT_POST => true,
-    CURLOPT_HTTPHEADER => [
-      'Content-Type: application/json',
-      'Authorization: Bearer ' . $apiKey
-    ],
-    CURLOPT_POSTFIELDS => json_encode($prompt, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_TIMEOUT => 12
-  ]);
-  $response = curl_exec($ch);
-  $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
-  curl_close($ch);
-  if ($status < 200 || $status >= 300 || !is_string($response)) return '';
-  $decoded = json_decode($response, true);
-  return clean_text($decoded['choices'][0]['message']['content'] ?? '', 900);
 }
