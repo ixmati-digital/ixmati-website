@@ -166,10 +166,7 @@ a {
 .hero-grid {
   position: relative;
   z-index: 2;
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) 380px;
-  gap: 64px;
-  align-items: center;
+  display: block;
 }
 
 .hero-copy h1,
@@ -181,8 +178,8 @@ a {
 }
 
 .hero-copy h1 {
-  max-width: 850px;
-  font-size: clamp(3rem, 7vw, 5.7rem);
+  max-width: 1080px;
+  font-size: clamp(3.4rem, 8vw, 7.2rem);
 }
 
 .hero-text {
@@ -251,12 +248,13 @@ a {
 
 .lens-orbit {
   position: absolute;
-  right: 7vw;
-  top: 18vh;
+  right: 5vw;
+  top: 20vh;
   width: 320px;
   height: 320px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 50%;
+  opacity: 0.5;
   animation: float 8s ease-in-out infinite;
 }
 
@@ -776,19 +774,10 @@ a {
     min-height: auto;
   }
 
-  .hero-grid,
   .two-column,
   .split-visual,
   .admin-board {
     grid-template-columns: 1fr;
-  }
-
-  .hero-grid {
-    gap: 34px;
-  }
-
-  .proposal-card {
-    max-width: 560px;
   }
 
   .ecosystem,
