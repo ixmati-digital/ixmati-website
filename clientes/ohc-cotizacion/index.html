@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=external-costs-2" />
+    <link rel="stylesheet" href="styles.css?v=external-costs-3" />
   </head>
   <body>
     <header class="site-header" data-header>
@@ -312,10 +312,10 @@
               total con IVA es de $25,520 MXN.
             </p>
             <p>
-              Una vez que la plataforma se encuentre en operación, algunos proveedores externos
-              pueden aplicar cargos propios derivados únicamente del uso de sus servicios. Estos
-              cargos no corresponden a servicios adicionales de Ixmati y no modifican el costo de
-              desarrollo del proyecto.
+              El desarrollo, configuración e integración de estas funciones ya está contemplado
+              dentro de la inversión del proyecto. Los siguientes importes corresponden únicamente
+              al consumo o comisiones que determinados proveedores externos cobran directamente por
+              utilizar sus servicios.
             </p>
           </div>
 
@@ -323,59 +323,190 @@
             <p class="eyebrow">Posibles costos operativos de terceros</p>
             <h2>No son costos adicionales de desarrollo.</h2>
             <p>
-              Se generan únicamente cuando OHC utiliza determinados servicios externos.
+              La cotización ya contempla configurar las integraciones indicadas; lo variable es el
+              uso real que facture cada proveedor.
             </p>
           </div>
 
-          <div class="third-party-grid reveal">
-            <article>
+          <div class="cost-module reveal">
+            <div class="cost-module-head">
               <span class="icon">PG</span>
-              <h3>Pasarelas de pago</h3>
-              <p>
-                Mercado Pago, PayPal o cualquier otra pasarela seleccionada puede cobrar una
-                comisión por cada transacción procesada. Ixmati no cobra esta comisión.
-              </p>
-            </article>
-            <article>
+              <div>
+                <p class="eyebrow">A. Pasarelas de pago</p>
+                <h3>Comisión por cada pago procesado.</h3>
+              </div>
+            </div>
+            <div class="gateway-grid">
+              <article class="gateway-card recommended">
+                <span class="pill">Recomendación Ixmati</span>
+                <h4>Mercado Pago</h4>
+                <strong>2.95% a 3.49% + IVA</strong>
+                <p>Según el plazo elegido para recibir el dinero: al instante, 7/14 días o 30 días.</p>
+                <small>
+                  Pago conocido en México, fácil para el comprador y práctico para la operación de
+                  OHC.
+                </small>
+              </article>
+              <article class="gateway-card">
+                <span class="pill muted-pill">Alternativa</span>
+                <h4>Stripe</h4>
+                <strong>3.6% + $3 MXN + IVA</strong>
+                <p>Por transacción nacional exitosa con tarjeta.</p>
+                <small>Tarjetas internacionales pueden agregar 0.5%; conversión de moneda, 2%.</small>
+              </article>
+              <article class="gateway-card">
+                <span class="pill muted-pill">Alternativa</span>
+                <h4>PayPal</h4>
+                <strong>3.95% + $4 MXN + IVA</strong>
+                <p>Comisión estándar por recibir transacciones comerciales nacionales.</p>
+                <small>Pagos internacionales pueden agregar 0.50%.</small>
+              </article>
+            </div>
+            <p class="provider-note">
+              La comisión de la pasarela es cobrada por el proveedor por cada pago procesado.
+              Ixmati no cobra esta comisión.
+            </p>
+          </div>
+
+          <div class="cost-module reveal">
+            <div class="cost-module-head">
               <span class="icon">WA</span>
-              <h3>WhatsApp Business Platform</h3>
-              <p>
-                La integración y automatización contempladas en el proyecto están incluidas. Lo
-                variable es únicamente el consumo que facture Meta por uso de su plataforma, según
-                tipo de mensaje, país, volumen y condiciones vigentes.
-              </p>
-            </article>
-            <article>
+              <div>
+                <p class="eyebrow">B. WhatsApp Business Platform</p>
+                <h3>Recordatorios y confirmaciones automatizadas.</h3>
+              </div>
+            </div>
+            <div class="whatsapp-split">
+              <article>
+                <h4>Incluido por Ixmati</h4>
+                <ul>
+                  <li>Integración con WhatsApp</li>
+                  <li>Automatización</li>
+                  <li>Flujo de confirmaciones</li>
+                  <li>Recordatorios de citas</li>
+                  <li>Configuración inicial</li>
+                </ul>
+              </article>
+              <article>
+                <h4>Pagado por OHC según uso</h4>
+                <p>
+                  Mensajes facturados por Meta. Los recordatorios transaccionales de citas
+                  normalmente corresponden a mensajes de utilidad, sujeto a la clasificación y
+                  políticas vigentes de Meta.
+                </p>
+                <strong>Tarifa utilidad México: $0.1565 MXN por mensaje entregado.</strong>
+              </article>
+            </div>
+            <div class="usage-table" aria-label="Simulación de consumo mensual de WhatsApp">
+              <div class="usage-row header">
+                <span>Mensajes de utilidad / mes</span>
+                <span>Costo Meta estimado</span>
+              </div>
+              <div class="usage-row">
+                <span>500</span>
+                <strong>$78 MXN aprox.</strong>
+              </div>
+              <div class="usage-row">
+                <span>1,000</span>
+                <strong>$157 MXN aprox.</strong>
+              </div>
+              <div class="usage-row">
+                <span>2,000</span>
+                <strong>$313 MXN aprox.</strong>
+              </div>
+              <div class="usage-row">
+                <span>3,000</span>
+                <strong>$470 MXN aprox.</strong>
+              </div>
+              <div class="usage-row">
+                <span>5,000</span>
+                <strong>$783 MXN aprox.</strong>
+              </div>
+            </div>
+            <p class="provider-note">
+              El consumo real dependerá del número de mensajes efectivamente enviados/entregados y
+              de las tarifas vigentes de Meta.
+            </p>
+            <p class="provider-note">
+              Este consumo corresponde a Meta/WhatsApp Business Platform y no representa una
+              mensualidad de Ixmati.
+            </p>
+          </div>
+
+          <div class="cost-module reveal">
+            <div class="cost-module-head">
               <span class="icon">EN</span>
-              <h3>Paquetería / envíos</h3>
-              <p>
-                Cuando se generen envíos, la paquetería seleccionada cobrará la guía
-                correspondiente. El importe puede variar por destino, peso, dimensiones, proveedor y
-                tipo de servicio. Ixmati no cobra esas guías.
-              </p>
-            </article>
-            <article>
-              <span class="icon">FX</span>
-              <h3>Servicios externos futuros</h3>
-              <p>
-                Si más adelante OHC solicita incorporar una herramienta externa de pago fuera del
-                alcance actual, como un CRM externo, analítica premium, proveedor especializado o
-                software adicional, esa herramienta podría tener licencia o suscripción propia.
-              </p>
-            </article>
+              <div>
+                <p class="eyebrow">C. Paquetería / envíos</p>
+                <h3>La plataforma deja listo el pedido; OHC opera el envío físico.</h3>
+              </div>
+            </div>
+            <div class="shipping-split">
+              <article>
+                <h4>Ixmati entrega</h4>
+                <ul>
+                  <li>Pedido registrado</li>
+                  <li>Productos comprados</li>
+                  <li>Cantidades</li>
+                  <li>Datos del cliente</li>
+                  <li>Dirección de entrega</li>
+                  <li>Información de facturación cuando corresponda</li>
+                  <li>Estado/información del pedido dentro del panel</li>
+                  <li>Información para que el equipo de OHC prepare el envío</li>
+                </ul>
+              </article>
+              <article>
+                <h4>Operación de OHC</h4>
+                <ul>
+                  <li>Preparar físicamente la mercancía</li>
+                  <li>Empaquetarla</li>
+                  <li>Seleccionar u operar la paquetería</li>
+                  <li>Generar o adquirir la guía</li>
+                  <li>Imprimir y colocar la guía</li>
+                  <li>Entregar el paquete o coordinar la recolección</li>
+                  <li>Dar seguimiento logístico cuando corresponda</li>
+                </ul>
+              </article>
+            </div>
+            <p class="provider-note">
+              Ixmati no realiza la operación logística física cotidiana de OHC. El costo de cada
+              envío dependerá de la paquetería seleccionada, destino, dimensiones, peso y tipo de
+              servicio.
+            </p>
           </div>
 
           <div class="after-launch-note reveal">
-            <h3>Qué debe contemplar OHC después del lanzamiento</h3>
-            <p>
-              Después del lanzamiento, OHC únicamente deberá contemplar los costos operativos
-              propios de los servicios que utilice, por ejemplo comisiones por cobros con tarjeta,
-              mensajes procesados mediante plataformas externas o costos de envío.
+            <h3>¿Qué debe contemplar OHC después del lanzamiento?</h3>
+            <div class="cost-summary">
+              <article class="summary-main">
+                <span>Desarrollo e implementación</span>
+                <strong>$22,000 MXN + IVA</strong>
+                <p>Pago a Ixmati. Incluye la construcción e implementación del proyecto cotizado.</p>
+              </article>
+              <article>
+                <span>Pasarela de pago</span>
+                <strong>Comisión por venta</strong>
+                <p>Proveedor externo</p>
+              </article>
+              <article>
+                <span>WhatsApp</span>
+                <strong>Consumo según mensajes</strong>
+                <p>Meta</p>
+              </article>
+              <article>
+                <span>Envíos</span>
+                <strong>Costo por guía/envío</strong>
+                <p>Paquetería seleccionada</p>
+              </article>
+            </div>
+            <p class="final-cost-note">
+              Estos costos dependen del uso real de la plataforma y no son cargos adicionales de
+              Ixmati.
             </p>
-            <p>
-              Estos costos dependen del uso real de la plataforma y son cobrados directamente por
-              cada proveedor.
-            </p>
+            <small>
+              Tarifas de proveedores consultadas en septiembre de 2026. Pueden ser modificadas
+              directamente por cada proveedor.
+            </small>
           </div>
         </div>
       </section>
