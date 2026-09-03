@@ -3,7 +3,7 @@ import { renderSimulation } from "./simulation.js";
 import { loadSession } from "./storage.js";
 import { loadOptionalFonts } from "./webvision-fonts.js";
 
-const session = loadSession();
+const session = loadSession({ restore: true });
 const answers = session.answers || {};
 const selectedFeatureIds = session.selectedFeatureIds || [];
 const excludedFeatureIds = session.excludedFeatureIds || [];

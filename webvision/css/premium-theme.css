@@ -61,7 +61,8 @@ body::before {
     radial-gradient(circle, rgba(140, 255, 102, 0.55) 0 1px, transparent 1.5px);
   background-size: 96px 96px, 142px 142px;
   background-position: 0 0, 28px 54px;
-  animation: wvStarDrift 34s linear infinite;
+  /* Keep the viewport background on one stable paint layer while scrolling. */
+  animation: none;
 }
 
 body::after {
@@ -69,7 +70,9 @@ body::after {
   background:
     linear-gradient(110deg, transparent 0 22%, rgba(74, 163, 255, 0.08) 38%, transparent 52%),
     linear-gradient(290deg, transparent 0 26%, rgba(140, 255, 102, 0.08) 44%, transparent 58%);
-  animation: wvNebula 18s ease-in-out infinite alternate;
+  /* Animated filter + transform on a fixed full-viewport layer causes Chrome
+     compositor tearing on scroll, especially on high-DPI displays. */
+  animation: none;
 }
 
 @keyframes wvStarDrift {
@@ -87,6 +90,7 @@ body::after {
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
+  contain: strict;
 }
 
 .wv-cosmos span {
@@ -94,9 +98,9 @@ body::after {
   width: 38vw;
   aspect-ratio: 1;
   border-radius: 50%;
-  filter: blur(34px);
+  filter: blur(26px);
   opacity: 0.34;
-  animation: wvFloat 12s ease-in-out infinite alternate;
+  animation: none;
 }
 
 .wv-cosmos span:nth-child(1) {

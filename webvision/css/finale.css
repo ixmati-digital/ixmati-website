@@ -1,4 +1,20 @@
 /* Part 3: cinematic generation, reveal and final experience */
+
+/* Keep scrolling on a single stable compositor path. Translucent backgrounds
+   preserve the visual language; live backdrop blurs are the source of the
+   large rectangular repaint artifacts in Chrome during fast scrolling. */
+.wv-topbar,
+.wv-app *,
+.wv-app *::before,
+.wv-app *::after {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.wv-app .preview-visual::before {
+  animation: none;
+}
+
 .wv-app[data-step="generating"],
 .wv-app[data-step="vision"],
 .wv-app[data-step="diagnosis"],
@@ -38,15 +54,18 @@
 .wv-app[data-step="conversion"] .wv-workspace::after {
   content: "";
   position: absolute;
-  inset: -40%;
+  inset: 0;
   pointer-events: none;
   background:
     linear-gradient(90deg, rgba(157, 218, 255, 0.11) 1px, transparent 1px),
     linear-gradient(0deg, rgba(140, 255, 102, 0.07) 1px, transparent 1px);
   background-size: 86px 86px;
-  mask-image: radial-gradient(circle at 58% 46%, #000 0 34%, transparent 67%);
-  transform: perspective(900px) rotateX(58deg) translateY(-18%);
-  animation: wvGridMove 20s linear infinite;
+  opacity: 0.7;
+  /* A giant masked 3D pseudo-element was producing transient pixel blocks
+     when the page crossed the viewport edge in Chrome. */
+  mask-image: none;
+  transform: none;
+  animation: none;
 }
 
 .wv-app[data-step="generating"] .wv-actions,

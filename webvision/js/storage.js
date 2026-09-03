@@ -4,7 +4,10 @@ import { getAttribution } from "./analytics.js";
 const STORAGE_KEY = "ixmati_webvision_session";
 const LEADS_KEY = "ixmati_webvision_leads";
 
-export function loadSession() {
+export function loadSession({ restore = false } = {}) {
+  // The public demo must always start clean after a page reload. The preview
+  // opened from the current flow opts into restoring the generated session.
+  if (!restore) return createSession();
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : createSession();
