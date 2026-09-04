@@ -89,12 +89,18 @@ function bindEvents() {
 
   document.querySelectorAll("[data-style-choice]").forEach((button) => {
     button.addEventListener("click", () => {
-      form.elements.visualStyle.value = button.dataset.styleChoice;
+      const trait = button.dataset.styleChoice;
+      let current = String(form.elements.visualTraits?.value || form.elements.visualStyle.value || "Moderno").split("|").filter(Boolean);
+      if (trait !== "Moderno" && current.length === 1 && current[0] === "Moderno") current = [];
+      const traits = current.includes(trait) ? current.filter((item) => item !== trait) : [...current, trait];
+      const selectedTraits = traits.length ? traits : ["Moderno"];
+      if (form.elements.visualTraits) form.elements.visualTraits.value = selectedTraits.join("|");
+      form.elements.visualStyle.value = selectedTraits[0];
       syncVisualState(button);
       collectAnswers();
       renderLivePreview();
       persist("style_selected");
-      trackEvent("style_changed", { sessionId: session.id, style: button.dataset.styleChoice });
+      trackEvent("style_changed", { sessionId: session.id, style: selectedTraits.join("|") });
       pulseSelection(button);
     });
   });
@@ -470,7 +476,8 @@ function syncVisualState(source) {
     input.closest("label")?.classList.toggle("is-selected", input.checked);
   });
   document.querySelectorAll("[data-style-choice]").forEach((button) => {
-    button.classList.toggle("is-selected", button.dataset.styleChoice === answers.visualStyle);
+    const traits = String(answers.visualTraits || answers.visualStyle || "Moderno").split("|");
+    button.classList.toggle("is-selected", traits.includes(button.dataset.styleChoice));
   });
   document.querySelectorAll(".wv-feature-flow label").forEach((label) => {
     const input = label.querySelector("input[type='checkbox']");

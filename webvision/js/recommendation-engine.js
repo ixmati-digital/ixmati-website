@@ -43,6 +43,7 @@ export function buildRecommendation(answers, selectedFeatureIds, excludedFeature
 
   return {
     family,
+    visualProfile: { traits: getVisualTraits(answers) },
     basePlanId,
     solutionType: SOLUTION_NAMES[basePlanId],
     customName: customizeName(basePlanId, answers, allFeatures),
@@ -56,6 +57,11 @@ export function buildRecommendation(answers, selectedFeatureIds, excludedFeature
     notNeededYet: buildNotNeededYet(allFeatures),
     summary: buildSummary(answers, basePlanId, allFeatures, pricing)
   };
+}
+
+function getVisualTraits(answers) {
+  const raw = answers.visualTraits || answers.visualStyle || "Moderno";
+  return String(raw).split("|").map((trait) => sanitizeText(trait, 32)).filter(Boolean);
 }
 
 function customizeName(basePlanId, answers, features) {

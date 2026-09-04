@@ -40,7 +40,7 @@ export function calculatePricing({ basePlanId, featureIds = [], excludedFeatureI
     lineItems.push({ id: `without-${featureId}`, label: `Sin ${PRICING_CONFIG.modifiers[featureId]?.label || featureId}`, quantity: 1, amount: -credit });
   });
 
-  const visualMultiplier = getVisualMultiplier(answers.visualStyle);
+  const visualMultiplier = getVisualMultiplier(answers.visualTraits || answers.visualStyle);
   const urgencyMultiplier = answers.priorityDelivery ? 1.08 : 1;
   const estimated = Math.max(PRICING_CONFIG.minPrice, Math.round((subtotal * visualMultiplier * urgencyMultiplier) / 100) * 100);
   const rangeLow = Math.round((estimated * PRICING_CONFIG.commercialRange.low) / 100) * 100;
@@ -71,7 +71,8 @@ export function findBasePlan(planId) {
 
 function getVisualMultiplier(style = "") {
   const normalized = String(style).toLowerCase();
-  if (["premium", "editorial", "creativo"].includes(normalized)) return 1.08;
-  if (["minimalista", "corporativo"].includes(normalized)) return 1;
+  const traits = normalized.split("|");
+  if (traits.some((trait) => ["premium", "editorial", "creativo", "audaz"].includes(trait))) return 1.08;
+  if (traits.some((trait) => ["minimalista", "corporativo"].includes(trait))) return 1;
   return 1.03;
 }
