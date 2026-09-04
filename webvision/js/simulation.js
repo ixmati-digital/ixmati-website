@@ -51,6 +51,13 @@ const FAMILY_COPY = {
   }
 };
 
+const CARD_DETAILS = [
+  ["01", "Descubre", "Una entrada clara que lleva a cada visitante hacia la decisión correcta."],
+  ["02", "Convierte", "Presenta tu oferta con confianza, prueba social y llamados a la acción visibles."],
+  ["03", "Opera", "Conecta el contacto con un proceso más ordenado para que nada se pierda."],
+  ["04", "Crece", "Una base digital lista para sumar campañas, automatizaciones y nuevas oportunidades."]
+];
+
 export function renderSimulation(mount, answers, recommendation, options = {}) {
   const family = FAMILY_COPY[recommendation.family] || FAMILY_COPY.services;
   const businessName = sanitizeText(answers.businessName, 80) || "Tu negocio";
@@ -72,38 +79,46 @@ export function renderSimulation(mount, answers, recommendation, options = {}) {
           ${logo ? `<img src="${logo}" alt="Logo de ${escapeHtml(businessName)}">` : `<span class="preview-temp-logo">${escapeHtml(businessName.slice(0, 1).toUpperCase())}</span>`}
           <span>${escapeHtml(businessName)}</span>
         </div>
-        <nav class="preview-links">${family.nav.map((item) => `<a href="#preview-system">${escapeHtml(item)}</a>`).join("")}</nav>
-        <a class="preview-cta" href="#preview-contact">${escapeHtml(family.cta)}</a>
+        <nav class="preview-links">${family.nav.map((item, index) => `<a class="${index === 0 ? "is-active" : ""}" href="#${index === 0 ? "preview-system" : index === 1 ? "preview-offer" : "preview-contact"}">${escapeHtml(item)}</a>`).join("")}</nav>
+        <a class="preview-cta preview-cta-small" href="#preview-contact">${escapeHtml(family.cta)}</a>
       </header>
+      <div class="preview-topline"><span><i></i> Experiencia digital diseñada para ${escapeHtml(city)}</span><span>${escapeHtml(recommendation.included.slice(0, 3).join(" · "))}</span></div>
       <section class="preview-hero">
         <div>
           <p class="wv-kicker">${escapeHtml(style)} · ${escapeHtml(city)} · ${escapeHtml(typography)}</p>
           <h3>${escapeHtml(customHero(answers, family.hero))}</h3>
           <p>${escapeHtml(products)} presentado con una experiencia lista para convertir visitas en acciones reales.</p>
-          <a class="preview-cta" href="#preview-system">${escapeHtml(family.cta)}</a>
+          <div class="preview-hero-actions"><a class="preview-cta" href="#preview-system">${escapeHtml(family.cta)}</a>
           <a class="preview-secondary" href="#preview-contact">${escapeHtml(family.secondary)}</a>
+          </div>
+          <div class="preview-proof"><span>✦</span> Una experiencia pensada para vender, no solo para verse bien.</div>
         </div>
         <div class="preview-visual" aria-label="Vista aproximada del sistema recomendado">
-          <div class="preview-widget">
-            <strong>${escapeHtml(family.system)}</strong>
-            ${recommendation.included.slice(0, 4).map((item) => `<span>${escapeHtml(item)}</span>`).join("")}
+          <div class="preview-dashboard">
+            <div class="preview-dashboard-head"><span><i></i> ${escapeHtml(family.system)}</span><b>EN VIVO</b></div>
+            <div class="preview-dashboard-main"><div><small>Esta semana</small><strong>${recommendation.family === "stores" || recommendation.family === "restaurants" ? "128" : "24"}</strong><span class="preview-positive">↗ ${recommendation.family === "stores" ? "18.4%" : "12.8%"}</span></div><div class="preview-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+            <div class="preview-dashboard-list">${recommendation.included.slice(0, 3).map((item, index) => `<span><i>${index === 0 ? "✦" : index === 1 ? "↗" : "✓"}</i>${escapeHtml(item)}<b>${index === 0 ? "Activo" : "Listo"}</b></span>`).join("")}</div>
           </div>
         </div>
       </section>
-      <section class="preview-section" id="preview-system">
-        <h4>${escapeHtml(recommendation.solutionType)}</h4>
+      <section class="preview-trust"><span>Una presencia que transmite</span><b>confianza</b><span>claridad</span><b>y movimiento.</b></section>
+      <section class="preview-section preview-offer" id="preview-system">
+        <div class="preview-section-heading"><div><p class="preview-eyebrow">La experiencia completa</p><h4>${escapeHtml(recommendation.solutionType)}</h4></div><span class="preview-section-note">Diseñada alrededor de tu negocio</span></div>
         <div class="preview-grid">
-          ${family.cards.map((item, index) => `
+          ${family.cards.map((item, index) => { const detail = CARD_DETAILS[index % CARD_DETAILS.length]; return `
             <article class="preview-card">
+              <div class="preview-card-top"><span>${detail[0]}</span><i>↗</i></div>
               <strong>${escapeHtml(item)}</strong>
-              <p>${escapeHtml(previewText(index, recommendation))}</p>
+              <p>${escapeHtml(previewText(index, recommendation) || detail[2])}</p>
+              <small>${escapeHtml(detail[1])}</small>
             </article>
-          `).join("")}
+          `; }).join("")}
         </div>
       </section>
+      <section class="preview-spotlight" id="preview-offer"><div><p class="preview-eyebrow">Tu siguiente nivel</p><h4>Haz que cada visita tenga un siguiente paso.</h4><p>Una estructura digital con intención: mostrar, convencer y facilitar la acción.</p></div><div class="preview-checklist">${recommendation.included.slice(0, 4).map((item) => `<span><i>✓</i>${escapeHtml(item)}</span>`).join("")}</div></section>
       <footer class="preview-footer" id="preview-contact">
-        <strong>${escapeHtml(businessName)}</strong>
-        <span>WhatsApp · Contacto · ${escapeHtml(city)}</span>
+        <div><p class="preview-eyebrow">Listo para dar el siguiente paso?</p><strong>${escapeHtml(businessName)}</strong><span>Construyamos una experiencia a la altura de tu negocio.</span></div>
+        <a class="preview-cta" href="mailto:contacto@ixmatiestudio.com">${escapeHtml(family.cta)} <b>→</b></a>
       </footer>
     </div>
   `;
