@@ -48,6 +48,13 @@ function init() {
 }
 
 function bindEvents() {
+  document.querySelector("[data-action='restart-webvision']")?.addEventListener("click", (event) => {
+    event.preventDefault();
+    // Use a fresh URL so a click from any scene always resets the wizard,
+    // even when the browser tries to reuse the current document/history entry.
+    window.location.replace(`./index.html?restart=${Date.now()}`);
+  });
+
   document.querySelector("[data-action='start']").addEventListener("click", () => {
     trackEvent("webvision_started", { sessionId: session.id });
     animateStartTransition(() => goTo(1));
