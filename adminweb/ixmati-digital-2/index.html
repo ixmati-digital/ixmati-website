@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ixmati Digital 2.0 — manual ejecutivo navegable para la nueva operación.">
+  <title>Ixmati Digital 2.0 — Nueva operación</title>
+  <script src="../auth-guard.js?v=20260915-jady"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20260915-jady">
+</head>
+<body>
+  <div class="reading-progress" aria-hidden="true"><span id="readingProgress"></span></div>
+  <header class="site-header">
+    <a class="brand" href="#inicio" aria-label="Ixmati Digital 2.0, inicio">
+      <span class="brand-mark">IX</span><span class="brand-copy">IXMATI <small>DIGITAL 2.0</small></span>
+    </a>
+    <div class="header-status"><span class="status-dot"></span><span>MANUAL EJECUTIVO</span><span class="header-slash">/</span><span>V1</span></div>
+    <button class="index-toggle" type="button" aria-expanded="false" aria-controls="chapterPanel"><span class="menu-icon">☰</span><span>Índice</span></button>
+  </header>
+
+  <aside class="chapter-panel" id="chapterPanel" aria-label="Índice de capítulos" aria-hidden="true">
+    <div class="panel-head"><span class="mono-label">RECORRIDO</span><button class="panel-close" type="button" aria-label="Cerrar índice">×</button></div>
+    <p class="panel-intro">La nueva operación, de la intuición al sistema.</p>
+    <nav id="chapterLinks" class="chapter-links"></nav>
+    <div class="panel-footer"><span id="panelSection">01 / 35</span><span>JADY + JARED</span></div>
+  </aside>
+  <div class="panel-scrim" hidden></div>
+
+  <main>
+    <section class="hero section-anchor" id="inicio" data-section="01" data-chapter="01 — Evolución">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span>00</span> PRESENTACIÓN EJECUTIVA · JADY + JARED</p>
+          <h1>Ixmati<br><em>Digital 2.0</em></h1>
+          <p class="hero-lead">De servicios digitales aislados a sistemas de conversión y operación.</p>
+          <p class="hero-note">La capacidad ya existía. Ahora se organiza para crecer.</p>
+          <div class="hero-actions"><a class="button button-primary" href="#evolucion">Comenzar recorrido <span>↘</span></a><a class="button button-quiet" href="#mapa">Ver mapa <span>⌘</span></a></div>
+        </div>
+        <div class="hero-system" aria-label="Vista previa de la nueva operación">
+          <div class="hero-orbit orbit-a"></div><div class="hero-orbit orbit-b"></div>
+          <div class="hero-core"><span>IX</span><small>OPERATING<br>SYSTEM EXPLORER</small></div>
+          <div class="orbit-label label-a">LEAD → WON</div><div class="orbit-label label-b">QA → GO-LIVE</div><div class="orbit-label label-c">MEASURE → GROW</div>
+        </div>
+      </div>
+      <div class="hero-meta"><span>10 capítulos</span><i></i><span>35 secciones</span><i></i><span>Una operación compartida</span><span class="scroll-hint">SCROLL PARA EXPLORAR ↓</span></div>
+    </section>
+
+    <section class="map-strip section-anchor" id="mapa" data-section="02" data-chapter="01 — Evolución">
+      <div><p class="eyebrow"><span>01</span> EL RECORRIDO</p><h2>Una conversación con dirección.</h2></div>
+      <div class="map-chapters" id="mapChapters"></div>
+    </section>
+
+    <section class="section section-light section-anchor" id="evolucion" data-section="03" data-chapter="01 — Evolución">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>02</span> EVOLUCIÓN</p><h2>La operación deja de depender de la memoria.</h2></div><p>El cambio no borra la historia de Ixmati. La convierte en una forma repetible de crear valor, vender con claridad y operar con menos fricción.</p></div>
+      <div class="before-after">
+        <article class="transition-card before"><div class="card-label"><span class="label-number">A</span><span>ANTES</span></div><h3>El servicio se reinicia cada vez.</h3><div class="flow old-flow"><span>Cliente</span><b>→</b><span>Solicitud</span><b>→</b><span>Cotización desde cero</span><b>→</b><span>Producción personalizada</span><b>→</b><span>Entrega</span></div><p>La capacidad está ahí, pero la información se fragmenta y cada proyecto depende demasiado de personas clave.</p></article>
+        <div class="transition-arrow" aria-hidden="true">→</div>
+        <article class="transition-card after"><div class="card-label"><span class="label-number">B</span><span>AHORA</span></div><h3>Un sistema conecta cada decisión.</h3><div class="flow new-flow"><span>Lead</span><b>→</b><span>Qualification</span><b>→</b><span>Product Fit</span><b>→</b><span>Proposal</span><b>→</b><span>Payment</span><b>→</b><span>Onboarding</span><b>→</b><span>Delivery</span><b>→</b><span>QA</span><b>→</b><span>Go-Live</span><b>→</b><span>Operation</span><b>→</b><span>Measurement</span></div><p>La misma capacidad se vuelve visible, medible y transferible entre venta, producción y dirección.</p></article>
+      </div>
+    </section>
+
+    <section class="section section-ink section-anchor" id="mundos" data-section="04" data-chapter="02 — Modelo">
+      <div class="section-intro split-intro"><div><p class="eyebrow inverse"><span>03</span> MODELO</p><h2>Los 3 mundos de Ixmati Digital.</h2></div><p class="on-dark">No todo cliente necesita la misma conversación. La categoría nos ayuda a reconocer la complejidad antes de prometer una solución.</p></div>
+      <div class="worlds-grid">
+        <button class="world-card cash" type="button" data-world="cash"><span class="world-index">01</span><span class="world-name">Cash</span><span class="world-desc">Rápido.<br>Acotado.<br>Repetible.</span><span class="world-cta">Explorar mundo ↗</span></button>
+        <button class="world-card growth" type="button" data-world="growth"><span class="world-index">02</span><span class="world-name">Growth</span><span class="world-desc">Proceso.<br>Integración.<br>Operación.</span><span class="world-cta">Explorar mundo ↗</span></button>
+        <button class="world-card enterprise" type="button" data-world="enterprise"><span class="world-index">03</span><span class="world-name">Enterprise</span><span class="world-desc">Complejidad.<br>Discovery.<br>Arquitectura.</span><span class="world-cta">Explorar mundo ↗</span></button>
+      </div>
+      <div class="complexity-note"><span class="signal-line"></span><p><strong>La variable no es el tamaño de la empresa.</strong> Es la complejidad del proceso que necesitamos entender, integrar y sostener.</p></div>
+    </section>
+
+    <section class="section section-light section-anchor" id="cash" data-section="05" data-chapter="03 — Productos">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>04</span> CASH ENGINE</p><h2>Productos que pueden repetirse sin perder intención.</h2></div><p>Entrada rápida para necesidades acotadas. Cada producto tiene un borde claro: qué resuelve, qué entrega y cuándo deja de ser Cash.</p></div>
+      <div class="product-grid" id="cashProducts"></div>
+    </section>
+
+    <section class="section section-warm section-anchor" id="growth" data-section="06" data-chapter="03 — Productos">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>05</span> GROWTH ENGINE</p><h2>No vendemos herramientas aisladas.</h2></div><p>Un CRM, un bot, n8n, WhatsApp o un dashboard no son el producto estratégico. Son piezas de un proceso empresarial conectado.</p></div>
+      <div class="connected-system"><div class="system-line"></div><div class="system-node"><span>01</span><strong>Adquisición</strong><small>atraer la oportunidad</small></div><div class="system-node"><span>02</span><strong>Conversión</strong><small>capturar y acompañar</small></div><div class="system-node"><span>03</span><strong>Operación</strong><small>cumplir lo prometido</small></div><div class="system-node"><span>04</span><strong>Medición</strong><small>aprender y ajustar</small></div></div>
+      <div class="growth-tabs" role="tablist" aria-label="Motores de Growth"><button class="tab is-active" type="button" role="tab" aria-selected="true" data-growth-tab="conversion">Sistema de conversión</button><button class="tab" type="button" role="tab" aria-selected="false" data-growth-tab="reservations">Reservas y retención</button><button class="tab" type="button" role="tab" aria-selected="false" data-growth-tab="commerce">Comercio operativo</button></div>
+      <div id="growthPanel" class="growth-panel"></div>
+    </section>
+
+    <section class="section section-light section-anchor" id="enterprise" data-section="07" data-chapter="03 — Productos">
+      <div class="enterprise-layout"><div class="enterprise-statement"><p class="eyebrow"><span>06</span> ENTERPRISE</p><h2>Hay un punto donde dejar de cotizar rápido es una señal de profesionalismo.</h2><p>Cuando el proceso sale del producto, primero se entiende. Discovery protege al cliente y a Ixmati de una promesa prematura.</p></div><div class="enterprise-flow"><div class="enterprise-trigger"><span>SEÑALES DE COMPLEJIDAD</span><div class="trigger-list"><b>varias áreas</b><b>sistemas existentes</b><b>migración</b><b>múltiples sedes</b><b>datos sensibles</b><b>permisos</b><b>integraciones custom</b><b>lógica nueva</b></div></div><div class="enterprise-steps"><div><span>01</span><strong>Discovery</strong><em data-enterprise-price="discovery"></em></div><i>↓</i><div><span>02</span><strong>Architecture / Scope</strong><em>entender el proceso y sus fases</em></div><i>↓</i><div><span>03</span><strong>MVP</strong><em data-enterprise-price="mvp"></em></div><i>↓</i><div><span>04</span><strong>Multiárea / Custom</strong><em data-enterprise-price="multi-custom"></em></div></div></div></div>
+    </section>
+
+    <section class="section section-ink section-anchor" id="explorer" data-section="08" data-chapter="04 — Pricing">
+      <div class="section-intro split-intro"><div><p class="eyebrow inverse"><span>07</span> EXPLORER</p><h2>Core, Pro, Enterprise.<br><em>La variable es complejidad.</em></h2></div><p class="on-dark">Core no significa barato. Pro no significa “más features”. Enterprise no significa empresa grande. Cambia el número de áreas, roles, fuentes, excepciones y decisiones que el sistema debe sostener.</p></div>
+      <div class="tier-explorer"><div class="tier-rail" role="tablist" aria-label="Comparar niveles"><button class="tier-button is-active" data-tier="core" type="button"><span>01</span>Core</button><button class="tier-button" data-tier="pro" type="button"><span>02</span>Pro</button><button class="tier-button" data-tier="enterprise" type="button"><span>03</span>Enterprise</button></div><div class="tier-detail" id="tierDetail"></div></div>
+    </section>
+
+    <section class="section section-light section-anchor" id="price-book" data-section="09" data-chapter="04 — Pricing">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>08</span> PRICE BOOK</p><h2>Una fuente interna para conversar con precisión.</h2></div><p>La vista principal es breve. El detalle aparece al seleccionar un producto. Los precios viven en un solo modelo para evitar contradicciones.</p></div>
+      <div class="price-filter" role="tablist" aria-label="Filtrar Price Book"><button class="filter-button is-active" data-filter="all" type="button">All</button><button class="filter-button" data-filter="cash" type="button">Cash</button><button class="filter-button" data-filter="growth" type="button">Growth</button><button class="filter-button" data-filter="enterprise" type="button">Enterprise</button></div>
+      <div class="price-table-wrap"><table class="price-table"><thead><tr><th>Producto</th><th>Categoría</th><th>Setup</th><th>Mensualidad</th><th>Tiempo</th><th></th></tr></thead><tbody id="priceBookBody"></tbody></table></div>
+      <div class="exclusions"><span class="eyebrow">NOTAS DE ALCANCE</span><p>IVA cuando corresponda · ads · licencias · mensajes/API · consumo IA · hosting de alto uso · integraciones fuera de alcance · desarrollo adicional</p></div>
+    </section>
+
+    <section class="section section-warm section-anchor" id="value" data-section="10" data-chapter="04 — Pricing">
+      <div class="value-layout"><div><p class="eyebrow"><span>09</span> POR QUÉ CUESTA ESO</p><h2>Una herramienta se compra.<br>Un sistema se implementa.</h2><p>El valor no está en sumar licencias. Está en diagnosticar, configurar, integrar, ordenar datos, capacitar, revisar y medir.</p></div><div class="value-equation"><span>LICENCIA / HERRAMIENTA</span><b>≠</b><div class="equation-stack"><strong>diagnóstico</strong><strong>+ configuración</strong><strong>+ integración</strong><strong>+ datos</strong><strong>+ proceso</strong><strong>+ capacitación</strong><strong>+ QA</strong><strong>+ operación</strong><strong>+ medición</strong></div></div></div>
+    </section>
+
+    <section class="section section-light section-anchor" id="fit" data-section="11" data-chapter="04 — Pricing">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>10</span> A QUIÉN VENDEMOS</p><h2>El fit también es una decisión.</h2></div><p>Reconocer señales temprano protege el tiempo del cliente y permite ofrecer el nivel correcto de conversación.</p></div>
+      <div class="fit-spectrum"><div class="fit-axis"><span>LOW FIT</span><span>STRUCTURED SME</span><span>MEDIUM</span><span>INSTITUTION / ENTERPRISE</span></div><div class="spectrum-line"><span class="spectrum-marker marker-1"></span><span class="spectrum-marker marker-2"></span><span class="spectrum-marker marker-3"></span><span class="spectrum-marker marker-4"></span></div><div class="fit-descriptions"><div><b>Señales</b><p>necesidad difusa<br>sin responsable claro</p></div><div><b>Señales</b><p>proceso identificable<br>decisión cercana</p></div><div><b>Señales</b><p>varias áreas<br>dependencias visibles</p></div><div><b>Señales</b><p>riesgo, datos, sedes<br>alcance por descubrir</p></div></div></div>
+      <div class="fit-callout"><div><span class="fit-good">BUEN FIT</span><p>Quiere ordenar un proceso, puede compartir contexto y está dispuesto a decidir por fases.</p></div><div><span class="fit-no">NO FIT</span><p>Busca scope ilimitado, una promesa instantánea o una herramienta sin cambiar el proceso.</p></div></div>
+    </section>
+
+    <section class="section section-ink section-anchor" id="sales" data-section="12" data-chapter="05 — Ventas">
+      <div class="section-intro split-intro"><div><p class="eyebrow inverse"><span>11</span> SALES JOURNEY</p><h2>De una oportunidad a un acuerdo activable.</h2></div><p class="on-dark">Cada etapa responde una pregunta. Selecciona una para ver qué significa, qué buscamos y qué sale de ahí.</p></div>
+      <div class="journey-wrap"><div class="journey-track" id="salesTrack"></div><div class="journey-detail" id="salesDetail"></div></div>
+    </section>
+
+    <section class="section section-light section-anchor" id="hubspot" data-section="13" data-chapter="05 — Ventas">
+      <div class="hubspot-layout"><div><p class="eyebrow"><span>12</span> HUBSPOT</p><h2>La fuente de verdad comercial.</h2><p>HubSpot no es un tutorial ni una tarea extra. Es el lugar donde la oportunidad queda legible para dirección y para quien toma el siguiente paso.</p><div class="record-list"><span>cliente</span><span>producto</span><span>tier</span><span>setup</span><span>MRR</span><span>stage</span><span>qualification</span></div></div><div class="crm-card"><div class="crm-top"><span class="crm-logo">H</span><span>CLÍNICA X</span><span class="crm-stage">WON</span></div><div class="crm-flow"><span>Lead</span><i>→</i><span>Qualification</span><i>→</i><span>Reservations Pro</span><i>→</i><span>Proposal</span><i>→</i><strong>Won</strong></div><div class="crm-metrics"><div><small>SETUP</small><strong id="crmSetup">—</strong></div><div><small>MRR</small><strong id="crmMrr">—</strong></div><div><small>ACTIVACIÓN</small><strong>Payment</strong></div></div></div></div>
+    </section>
+
+    <section class="section section-warm section-anchor" id="commercial-docs" data-section="14" data-chapter="05 — Ventas">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>13</span> PROPUESTA / SOW / CONTRATO</p><h2>Tres documentos.<br>Tres trabajos distintos.</h2></div><p>La claridad comercial continúa en la documentación: la propuesta vende, el SOW define el trabajo y el contrato formaliza la relación.</p></div>
+      <div class="document-trio"><article><span class="doc-number">01</span><h3>Proposal</h3><p>Vende la solución: contexto, enfoque, inversión y el porqué.</p><small>ENTRA: problema · solución · precio</small></article><article><span class="doc-number">02</span><h3>SOW</h3><p>Define exactamente el trabajo: entregables, exclusiones, inputs, timeline y aceptación.</p><small>ENTRA: alcance · responsabilidades · criterios</small></article><article><span class="doc-number">03</span><h3>Contract</h3><p>Formaliza la relación y las condiciones para trabajar juntos.</p><small>ENTRA: relación · obligaciones · acuerdo</small></article></div>
+    </section>
+
+    <section class="section section-light section-anchor" id="delivery" data-section="15" data-chapter="06 — Delivery">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>14</span> DELIVERY JOURNEY</p><h2>Entregar también es diseñar la experiencia.</h2></div><p>Desde Won hasta Close / Operate, cada gate evita que “se ve terminado” se confunda con “está listo para entregar”.</p></div>
+      <div class="delivery-journey" id="deliveryJourney"></div><div class="delivery-detail" id="deliveryDetail"></div>
+    </section>
+
+    <section class="section section-ink section-anchor" id="playbooks" data-section="16" data-chapter="06 — Delivery">
+      <div class="section-intro split-intro"><div><p class="eyebrow inverse"><span>15</span> MANUALES DE PRODUCCIÓN</p><h2>Base + familia = delivery consistente.</h2></div><p class="on-dark">No mostramos SOP completos de entrada. Mostramos la arquitectura para entender qué permanece estable y qué cambia según el producto.</p></div>
+      <div class="playbook-equation"><div><span>BASE DELIVERY PROCESS</span><small>el camino común del proyecto</small></div><b>+</b><div><span>PRODUCT PLAYBOOK</span><small>la lógica específica de la familia</small></div><b>=</b><strong>PROJECT<br>DELIVERY</strong></div>
+      <div class="playbook-tabs" id="playbookTabs"></div><div class="playbook-detail" id="playbookDetail"></div>
+    </section>
+
+    <section class="section section-light section-anchor" id="quality" data-section="17" data-chapter="06 — Delivery">
+      <div class="quality-layout"><div><p class="eyebrow"><span>16</span> QA + DEFINITION OF DONE</p><h2>“Se ve terminado”<br><em>no es “está listo”.</em></h2><p>Definition of Done convierte la intuición de cierre en un acuerdo visible. El producto debe funcionar, comunicar y poder sostenerse.</p></div><div class="quality-checklist"><div class="quality-progress"><span>DEFINITION OF DONE</span><strong>07 <small>/ 07</small></strong></div><ul><li>functional <span>✓</span></li><li>content <span>✓</span></li><li>responsive <span>✓</span></li><li>tracking <span>✓</span></li><li>permissions <span>✓</span></li><li>security cuando aplique <span>✓</span></li><li>acceptance criteria <span>✓</span></li></ul></div></div>
+    </section>
+
+    <section class="section section-warm section-anchor" id="change-control" data-section="18" data-chapter="06 — Delivery">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>17</span> CONTROL DE CAMBIOS</p><h2>Nombrar bien el cambio protege la relación.</h2></div><p>Tres caminos fáciles de recordar. La diferencia está en si incumplimos, si ajustamos dentro del alcance o si aparece una nueva necesidad.</p></div>
+      <div class="change-trio"><button class="change-card correction is-active" type="button" data-change="correction"><span>01</span><h3>Correction</h3><p>Incumplimos lo contratado.<br>Ixmati corrige.</p><b>Ver ejemplo ↗</b></button><button class="change-card revision" type="button" data-change="revision"><span>02</span><h3>Revision</h3><p>Ajuste permitido<br>dentro del alcance.</p><b>Ver ejemplo ↗</b></button><button class="change-card request" type="button" data-change="request"><span>03</span><h3>Change Request</h3><p>Nueva necesidad / nuevo alcance.<br>Se evalúa, cotiza y aprueba.</p><b>Ver ejemplo ↗</b></button></div><div class="change-example" id="changeExample"></div>
+    </section>
+
+    <section class="section section-light section-anchor" id="monthly" data-section="19" data-chapter="07 — Operación">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>18</span> MENSUALIDADES</p><h2>¿Por qué hay una mensualidad?</h2></div><p>No es “mantenimiento porque sí”. Es la operación que mantiene el sistema útil, observado y acompañado después del go-live.</p></div>
+      <div class="operation-compare"><article><div class="op-heading"><span>CORE OPERATION</span><b>Base</b></div><ul><li>acompañamiento operativo</li><li>revisión del sistema</li><li>soporte dentro del alcance</li><li>medición de lo acordado</li></ul></article><article class="op-pro"><div class="op-heading"><span>PRO OPERATION</span><b>Mayor complejidad</b></div><ul><li>más áreas y handoffs</li><li>mayor seguimiento de excepciones</li><li>reporting y coordinación ampliados</li><li>operación acorde al sistema</li></ul></article></div><div class="not-included"><span class="eyebrow">NO INCLUYE POR SÍ SOLA</span><div><span>licencias</span><span>ads</span><span>consumo variable</span><span>módulos nuevos</span><span>migraciones</span><span>integraciones nuevas</span><span>desarrollo ilimitado</span></div></div>
+    </section>
+
+    <section class="section section-warm section-anchor" id="profitability" data-section="20" data-chapter="07 — Operación">
+      <details class="secondary-details"><summary><span><p class="eyebrow"><span>19</span> RENTABILIDAD</p><strong>Cómo protegemos que esto sea negocio</strong></span><span class="summary-plus">+</span></summary><div class="profit-content"><p>Esta vista es secundaria: ayuda a revisar la salud del sistema sin interrumpir la narrativa principal.</p><div class="profit-metrics"><span>Revenue</span><span>Hours</span><span>Direct Cost</span><span>External Cost</span><strong>Gross Margin</strong></div><div class="margin-target"><strong>65–70%</strong><span>objetivo V1 de gross margin</span><small>El loaded cost/hour inicial es una hipótesis V1 a validar con proyectos reales.</small></div></div></details>
+    </section>
+
+    <section class="section section-light section-anchor" id="stack" data-section="21" data-chapter="07 — Operación">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>20</span> OPERATING STACK</p><h2>Herramientas con un papel claro.</h2></div><p>El stack no es el producto. Es la infraestructura que hace visible la operación.</p></div>
+      <div class="stack-map"><div class="stack-center">IXMATI<br><small>OPERACIÓN</small></div><div class="stack-item stack-hubspot"><b>HUBSPOT</b><span>Sales</span></div><div class="stack-item stack-clickup"><b>CLICKUP</b><span>Delivery / QA / Support / Hours</span></div><div class="stack-item stack-drive"><b>DRIVE</b><span>Documents / Knowledge</span></div><div class="stack-item stack-password"><b>SECURE PASSWORD MANAGER</b><span>Credentials · Bitwarden Teams pendiente / opción prevista</span></div><div class="stack-item stack-dev"><b>GITHUB / CODEX / VERCEL / SUPABASE</b><span>Development</span></div><div class="stack-item stack-n8n"><b>N8N</b><span>Automation later</span></div></div>
+    </section>
+
+    <section class="section section-ink section-anchor" id="ixmati-os" data-section="22" data-chapter="07 — Operación">
+      <div class="os-layout"><div><p class="eyebrow inverse"><span>21</span> POR QUÉ NO IXMATI OS</p><h2>No construimos software interno porque sí.</h2><p class="on-dark">Primero hacemos que la operación exista en la práctica. Solo automatizamos o construimos cuando ya sabemos qué vale la pena sostener.</p></div><div class="os-sequence"><span>USE</span><i>↓</i><span>MEASURE</span><i>↓</i><span>STABILIZE</span><i>↓</i><span>AUTOMATE</span><i>↓</i><strong>BUILD ONLY IF JUSTIFIED</strong></div></div>
+    </section>
+
+    <section class="section section-light section-anchor" id="roles" data-section="23" data-chapter="08 — Equipo">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>22</span> ROLES</p><h2>El sistema recuerda.<br>Las personas deciden y ejecutan.</h2></div><p>La operación no reemplaza criterio. Lo distribuye mejor: relación y dirección, arquitectura, producción y aprendizaje asignado.</p></div>
+      <div class="role-grid"><article><span>01</span><h3>Jady</h3><p>Relación · negocio · cliente · contexto · dirección</p></article><article><span>02</span><h3>Jared</h3><p>Arquitectura · Discovery complejo · software · IA · automatización · dirección técnica · QA crítico</p></article><article><span>03</span><h3>Delivery Team</h3><p>Producción según el sistema y la Definition of Done de cada familia.</p></article><article><span>04</span><h3>Interns</h3><p>Trabajo asignado · SOP · output · QA · escalation</p></article></div>
+    </section>
+
+    <section class="section section-warm section-anchor" id="views" data-section="24" data-chapter="08 — Equipo">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>23</span> VISTAS POR PERSONA</p><h2>La misma operación.<br>La vista correcta.</h2></div><p>Cada persona ve lo que necesita para decidir o ejecutar, sin convertir toda la operación en un dashboard.</p></div>
+      <div class="persona-tabs" id="personaTabs"></div><div class="persona-view" id="personaView"></div>
+    </section>
+
+    <section class="section section-light section-anchor" id="cases" data-section="25" data-chapter="09 — Casos">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>24</span> CASOS INTERACTIVOS</p><h2>Un cliente nos dice…<br>¿qué venderíamos?</h2></div><p>Practicar la conversación ayuda a reconocer fit, producto y siguiente paso. Selecciona un caso y revela la respuesta.</p></div>
+      <div class="case-selector" id="caseSelector"></div><div class="case-reveal" id="caseReveal"></div>
+    </section>
+
+    <section class="section section-ink section-anchor" id="school" data-section="26" data-chapter="09 — Casos">
+      <div class="school-layout"><div><p class="eyebrow inverse"><span>25</span> CASO ESCUELA</p><h2>La respuesta profesional empieza por no cotizar un ERP.</h2><p class="on-dark">“Queremos reemplazar nuestro sistema escolar.” No es un producto validado todavía. Es una conversación que necesita límites y Discovery.</p></div><div class="school-path"><div class="wrong"><span>RESPUESTA INCORRECTA</span><strong>Cotizar ERP<br>inmediatamente.</strong></div><div class="right"><span>RESPUESTA CORRECTA</span><strong>Pre-diagnóstico comercial limitado</strong><i>↓</i><strong>Fit → Discovery → Arquitectura → Fases</strong></div></div></div>
+    </section>
+
+    <section class="section section-light section-anchor" id="traditional" data-section="27" data-chapter="09 — Casos">
+      <div class="traditional-card"><div><p class="eyebrow"><span>26</span> SEPARACIÓN DE OPERACIONES</p><h2>Ixmati Digital 2.0<br><span>≠</span> Ixmati Traditional</h2></div><p>Traditional permanece como proyecto / operación separada. Puede conectarse posteriormente, pero no se mezcla ahora con el nuevo sistema digital.</p></div>
+    </section>
+
+    <section class="section section-warm section-anchor" id="dont-do" data-section="28" data-chapter="09 — Casos">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>27</span> QUÉ NO HACEMOS</p><h2>Los bordes también son estrategia.</h2></div><p>Decir no a tiempo mantiene la operación enfocada y protege la calidad de cada sí.</p></div>
+      <div class="dont-list"><span>migrar 20 años de historia</span><span>automatizar procesos inestables</span><span>construir Ixmati OS todavía</span><span>vender horas de n8n</span><span>vender bots como estrategia central</span><span>aceptar scope ilimitado</span><span>guardar contraseñas en documentos</span><span>cotizar Enterprise sin entender el proceso</span></div>
+    </section>
+
+    <section class="section section-light section-anchor" id="activation" data-section="29" data-chapter="10 — Activación">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>28</span> ACTIVACIÓN V1</p><h2>Active only + new going forward.</h2></div><p>La V1 se valida con trabajo real. Medimos los primeros tres proyectos, aprendemos y ajustamos antes de automatizar lo estable.</p></div>
+      <div class="activation-path"><div class="activation-project"><span>PROJECT 01</span><strong>Active only</strong><small>un proyecto que está vivo</small></div><i>→</i><div class="activation-project"><span>PROJECT 02</span><strong>New going forward</strong><small>un proyecto nuevo</small></div><i>→</i><div class="activation-project"><span>PROJECT 03</span><strong>Review</strong><small>qué aprendimos</small></div></div><div class="measure-row"><span>hours</span><span>margin</span><span>friction</span><span>errors</span><span>adoption</span></div>
+    </section>
+
+    <section class="section section-ink section-anchor" id="transformation" data-section="30" data-chapter="10 — Activación">
+      <div class="final-transformation"><div><p class="eyebrow inverse"><span>29</span> TRANSFORMACIÓN FINAL</p><h2>De entregar servicios<br>a operar sistemas.</h2></div><div class="final-flow"><div class="final-old"><span>ANTES</span><p>Service → Quote → Produce → Deliver</p></div><div class="final-divider">↓</div><div class="final-new"><span>AHORA</span><p>Lead → Qualification → Solution → Proposal → Won → Activation → Onboarding → Delivery → QA → Go-Live → Operation → Measurement → Optimization</p></div></div></div>
+    </section>
+
+    <section class="section section-light section-anchor" id="decisions" data-section="31" data-chapter="10 — Activación">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>30</span> INFORM / ALIGN / DECIDE</p><h2>La reunión termina aquí.</h2></div><p>El recorrido informa. La conversación alinea. Estas cuatro decisiones quedan listas para discutir, no marcadas como aprobadas.</p></div>
+      <div class="decision-columns"><div><span class="decision-kicker">INFORM</span><h3>Lo que Jady ya conoció durante el recorrido.</h3><p>Modelo, productos, precios, venta, delivery, roles y límites.</p></div><div><span class="decision-kicker">ALIGN</span><h3>Puntos donde Jared + Jady necesitan estar alineados.</h3><p>Qué se activa, qué se mide y dónde empieza el nuevo estándar.</p></div><div class="decide-column"><span class="decision-kicker">DECIDE</span><div class="decision-list" id="decisionList"></div></div></div>
+    </section>
+
+    <section class="section section-warm section-anchor" id="faq" data-section="32" data-chapter="10 — Activación">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>31</span> FAQ</p><h2>Las preguntas que aparecen en la junta.</h2></div><p>Busca o abre una pregunta. Las respuestas mantienen la conversación dentro del alcance documentado.</p></div>
+      <label class="faq-search"><span>⌕</span><input id="faqSearch" type="search" placeholder="Buscar una pregunta…" autocomplete="off"></label><div class="faq-list" id="faqList"></div>
+    </section>
+
+    <section class="section section-light section-anchor" id="glossary" data-section="33" data-chapter="10 — Activación">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>32</span> GLOSARIO</p><h2>Hablar claro también es operar.</h2></div><p>Los términos técnicos aparecen solo cuando ayudan. Aquí viven sus definiciones para volver a ellas cuando sea necesario.</p></div><div class="glossary-grid" id="glossaryGrid"></div>
+    </section>
+
+    <section class="section section-warm section-anchor" id="guardrails" data-section="34" data-chapter="10 — Activación">
+      <div class="section-intro split-intro"><div><p class="eyebrow"><span>33</span> EXPERIENCIA V1</p><h2>Diseñada para presentar.<br>Construida para durar.</h2></div><p>La interacción tiene propósito: transiciones sutiles, progressive disclosure, teclado, contraste y una experiencia responsive que conserva la narrativa.</p></div>
+      <div class="guardrail-grid"><div><span>01</span><strong>Presentar</strong><p>Capítulos, progreso y navegación anterior / siguiente para una pantalla grande.</p></div><div><span>02</span><strong>Explorar</strong><p>Accordions, tabs, drawers y casos revelables para profundizar sin saturar.</p></div><div><span>03</span><strong>Operar</strong><p>HTML semántico, focus visible, reduced motion y lectura cómoda en cualquier tamaño.</p></div></div>
+    </section>
+
+    <section class="closing section-anchor" id="closing" data-section="35" data-chapter="10 — Activación">
+      <div class="closing-mark">IX</div><p class="eyebrow inverse"><span>34</span> CIERRE</p><h2>La capacidad ya estaba.<br><em>Ahora tiene sistema.</em></h2><p>Ixmati Digital 2.0 · Nueva operación · V1</p><a class="button button-light" href="#inicio">Volver al inicio ↑</a>
+    </section>
+  </main>
+
+  <dialog class="product-dialog" id="productDialog"><div class="dialog-inner"><button class="dialog-close" type="button" aria-label="Cerrar detalle">×</button><div id="dialogContent"></div></div></dialog>
+  <div class="glossary-popover" id="glossaryPopover" role="tooltip" hidden></div>
+  <script src="app.js?v=20260915-jady" defer></script>
+</body>
+</html>
