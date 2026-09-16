@@ -47,6 +47,8 @@
     .su-topbar { order: 0; }
     .page-head { order: 1; }
     .layout { order: 2; }
+    .layout { grid-template-columns: minmax(0, 1fr); }
+    .layout > aside { display: none; }
     .current-plan[aria-labelledby="planTitle"] { order: 3; }
     .week-section { order: 4; }
     .current-plan[aria-labelledby="produceTitle"] { order: 5; }
@@ -511,7 +513,7 @@
         <p class="eyebrow">Centro de Produccion Ixmati</p>
         <h1>Calendario editorial</h1>
         <p>Septiembre 2026 · OPs reales para producir y abrir con un clic.</p>
-        <span class="history-note">Julio y agosto · plan anterior / histórico</span>
+        <span class="history-note">Septiembre · plan actual</span>
       </div>
       <aside class="panel">
         <p class="eyebrow">Resumen</p>
@@ -642,11 +644,12 @@
       }
 
       function scheduledOps() {
+        var today = new Date();
         return api.allOps().map(function (op) {
           var date = parseDate(op.dueDate);
           return date ? Object.assign({}, op, { date: date }) : null;
         }).filter(function (op) {
-          return op && op.calendarType;
+          return op && op.calendarType && op.date.getFullYear() === today.getFullYear() && op.date.getMonth() === today.getMonth();
         }).sort(function (a, b) {
           return a.date - b.date;
         });
