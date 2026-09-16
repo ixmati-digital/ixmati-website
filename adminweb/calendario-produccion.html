@@ -57,10 +57,11 @@
     .current-plan, .week-section, .campaign-section, .idea-bank { display: none; }
     .mini-strategy { order: 3; display: grid; gap: 12px; margin-top: 2px; }
     .mini-strategy-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-    .mini-strategy-card { display: grid; gap: 5px; border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; background: #fff; }
+    .mini-strategy-card { display: grid; gap: 7px; min-height: 112px; border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; background: #fff; }
     .mini-strategy-card.active { border-color: #fda4af; background: #fff7f8; }
     .mini-strategy-card strong { color: var(--ink); font-size: 15px; }
-    .mini-strategy-card span { color: var(--muted); font-size: 12px; line-height: 1.4; }
+    .mini-strategy-card span { color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .mini-strategy-card small { color: var(--muted); font-size: 12px; line-height: 1.4; }
 
     .page-head {
       display: grid;
@@ -539,8 +540,8 @@
     <section class="mini-strategy" aria-label="Modalidades de contenido">
       <p class="section-kicker">Enfoque del mes</p>
       <div class="mini-strategy-grid">
-        <article class="mini-strategy-card"><strong>CONTENIDO DIGITAL REGULAR · 2× semana</strong><span>Reels y carruseles sobre páginas, sistemas, CRM y automatización.</span></article>
-        <article class="mini-strategy-card active"><strong>WEB VISION · campaña prioritaria</strong><span>Precampaña, reveal, tutorial, demos y conversión.</span></article>
+        <article class="mini-strategy-card"><strong>CONTENIDO DIGITAL REGULAR · 2× semana</strong><span>Reels y carruseles para explicar cómo Ixmati ayuda a vender, organizar y automatizar.</span><small>Páginas web · sistemas · CRM · WhatsApp · automatización.</small></article>
+        <article class="mini-strategy-card active"><strong>WEB VISION · campaña prioritaria</strong><span>Contenido para lanzar la herramienta que permite visualizar una solución web antes de construirla.</span><small>Precampaña · reveal · tutorial · demos · conversión.</small></article>
       </div>
     </section>
   </main>
