@@ -48,7 +48,7 @@
       '<section class="panel"><h2>Referencias</h2><div class="chips">' + op.refs.map(function (ref) { return '<span>' + ref + '</span>'; }).join("") + '</div></section>',
       '<section class="panel"><h2>Entrega esperada</h2><p>' + (op.deliverableGuide || defaultDeliverable(op)) + '</p></section>',
       '<section class="panel"><h2>Checklist</h2><div class="checklist">' + api.checklist.map(function (item) { return '<label><input type="checkbox" data-check="' + item + '" ' + (checks[item] ? "checked" : "") + '> ' + item + '</label>'; }).join("") + '</div></section>',
-      '<section class="panel"><h2>Entregables</h2><p>Sube archivos finales o avances para aprobacion. Si el archivo pesa mucho, exporta preview MP4/PNG/JPG y deja nota.</p><textarea id="deliveryNotes" rows="3" placeholder="Notas para revision"></textarea><input id="deliveryFiles" type="file" multiple><button class="button primary" id="sendDelivery" type="button">Enviar a aprobacion</button><div id="deliveryStatus" class="delivery-status"></div><div class="deliveries">' + (deliveries.length ? deliveries.map(renderDelivery).join("") : '<div class="delivery">Sin entregables cargados.</div>') + '</div></section>',
+      renderDeliveriesPanel(op, deliveries),
       '</aside>',
       '</section>'
     ].join("");
@@ -137,6 +137,13 @@
     return '<div class="delivery"><strong>Entrega ' + (index + 1) + ' - ' + item.status + '</strong>' + renderFiles(item.files || []) + (item.notes ? '<p>Notas: ' + item.notes + '</p>' : '') + (item.approvalNote ? '<p>Revision Admin: ' + item.approvalNote + '</p>' : '') + '</div>';
   }
 
+  function renderDeliveriesPanel(currentOp, deliveries) {
+    if (currentOp.noApproval) {
+      return '<section class="panel no-approval"><p class="eyebrow">Entrega directa</p><h2>Sin aprobación</h2><p>Flor publica cuando el estado sea <strong>Listo</strong>. Sube el archivo final en la carpeta acordada y cambia el estado a Publicado al salir.</p></section>';
+    }
+    return '<section class="panel"><h2>Entregables</h2><p>Sube archivos finales o avances para aprobacion. Si el archivo pesa mucho, exporta preview MP4/PNG/JPG y deja nota.</p><textarea id="deliveryNotes" rows="3" placeholder="Notas para revision"></textarea><input id="deliveryFiles" type="file" multiple><button class="button primary" id="sendDelivery" type="button">Enviar a aprobacion</button><div id="deliveryStatus" class="delivery-status"></div><div class="deliveries">' + (deliveries.length ? deliveries.map(renderDelivery).join("") : '<div class="delivery">Sin entregables cargados.</div>') + '</div></section>';
+  }
+
   function renderFiles(files) {
     if (!files.length) return "";
     return '<div class="file-list">' + files.map(function (file) {
@@ -169,7 +176,7 @@
       });
     }
     document.getElementById("statusSelect").addEventListener("change", function (event) {
-      if (!isAdmin && ["Aprobado", "Programado", "Publicado"].indexOf(event.target.value) !== -1) return;
+      if (!isAdmin && !op.noApproval && ["Aprobado", "Programado", "Publicado"].indexOf(event.target.value) !== -1) return;
       api.saveOpState(op.id, { status: event.target.value }).then(function (ok) {
         if (api.supabaseEnabled && !ok) {
           window.alert("No se pudo guardar el estado en Supabase. Revisa las politicas SQL y vuelve a intentar.");
@@ -190,7 +197,9 @@
         });
       });
     });
-    document.getElementById("sendDelivery").addEventListener("click", function () {
+    var sendDelivery = document.getElementById("sendDelivery");
+    if (!sendDelivery) return;
+    sendDelivery.addEventListener("click", function () {
       var btn = document.getElementById("sendDelivery");
       var status = document.getElementById("deliveryStatus");
       var files = Array.prototype.slice.call(document.getElementById("deliveryFiles").files || []);
@@ -218,6 +227,7 @@
   }
 
   function allowedStatuses(current) {
+    if (op && op.noApproval) return ["Pendiente", "Preparando", "Listo", "Publicado"];
     if (isAdmin) return api.statuses;
     var base = ["Pendiente", "En diseno", "En revision", "Enviado a aprobacion", "Cambios solicitados"];
     if (["Aprobado", "Programado", "Publicado"].indexOf(current) !== -1) return [current].concat(base);

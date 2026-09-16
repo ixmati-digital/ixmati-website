@@ -7,7 +7,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js"></script>
   <script src="auth-guard.js?v=20260629-supabase-only"></script>
-  <script src="produccion-data.js?v=20260725-agosto-digital"></script>
+  <script src="produccion-data.js?v=20260915-septiembre-ops"></script>
   <link rel="stylesheet" href="su-admin.css">
   <style>
     :root {
@@ -40,7 +40,25 @@
       width: min(1280px, calc(100% - 32px));
       margin: 0 auto;
       padding: 24px 0 56px;
+      display: flex;
+      flex-direction: column;
     }
+
+    .su-topbar { order: 0; }
+    .page-head { order: 1; }
+    .layout { order: 2; }
+    .current-plan[aria-labelledby="planTitle"] { order: 3; }
+    .week-section { order: 4; }
+    .current-plan[aria-labelledby="produceTitle"] { order: 5; }
+    .campaign-section { order: 6; }
+    .idea-bank { order: 7; }
+    .current-plan, .week-section, .campaign-section, .idea-bank { display: none; }
+    .mini-strategy { order: 3; display: grid; gap: 12px; margin-top: 2px; }
+    .mini-strategy-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .mini-strategy-card { display: grid; gap: 5px; border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; background: #fff; }
+    .mini-strategy-card.active { border-color: #fda4af; background: #fff7f8; }
+    .mini-strategy-card strong { color: var(--ink); font-size: 15px; }
+    .mini-strategy-card span { color: var(--muted); font-size: 12px; line-height: 1.4; }
 
     .page-head {
       display: grid;
@@ -163,6 +181,8 @@
 
     .day:nth-child(7n) { border-right: 0; }
     .day.empty { background: #f8fafc; }
+    .day.past { background: #f0fdf4; }
+    .day.past .day-number { background: #dcfce7; color: #166534; }
 
     .day-number {
       display: inline-flex;
@@ -214,6 +234,8 @@
       border-left-color: var(--rose);
       background: #fff1f2;
     }
+
+    .event.past { border-color: #bbf7d0; border-left-color: #15803d; background: #f0fdf4; }
 
     .event strong {
       font-size: 13px;
@@ -394,6 +416,7 @@
     .history-note { display: inline-flex; align-items: center; gap: 6px; border: 1px solid #fde68a; border-radius: 999px; padding: 6px 9px; background: #fffbeb; color: #92400e; font-size: 11px; font-weight: 900; }
     @media (max-width: 980px) { .strategy-grid,.timeline,.week-list { grid-template-columns: repeat(2, minmax(0,1fr)); } .idea-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
     @media (max-width: 680px) { .plan-hero,.campaign-hero { flex-direction: column; } .strategy-grid,.production-grid,.campaign-grid,.timeline,.week-list,.idea-grid { grid-template-columns: 1fr; } .card-footer { align-items: flex-start; flex-direction: column; } .status-select { width: 100%; } }
+    @media (max-width: 680px) { .mini-strategy-grid { grid-template-columns: 1fr; } }
 
     @media (max-width: 1080px) {
       .page-head,
@@ -487,8 +510,8 @@
       <div class="panel">
         <p class="eyebrow">Centro de Produccion Ixmati</p>
         <h1>Calendario editorial</h1>
-        <p>OPs existentes del tablero de Flor y del panel SuperSU.</p>
-        <span class="history-note">Plan anterior · histórico / pendiente de revisión</span>
+        <p>Septiembre 2026 · OPs reales para producir y abrir con un clic.</p>
+        <span class="history-note">Julio y agosto · plan anterior / histórico</span>
       </div>
       <aside class="panel">
         <p class="eyebrow">Resumen</p>
@@ -507,6 +530,14 @@
         <h2>Orden de publicacion</h2>
         <div class="agenda" id="agendaRoot"></div>
       </aside>
+    </section>
+
+    <section class="mini-strategy" aria-label="Modalidades de contenido">
+      <p class="section-kicker">Enfoque del mes</p>
+      <div class="mini-strategy-grid">
+        <article class="mini-strategy-card"><strong>CONTENIDO DIGITAL REGULAR · 2× semana</strong><span>Reels y carruseles sobre páginas, sistemas, CRM y automatización.</span></article>
+        <article class="mini-strategy-card active"><strong>WEB VISION · campaña prioritaria</strong><span>Precampaña, reveal, tutorial, demos y conversión.</span></article>
+      </div>
     </section>
   </main>
 
@@ -643,7 +674,16 @@
           if (!grouped[key]) grouped[key] = [];
           grouped[key].push(op);
         });
-        document.getElementById("calendarRoot").innerHTML = Object.keys(grouped).map(function (key) {
+        var now = new Date();
+        var currentKey = now.getFullYear() + "-" + now.getMonth();
+        var keys = Object.keys(grouped).sort(function (a, b) {
+          if (a === currentKey) return -1;
+          if (b === currentKey) return 1;
+          var aParts = a.split("-");
+          var bParts = b.split("-");
+          return (Number(aParts[0]) - Number(bParts[0])) || (Number(aParts[1]) - Number(bParts[1]));
+        });
+        document.getElementById("calendarRoot").innerHTML = keys.map(function (key) {
           var rows = grouped[key];
           var date = rows[0].date;
           return renderMonth(date.getFullYear(), date.getMonth(), rows);
@@ -663,26 +703,32 @@
         var cells = [];
         for (var i = 0; i < offset; i += 1) cells.push('<div class="day empty"></div>');
         for (var day = 1; day <= totalDays; day += 1) {
-          cells.push(renderDay(day, byDay[day] || []));
+          cells.push(renderDay(day, byDay[day] || [], year, month));
         }
         while (cells.length % 7 !== 0) cells.push('<div class="day empty"></div>');
+        var currentDate = new Date();
+        var isCurrentMonth = year === currentDate.getFullYear() && month === currentDate.getMonth();
         return [
-          '<section class="month">',
-          '<div class="month-head"><h2>' + monthNames[month].charAt(0).toUpperCase() + monthNames[month].slice(1) + ' ' + year + '</h2><span class="badge">' + ops.length + ' publicaciones</span></div>',
+          '<section class="month ' + (isCurrentMonth ? "current-month" : "history-month") + '">',
+          '<div class="month-head"><div><p class="eyebrow" style="margin-bottom:4px">' + (isCurrentMonth ? "Plan actual" : "Histórico") + '</p><h2>' + monthNames[month].charAt(0).toUpperCase() + monthNames[month].slice(1) + ' ' + year + '</h2></div><span class="' + (isCurrentMonth ? "badge" : "history-note") + '">' + ops.length + ' publicaciones</span></div>',
           '<div class="weekdays">' + calendarWeekdays.map(function (dayName) { return '<span>' + dayName + '</span>'; }).join("") + '</div>',
           '<div class="days">' + cells.join("") + '</div>',
           '</section>'
         ].join("");
       }
 
-      function renderDay(day, ops) {
+      function renderDay(day, ops, year, month) {
+        var today = new Date();
+        var todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        var cellDate = new Date(year, month, day);
+        var isPast = cellDate < todayStart;
         return [
-          '<div class="day">',
+          '<div class="day ' + (isPast ? "past" : "") + '">',
           '<span class="day-number">' + day + '</span>',
           ops.map(function (op) {
             var href = op.page || ("op-detalle.html?id=" + encodeURIComponent(op.id));
             var status = api.currentStatus(op);
-            return '<a class="event ' + api.statusClass(status) + '" href="' + href + '"><strong>' + op.title + '</strong><span>' + op.id + ' / ' + status + '</span></a>';
+            return '<a class="event ' + api.statusClass(status) + ' ' + (isPast ? "past" : "") + '" href="' + href + '"><strong>' + op.title + '</strong><span>' + op.id + ' / ' + status + '</span></a>';
           }).join(""),
           '</div>'
         ].join("");

@@ -39,6 +39,8 @@ select,input,textarea { width:100%; border:1px solid var(--line); border-radius:
 .delivery-status { min-height:20px; color:#475569; font-weight:850; font-size:13px; margin-top:8px; }
 .delivery-status.error { color:#b91c1c; }
 .delivery { border:1px solid var(--line); border-radius:8px; padding:10px; background:#f8fafc; color:#334155; font-size:13px; }
+.no-approval { border-color:#bbf7d0; background:#f0fdf4; }
+.no-approval strong { color:#166534; }
 .file-list { display:grid; gap:6px; margin:8px 0; }
 .file-list a { color:#1d4ed8; font-weight:900; word-break:break-word; }
 @media (max-width:920px){ .hero,.detail-layout{grid-template-columns:1fr}.side{position:static}.slide{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}.social-copy-head{align-items:stretch;flex-direction:column}.social-copy-head .button{width:100%} }
