@@ -319,6 +319,82 @@
       font-weight: 850;
     }
 
+    /* Centro editorial actual */
+    .current-plan { display: grid; gap: 18px; margin-bottom: 22px; }
+    .plan-hero { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+    .plan-hero h2 { margin: 0; font-size: clamp(28px, 4vw, 44px); letter-spacing: -.04em; }
+    .plan-hero p { margin: 8px 0 0; max-width: 680px; }
+    .plan-status { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; border: 1px solid #bbf7d0; border-radius: 999px; padding: 8px 12px; background: #f0fdf4; color: #166534; font-size: 12px; font-weight: 950; letter-spacing: .08em; }
+    .plan-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 4px rgba(34,197,94,.13); }
+    .strategy-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .strategy-card { display: grid; gap: 14px; min-height: 168px; border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: #fff; box-shadow: 0 12px 28px rgba(15,23,42,.05); }
+    .strategy-card.active { border-color: #fda4af; background: linear-gradient(145deg, #fff1f2, #fff); }
+    .strategy-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .strategy-card h3 { margin: 0; font-size: 16px; letter-spacing: .02em; }
+    .strategy-card p { margin: 0; font-size: 13px; line-height: 1.45; }
+    .strategy-card strong { color: var(--ink); font-size: 24px; letter-spacing: -.04em; }
+    .strategy-icon { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 8px; background: #ecfeff; color: #0f766e; font-weight: 950; }
+    .strategy-card:nth-child(2) .strategy-icon { background: #fff7ed; color: #c2410c; }
+    .strategy-card:nth-child(3) .strategy-icon { background: #ffe4e6; color: #be123c; }
+    .campaign-link { width: max-content; border: 0; padding: 0; background: transparent; color: #be123c; font-size: 13px; font-weight: 950; cursor: pointer; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 4px 0 0; }
+    .section-heading h2 { margin: 0; font-size: 25px; letter-spacing: -.03em; }
+    .section-heading p { margin: 6px 0 0; font-size: 13px; }
+    .section-kicker { margin: 0 0 6px; color: var(--teal); font-size: 11px; font-weight: 950; letter-spacing: .12em; text-transform: uppercase; }
+    .production-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .production-card { display: grid; gap: 14px; border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: #fff; box-shadow: 0 12px 28px rgba(15,23,42,.05); }
+    .production-card.priority { border-color: #fecdd3; box-shadow: 0 12px 28px rgba(190,18,60,.08); }
+    .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .format-label { display: inline-flex; width: max-content; border-radius: 999px; padding: 6px 9px; background: #eef2ff; color: #3730a3; font-size: 11px; font-weight: 950; letter-spacing: .08em; }
+    .production-card h3 { margin: 0; font-size: 18px; line-height: 1.18; letter-spacing: -.02em; }
+    .production-card .hook { margin: 0; color: var(--ink); font-size: 16px; line-height: 1.35; font-weight: 900; }
+    .card-detail { display: grid; gap: 4px; }
+    .card-detail span { color: var(--muted); font-size: 11px; font-weight: 950; letter-spacing: .1em; text-transform: uppercase; }
+    .card-detail p { margin: 0; font-size: 13px; line-height: 1.45; white-space: pre-line; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 4px; border-top: 1px solid var(--line); }
+    .owner { display: inline-flex; align-items: center; gap: 6px; color: #475569; font-size: 11px; font-weight: 900; }
+    .owner b { color: var(--ink); }
+    .editorial-status { display: inline-flex; align-items: center; border-radius: 999px; padding: 6px 9px; font-size: 11px; font-weight: 950; }
+    .editorial-status.pending { background: #f1f5f9; color: #475569; }
+    .editorial-status.preparing { background: #fef3c7; color: #92400e; }
+    .editorial-status.ready { background: #dbeafe; color: #1d4ed8; }
+    .editorial-status.published { background: #dcfce7; color: #166534; }
+    .status-select { width: auto; min-width: 138px; margin: 0; padding: 7px 9px; font-size: 12px; font-weight: 850; }
+    .campaign-section { display: grid; gap: 16px; scroll-margin-top: 20px; }
+    .campaign-hero { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; border: 1px solid #fecdd3; border-radius: 8px; padding: 20px; background: linear-gradient(125deg,#fff1f2,#fff7ed); }
+    .campaign-hero h2 { margin: 0; font-size: clamp(28px, 4vw, 46px); letter-spacing: -.05em; }
+    .campaign-hero p { margin: 6px 0 0; }
+    .priority-badge { display: inline-flex; width: max-content; border-radius: 999px; padding: 7px 10px; background: #be123c; color: #fff; font-size: 11px; font-weight: 950; letter-spacing: .1em; }
+    .timeline { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 8px; }
+    .timeline-step { position: relative; display: grid; gap: 6px; min-height: 78px; border: 1px solid var(--line); border-radius: 8px; padding: 12px; background: #fff; }
+    .timeline-step.active { border-color: #fb7185; background: #fff1f2; }
+    .timeline-step b { color: #be123c; font-size: 11px; letter-spacing: .08em; }
+    .timeline-step span { color: var(--ink); font-size: 13px; font-weight: 950; }
+    .campaign-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .campaign-piece { display: grid; gap: 12px; border: 1px solid var(--line); border-radius: 8px; padding: 16px; background: #fff; }
+    .campaign-piece.urgent { border-color: #fda4af; }
+    .campaign-piece h3 { margin: 0; font-size: 16px; }
+    .campaign-piece .piece-id { color: #be123c; font-size: 11px; font-weight: 950; letter-spacing: .1em; }
+    .campaign-piece p { margin: 0; font-size: 13px; line-height: 1.45; }
+    .piece-meta { display: flex; flex-wrap: wrap; gap: 6px; }
+    .piece-meta span { border: 1px solid var(--line); border-radius: 999px; padding: 5px 8px; color: #475569; font-size: 11px; font-weight: 850; }
+    .script-drawer { border-top: 1px solid var(--line); padding-top: 10px; }
+    .script-drawer summary { color: #1d4ed8; font-size: 12px; font-weight: 950; cursor: pointer; }
+    .script-drawer p { margin: 10px 0 0; padding: 12px; border-radius: 8px; background: #f8fafc; white-space: pre-line; font-size: 13px; }
+    .idea-bank { display: grid; gap: 12px; }
+    .idea-grid { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 8px; }
+    .idea-card { min-height: 74px; border: 1px solid var(--line); border-radius: 8px; padding: 12px; background: #fff; color: var(--ink); font-size: 13px; font-weight: 850; line-height: 1.3; }
+    .week-section { display: grid; gap: 14px; }
+    .week-list { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 10px; }
+    .week-item { display: grid; gap: 7px; min-height: 118px; border: 1px solid var(--line); border-radius: 8px; padding: 13px; background: #fff; }
+    .week-item.priority { border-color: #fda4af; background: #fff7f8; }
+    .week-item b { color: #be123c; font-size: 11px; letter-spacing: .1em; }
+    .week-item strong { color: var(--ink); font-size: 13px; line-height: 1.25; }
+    .week-item span { color: var(--muted); font-size: 11px; font-weight: 900; }
+    .history-note { display: inline-flex; align-items: center; gap: 6px; border: 1px solid #fde68a; border-radius: 999px; padding: 6px 9px; background: #fffbeb; color: #92400e; font-size: 11px; font-weight: 900; }
+    @media (max-width: 980px) { .strategy-grid,.timeline,.week-list { grid-template-columns: repeat(2, minmax(0,1fr)); } .idea-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+    @media (max-width: 680px) { .plan-hero,.campaign-hero { flex-direction: column; } .strategy-grid,.production-grid,.campaign-grid,.timeline,.week-list,.idea-grid { grid-template-columns: 1fr; } .card-footer { align-items: flex-start; flex-direction: column; } .status-select { width: 100%; } }
+
     @media (max-width: 1080px) {
       .page-head,
       .layout {
@@ -351,11 +427,68 @@
       </nav>
     </header>
 
+    <section class="current-plan" aria-labelledby="planTitle">
+      <div class="panel plan-hero">
+        <div>
+          <p class="eyebrow">Mesa de trabajo editorial</p>
+          <h2 id="planTitle">PLAN ACTUAL</h2>
+          <p>Contenido Ixmati · Septiembre 2026<br><span style="font-size:13px">2 contenidos digitales por semana + promociones + campaña Web Vision.</span></p>
+        </div>
+        <span class="plan-status">ACTUALIZADO</span>
+      </div>
+
+      <div class="strategy-grid" aria-label="Estrategia actual">
+        <article class="strategy-card">
+          <div class="strategy-top"><div><h3>IXMATI DIGITAL</h3><strong>2× semana</strong></div><span class="strategy-icon">✦</span></div>
+          <p>Páginas web, sistemas, automatización, CRM, WhatsApp y captación digital.</p>
+        </article>
+        <article class="strategy-card">
+          <div class="strategy-top"><div><h3>PROMOCIONES</h3><strong>Espacios libres</strong></div><span class="strategy-icon">↗</span></div>
+          <p>Promociones vigentes, producción, productos físicos y oportunidades comerciales.</p>
+        </article>
+        <article class="strategy-card active">
+          <div class="strategy-top"><div><h3>WEB VISION</h3><strong>Campaña activa</strong></div><span class="strategy-icon">◎</span></div>
+          <div><span class="priority-badge">PRIORIDAD</span></div>
+          <button class="campaign-link" type="button" data-scroll-campaign>Ver campaña →</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="week-section" aria-labelledby="weekTitle">
+      <div class="section-heading"><div><p class="section-kicker">Enfoque inmediato</p><h2 id="weekTitle">¿Qué hago esta semana?</h2><p>Prioridades claras para avanzar sin perder el hilo.</p></div><span class="history-note">Semana del 14–20 septiembre</span></div>
+      <div class="week-list">
+        <article class="week-item priority"><b>01 · URGENTE</b><strong>WV-01 · Teaser “Muy pronto”</strong><span>FLOR · DISEÑO · PUBLICACIÓN</span></article>
+        <article class="week-item priority"><b>02 · URGENTE</b><strong>WV-02 · Reel teaser</strong><span>FLOR · GRABACIÓN · PUBLICACIÓN</span></article>
+        <article class="week-item"><b>03 · PREPARAR</b><strong>WV-03 · Reveal Web Vision</strong><span>FLOR · DISEÑO</span></article>
+        <article class="week-item"><b>04 · MATERIAL</b><strong>Pedir y grabar WV-04</strong><span>JARED · GRABACIÓN</span></article>
+        <article class="week-item"><b>05 · CONSTANTE</b><strong>Publicar 2 piezas digitales</strong><span>FLOR · PUBLICACIÓN</span></article>
+      </div>
+    </section>
+
+    <section class="current-plan" aria-labelledby="produceTitle">
+      <div class="section-heading"><div><p class="section-kicker">Producción activa</p><h2 id="produceTitle">Qué producir ahora</h2><p>Abre una pieza, produce, cambia el estado y sigue.</p></div></div>
+      <div class="production-grid" id="editorialProductionRoot"></div>
+    </section>
+
+    <section class="campaign-section" id="web-vision" aria-labelledby="campaignTitle">
+      <div class="campaign-hero"><div><p class="section-kicker">Lanzamiento prioritario</p><h2 id="campaignTitle">WEB VISION</h2><p>Campaña de lanzamiento · precampaña → reveal → tutorial → demos → conversión.</p><button class="campaign-link" type="button" data-open-webvision>Abrir Web Vision ↗</button></div><span class="priority-badge">PRIORIDAD</span></div>
+      <div class="timeline" aria-label="Etapas de campaña Web Vision">
+        <div class="timeline-step active"><b>01</b><span>PRECAMPAÑA</span></div><div class="timeline-step"><b>02</b><span>REVEAL</span></div><div class="timeline-step"><b>03</b><span>TUTORIAL</span></div><div class="timeline-step"><b>04</b><span>DEMOS</span></div><div class="timeline-step"><b>05</b><span>CONVERSIÓN</span></div>
+      </div>
+      <div class="campaign-grid" id="campaignPiecesRoot"></div>
+    </section>
+
+    <section class="idea-bank" aria-labelledby="ideasTitle">
+      <div class="section-heading"><div><p class="section-kicker">Siguiente lote</p><h2 id="ideasTitle">Banco de ideas</h2></div></div>
+      <div class="idea-grid" id="ideaBankRoot"></div>
+    </section>
+
     <section class="page-head">
       <div class="panel">
         <p class="eyebrow">Centro de Produccion Ixmati</p>
         <h1>Calendario editorial</h1>
-        <p>Fechas reprogramadas para publicar contenidos pendientes. Las entradas salen de las mismas OPs del tablero de Flor y del panel SuperSU.</p>
+        <p>OPs existentes del tablero de Flor y del panel SuperSU.</p>
+        <span class="history-note">Plan anterior · histórico / pendiente de revisión</span>
       </div>
       <aside class="panel">
         <p class="eyebrow">Resumen</p>
@@ -377,6 +510,66 @@
     </section>
   </main>
 
+  <script>
+    (function () {
+      var api = window.IxmatiProduction;
+      var editorialStatuses = ["Pendiente", "Preparando", "Listo", "Publicado"];
+      var productionPieces = [
+        { id: "DIG-REEL-01", format: "REEL", title: "Si todavía confirmas todas tus citas por WhatsApp una por una, esto ya se puede hacer solo.", objective: "Automatización", show: "WhatsApp → confirmación → recordatorio → seguimiento.", cta: "Hay procesos de tu negocio que ya no necesitan hacerse manualmente.", owner: "FLOR · DISEÑO" },
+        { id: "DIG-CARR-01", format: "CARRUSEL", title: "5 cosas de tu negocio que no deberían depender de que estés conectado.", objective: "Educar sobre automatización", show: "1. Responder solicitudes.\n2. Confirmar citas.\n3. Registrar prospectos.\n4. Dar seguimiento.\n5. Enviar recordatorios.", cta: "Automatizar no es hacer menos. Es dejar de repetir.", owner: "FLOR · DISEÑO", priority: true },
+        { id: "DIG-REEL-02", format: "REEL", title: "Tu Excel no está mal. El problema empieza cuando toda tu empresa depende de él.", objective: "Introducir sistemas internos / plataformas administrativas", show: "Excel → información dispersa → panel centralizado.", cta: "Tu operación también puede tener su propio sistema.", owner: "FLOR · DISEÑO" },
+        { id: "DIG-REEL-03", format: "REEL", title: "¿Cuántas ventas se te van porque contestaste tres horas después?", objective: "CRM + seguimiento + automatización", show: "Lead → registro → alerta → seguimiento.", cta: "El seguimiento no debería depender de acordarte.", owner: "FLOR · DISEÑO" },
+        { id: "DIG-CARR-02", format: "CARRUSEL", title: "Página web vs sistema web", objective: "Aclarar qué solución necesita cada negocio", show: "PÁGINA: informa · presenta · capta.\nSISTEMA: procesa · automatiza · organiza · conecta operaciones.", cta: "Tu negocio puede necesitar mucho más que una página.", owner: "FLOR · DISEÑO" }
+      ];
+      var campaignPieces = [
+        { id: "WV-01", format: "POST / STORY", title: "MUY PRONTO", copy: "Deja de imaginar cómo podría verse tu negocio en internet.", objective: "Abrir curiosidad sin revelar todo Web Vision.", show: "Visual teaser / detalle de interfaz, sin enseñar el recorrido completo.", cta: "Muy pronto", owner: "FLOR · DISEÑO · PUBLICACIÓN", urgent: true, status: "Pendiente" },
+        { id: "WV-02", format: "REEL TEASER", title: "Necesito una página… pero no sé por dónde empezar.", copy: "Estamos preparando algo para quienes llevan meses diciendo: necesito una página... pero no sé ni por dónde empezar.", objective: "Precampaña y expectativa.", show: "Flashes / acercamientos de la interfaz sin enseñar todo el recorrido.", cta: "Muy pronto podrás verla antes de decidir construirla.", owner: "FLOR · GRABACIÓN · PUBLICACIÓN", status: "Pendiente" },
+        { id: "WV-03", format: "REEL PRINCIPAL", title: "¿Y si pudieras ver tu página web antes de pagar por hacerla?", copy: "Mostrar el producto directamente, sin abrir con “Ixmati presenta…”", objective: "Reveal de Web Vision y su valor inmediato.", show: "Nombre → giro → servicios → estilo → colores/logo → objetivos → funciones → generar → simulación.", cta: "Pruébala gratis. Tarda menos de 5 minutos.", owner: "FLOR · DISEÑO", status: "Preparando" },
+        { id: "WV-04", format: "REEL / SCREEN RECORDING", title: "Tutorial Web Vision", copy: "Te voy a enseñar cómo puedes visualizar la página de tu negocio sin tener que contratar nada primero.", objective: "Enseñar el recorrido completo y facilitar la prueba.", show: "Grabación de pantalla del flujo real en Web Vision.", cta: "Haz la de tu negocio. Es gratis y te toma menos de cinco minutos.", owner: "JARED · GRABACIÓN", status: "Pendiente", jared: true, script: "Te voy a enseñar cómo puedes visualizar la página de tu negocio sin tener que contratar nada primero.\n\nEntras a Web Vision, escribes cómo se llama tu negocio...\n\nLe dices qué haces...\n\nEliges cómo quieres que se sienta tu marca...\n\nPuedes poner tus colores y hasta subir tu logo...\n\nDespués seleccionas qué quieres conseguir y qué funciones necesitarías...\n\nGENERAR.\n\nY listo. Web Vision construye una simulación para que puedas explorar cómo podría funcionar tu página.\n\nTambién te da un diagnóstico y una estimación del proyecto.\n\nHaz la de tu negocio. Es gratis y te toma menos de cinco minutos." },
+        { id: "WV-05", format: "DEMO", title: "Probamos Web Vision con una cafetería.", copy: "Una demo rápida para convertir curiosidad en prueba.", objective: "Crear contenido recurrente después del lanzamiento.", show: "Simulación de negocio real y decisiones tomadas.", cta: "Pruébala con tu negocio.", owner: "FLOR · DISEÑO", status: "Pendiente" },
+        { id: "WV-06", format: "DEMO", title: "¿Qué página necesitaría una clínica dental?", copy: "De la necesidad del negocio a una solución concreta.", objective: "Mostrar cómo Web Vision traduce un giro en funciones útiles.", show: "Servicios, agenda, formulario y WhatsApp en la simulación.", cta: "Descubre la de tu negocio.", owner: "FLOR · DISEÑO", status: "Pendiente" },
+        { id: "WV-07", format: "DEMO", title: "Así sería la web de un restaurante.", copy: "Una experiencia visual pensada para pedir y reservar.", objective: "Demostrar variedad de casos de uso.", show: "Menú, reservas, ubicación y contacto desde la simulación.", cta: "Pruébala con tu negocio.", owner: "FLOR · DISEÑO", status: "Pendiente" },
+        { id: "WV-08", format: "DEMO", title: "Este negocio pensaba que necesitaba una página. En realidad necesitaba citas + WhatsApp + seguimiento.", copy: "La herramienta ayuda a detectar la solución detrás de la petición.", objective: "Posicionar a Ixmati como socio de solución, no solo proveedor de páginas.", show: "Diagnóstico, funciones recomendadas y recorrido del prospecto.", cta: "Ve qué necesita realmente tu negocio.", owner: "FLOR · DISEÑO", status: "Pendiente" },
+        { id: "WV-09", format: "CONVERSIÓN", title: "Ya viste cómo podría funcionar. Ahora podemos construirla.", copy: "De la simulación al proyecto digital real.", objective: "Convertir usuarios interesados en solicitudes de proyecto.", show: "Resultado de Web Vision + siguiente paso con Ixmati.", cta: "Solicitar proyecto / contactar Ixmati.", owner: "FLOR · PUBLICACIÓN", status: "Pendiente" }
+      ];
+      var ideas = ["Hoy metimos una cafetería en Web Vision.", "¿Qué web necesita una clínica?", "¿Cuánto cuesta realmente una página?", "Página barata vs solución profesional: ¿qué cambia?", "3 tareas que todavía haces manualmente.", "Así entra un prospecto a un CRM.", "¿Necesitas una página o un sistema?", "Esto pasa después de que alguien llena tu formulario.", "Una automatización que te ahorra 30 mensajes al día.", "Antes de pagar por una web, prueba esto."];
+      function esc(value) { return String(value == null ? "" : value).replace(/[&<>\"']/g, function (c) { return ({"&":"&amp;", "<":"&lt;", ">":"&gt;", "\"":"&quot;", "'":"&#039;"})[c]; }); }
+      function statusClass(status) { return String(status || "Pendiente").toLowerCase().replace(/\s+/g, "-"); }
+      function getStatus(piece) { return (api.opState(piece.id) || {}).status || piece.status || "Pendiente"; }
+      function statusSelect(piece) {
+        var current = getStatus(piece);
+        return '<select class="status-select editorial-status ' + statusClass(current) + '" data-editorial-status="' + esc(piece.id) + '" aria-label="Estado ' + esc(piece.id) + '">' + editorialStatuses.map(function (s) { return '<option value="' + s + '" ' + (s === current ? "selected" : "") + '>' + s + '</option>'; }).join("") + '</select>';
+      }
+      function renderProduction(piece) {
+        return '<article class="production-card ' + (piece.priority ? "priority" : "") + '"><div class="card-head"><span class="format-label">' + esc(piece.format) + '</span><span class="piece-id">' + esc(piece.id) + '</span></div><h3>' + esc(piece.format) + ' · ' + esc(piece.id) + '</h3><div class="card-detail"><span>Hook / título</span><p class="hook">' + esc(piece.title) + '</p></div><div class="card-detail"><span>Objetivo</span><p>' + esc(piece.objective) + '</p></div><div class="card-detail"><span>Qué mostrar</span><p>' + esc(piece.show) + '</p></div><div class="card-detail"><span>CTA</span><p>' + esc(piece.cta) + '</p></div><div class="card-footer"><span class="owner"><b>Responsable</b> ' + esc(piece.owner) + '</span>' + statusSelect(piece) + '</div></article>';
+      }
+      function renderCampaign(piece) {
+        var drawer = piece.script ? '<details class="script-drawer"><summary>Ver guion</summary><p>' + esc(piece.script) + '</p></details>' : '';
+        return '<article class="campaign-piece ' + (piece.urgent ? "urgent" : "") + '"><div class="card-head"><span class="format-label">' + esc(piece.format) + '</span><span class="piece-id">' + esc(piece.id) + '</span></div>' + (piece.jared ? '<span class="priority-badge" style="background:#1d4ed8">REQUIERE A JARED</span>' : '') + '<h3>' + esc(piece.title) + '</h3><p>' + esc(piece.copy) + '</p><div class="card-detail"><span>Objetivo</span><p>' + esc(piece.objective) + '</p></div><div class="card-detail"><span>Qué mostrar</span><p>' + esc(piece.show) + '</p></div><div class="card-detail"><span>CTA</span><p>' + esc(piece.cta) + '</p></div>' + drawer + '<div class="card-footer"><span class="owner"><b>Responsable</b> ' + esc(piece.owner) + '</span>' + statusSelect(piece) + '</div></article>';
+      }
+      function bindStatuses() {
+        Array.prototype.forEach.call(document.querySelectorAll("[data-editorial-status]"), function (select) {
+          select.addEventListener("change", function () {
+            select.className = "status-select editorial-status " + statusClass(select.value);
+            api.saveOpState(select.getAttribute("data-editorial-status"), { status: select.value }).then(function (ok) {
+              if (api.supabaseEnabled && !ok) window.alert("No se pudo guardar este estado en Supabase. Revisa tu sesión e inténtalo de nuevo.");
+            });
+          });
+        });
+      }
+      function renderEditorial() {
+        document.getElementById("editorialProductionRoot").innerHTML = productionPieces.map(renderProduction).join("");
+        document.getElementById("campaignPiecesRoot").innerHTML = campaignPieces.map(renderCampaign).join("");
+        document.getElementById("ideaBankRoot").innerHTML = ideas.map(function (idea) { return '<div class="idea-card">' + esc(idea) + '</div>'; }).join("");
+        bindStatuses();
+        var scroll = document.querySelector("[data-scroll-campaign]");
+        if (scroll) scroll.addEventListener("click", function () { document.getElementById("web-vision").scrollIntoView({ behavior: "smooth", block: "start" }); });
+        var openWebVision = document.querySelector("[data-open-webvision]");
+        if (openWebVision) openWebVision.addEventListener("click", function () { var opened = window.open("../webvision/index.html", "_blank", "noopener"); if (!opened) window.location.href = "../webvision/index.html"; });
+      }
+      api.ready(renderEditorial);
+    })();
+  </script>
   <script>
     (function () {
       var api = window.IxmatiProduction;
