@@ -7,7 +7,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js"></script>
   <script src="auth-guard.js?v=20260629-supabase-only"></script>
-  <script src="produccion-data.js?v=20260915-sept17-ops"></script>
+  <script src="produccion-data.js?v=20260915-sept17-oct-ops"></script>
   <link rel="stylesheet" href="su-admin.css">
   <style>
     :root {
@@ -515,8 +515,8 @@
       <div class="panel">
         <p class="eyebrow">Centro de Produccion Ixmati</p>
         <h1>Calendario editorial</h1>
-        <p>Septiembre 2026 · OPs reales para producir y abrir con un clic.</p>
-        <span class="history-note">Septiembre · plan actual</span>
+        <p>Septiembre–octubre 2026 · una OP por día, con ritmo sostenible.</p>
+        <span class="history-note">Plan actual · producción programada</span>
       </div>
       <aside class="panel">
         <p class="eyebrow">Resumen</p>
@@ -648,11 +648,13 @@
 
       function scheduledOps() {
         var today = new Date();
+        var rangeStart = new Date(today.getFullYear(), today.getMonth(), 1);
+        var rangeEnd = new Date(today.getFullYear(), today.getMonth() + 2, 0, 23, 59, 59);
         return api.allOps().map(function (op) {
           var date = parseDate(op.dueDate);
           return date ? Object.assign({}, op, { date: date }) : null;
         }).filter(function (op) {
-          return op && op.calendarType && op.date.getFullYear() === today.getFullYear() && op.date.getMonth() === today.getMonth();
+          return op && op.calendarType && op.date >= rangeStart && op.date <= rangeEnd;
         }).sort(function (a, b) {
           return a.date - b.date;
         });
@@ -714,9 +716,12 @@
         while (cells.length % 7 !== 0) cells.push('<div class="day empty"></div>');
         var currentDate = new Date();
         var isCurrentMonth = year === currentDate.getFullYear() && month === currentDate.getMonth();
+        var monthStart = new Date(year, month, 1);
+        var monthLabel = isCurrentMonth ? "Plan actual" : (monthStart > new Date(currentDate.getFullYear(), currentDate.getMonth(), 1) ? "Próximo" : "Histórico");
+        var monthClass = isCurrentMonth ? "current-month" : (monthLabel === "Próximo" ? "future-month" : "history-month");
         return [
-          '<section class="month ' + (isCurrentMonth ? "current-month" : "history-month") + '">',
-          '<div class="month-head"><div><p class="eyebrow" style="margin-bottom:4px">' + (isCurrentMonth ? "Plan actual" : "Histórico") + '</p><h2>' + monthNames[month].charAt(0).toUpperCase() + monthNames[month].slice(1) + ' ' + year + '</h2></div><span class="' + (isCurrentMonth ? "badge" : "history-note") + '">' + ops.length + ' publicaciones</span></div>',
+          '<section class="month ' + monthClass + '">',
+          '<div class="month-head"><div><p class="eyebrow" style="margin-bottom:4px">' + monthLabel + '</p><h2>' + monthNames[month].charAt(0).toUpperCase() + monthNames[month].slice(1) + ' ' + year + '</h2></div><span class="' + (monthLabel === "Histórico" ? "history-note" : "badge") + '">' + ops.length + ' publicaciones</span></div>',
           '<div class="weekdays">' + calendarWeekdays.map(function (dayName) { return '<span>' + dayName + '</span>'; }).join("") + '</div>',
           '<div class="days">' + cells.join("") + '</div>',
           '</section>'
