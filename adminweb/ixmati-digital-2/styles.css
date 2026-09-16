@@ -68,3 +68,29 @@ button { cursor: pointer; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
 .guardrail-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }.guardrail-grid > div { min-height: 200px; padding: 22px; background: var(--white); }.guardrail-grid > div:nth-child(2) { background: var(--lime); }.guardrail-grid > div:nth-child(3) { background: var(--coral); }.guardrail-grid span { font: 10px var(--mono); opacity: .6; }.guardrail-grid strong { display: block; margin-top: 48px; font: 500 25px var(--display); }.guardrail-grid p { max-width: 250px; margin: 10px 0 0; color: var(--muted); font-size: 13px; }.section-stepper { position: fixed; right: 24px; bottom: 24px; z-index: 80; display: flex; align-items: center; gap: 9px; padding: 7px; background: var(--ink); color: var(--paper); box-shadow: var(--shadow); }.section-stepper button { width: 28px; height: 28px; border: 1px solid var(--line-dark); background: transparent; color: var(--paper); }.section-stepper button:hover, .section-stepper button:focus-visible { background: var(--coral); color: var(--ink); outline: 0; }.section-stepper span { min-width: 47px; text-align: center; font: 9px var(--mono); }
 @media (max-width: 720px) { .guardrail-grid { grid-template-columns: 1fr; } .section-stepper { right: 13px; bottom: 13px; } }
+.tool-boundary, .document-example, .cms-boundary, .monthly-value, .profit-example, .cost-limits, .client-value { margin-top: 22px; padding: 17px; border: 1px solid var(--line); background: var(--white); }
+.tool-boundary strong, .document-example span, .cms-boundary span, .monthly-value strong, .profit-example span, .cost-limits b, .client-value strong { display: block; color: var(--coral); font: 10px var(--mono); text-transform: uppercase; }
+.tool-boundary p, .document-example p, .cms-boundary p, .monthly-value span, .client-value p { margin: 8px 0 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
+.document-example { max-width: 920px; margin-right: auto; margin-left: auto; border-left: 3px solid var(--coral); }
+.cms-boundary { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; background: transparent; }
+.cms-boundary > div { padding: 15px; background: var(--white); }
+.cms-boundary strong { display: block; margin-top: 9px; font: 500 18px var(--display); }
+.monthly-value { display: flex; gap: 15px; align-items: baseline; background: var(--lime); }
+.monthly-value strong { color: var(--ink); white-space: nowrap; }
+.monthly-value span { color: var(--ink); }
+.profit-example { display: grid; grid-template-columns: auto auto auto auto auto auto; gap: 8px; align-items: center; margin: 0; background: var(--ink); color: var(--paper); }
+.profit-example span { color: var(--lime); }
+.profit-example strong { font: 500 22px var(--display); }
+.profit-example i { color: var(--coral); font-style: normal; font-size: 20px; }
+.profit-footnote { grid-column: 1 / -1; }
+.cost-limits { display: grid; gap: 7px; background: var(--warm); }
+.cost-limits b { color: var(--ink); }
+.cost-limits span { color: var(--muted); font-size: 13px; }
+.client-value { background: var(--paper); }
+.client-value p { color: var(--muted); }
+.stack-item p { margin: 8px 0 0; color: var(--muted); font-size: 11px; line-height: 1.35; }
+.role-system-note { max-width: 1440px; margin: 18px auto 0; padding: 16px 20px; border-left: 3px solid var(--coral); background: var(--white); color: var(--muted); font-size: 13px; }
+.role-system-note strong { color: var(--ink); }
+.playbook-detail p { margin: 9px 0 0; color: rgba(247,245,239,.65); font-size: 13px; line-height: 1.4; }
+.playbook-detail p b { color: var(--lime); }
+@media (max-width: 720px) { .cms-boundary { grid-template-columns: 1fr; } .monthly-value { display: block; } .monthly-value span { display: block; margin-top: 8px; } .profit-example { grid-template-columns: 1fr auto; } .profit-example i { display: none; } .profit-example strong { justify-self: end; } }
