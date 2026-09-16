@@ -89,6 +89,9 @@
 
   function canAccess(pathname) {
     var role = currentRole();
+    if (/\/adminweb\/ixmati-digital-2(?:\/|$)/i.test(pathname)) {
+      return ["vip", "superadmin", "instructor"].indexOf(role) !== -1;
+    }
     var page = getPageName(pathname);
     if (role === "blocked" || role === "leslie") return false;
     if (role === "superadmin" || role === "instructor") return SUPERADMIN_ALLOWED.indexOf(page) !== -1;
