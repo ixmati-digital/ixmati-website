@@ -419,6 +419,8 @@
     @media (max-width: 980px) { .strategy-grid,.timeline,.week-list { grid-template-columns: repeat(2, minmax(0,1fr)); } .idea-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
     @media (max-width: 680px) { .plan-hero,.campaign-hero { flex-direction: column; } .strategy-grid,.production-grid,.campaign-grid,.timeline,.week-list,.idea-grid { grid-template-columns: 1fr; } .card-footer { align-items: flex-start; flex-direction: column; } .status-select { width: 100%; } }
     @media (max-width: 680px) { .mini-strategy-grid { grid-template-columns: 1fr; } }
+    /* La mesa editorial queda resumida al final; el calendario es la vista principal. */
+    .current-plan, .week-section, .campaign-section, .idea-bank { display: none; }
 
     @media (max-width: 1080px) {
       .page-head,
@@ -731,7 +733,8 @@
           ops.map(function (op) {
             var href = op.page || ("op-detalle.html?id=" + encodeURIComponent(op.id));
             var status = api.currentStatus(op);
-            return '<a class="event ' + api.statusClass(status) + ' ' + (isPast ? "past" : "") + '" href="' + href + '"><strong>' + op.title + '</strong><span>' + op.id + ' / ' + status + '</span></a>';
+            var shortType = String(op.type || "OP").replace(/digital/ig, "DIGITAL").replace(/Web Vision/ig, "WEB VISION");
+            return '<a class="event ' + api.statusClass(status) + ' ' + (isPast ? "past" : "") + '" href="' + href + '" title="' + op.title + '"><strong>' + op.id + '</strong><span>' + shortType + ' / ' + status + '</span></a>';
           }).join(""),
           '</div>'
         ].join("");
