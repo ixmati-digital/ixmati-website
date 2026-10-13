@@ -11,7 +11,6 @@
             title: "Tazas y termos premium",
             category: "Tazas y termos",
             description: "Sublimación envolvente, nombres y empaques listos para regalo.",
-            priceLabel: "$95 - $180",
             image: "img/ixmati/galeria-banner.jpg",
             badge: "Nuevo",
             stock: 50,
@@ -24,7 +23,6 @@
             title: "Playeras y sudaderas",
             category: "Textil",
             description: "DTF y vinil textil para tirajes cortos con colores vivos.",
-            priceLabel: "$190 - $420",
             image: "img/ixmati/galeria-lona-vinil.jpg",
             badge: "Top ventas",
             stock: 40,
@@ -34,10 +32,9 @@
         },
         {
             id: "SHOP-003",
-            title: "Gran formato",
+            title: "Impresión comercial",
             category: "Lonas y vinil",
             description: "Lonas, vinil y microperforado con instalación supervisada.",
-            priceLabel: "$220 m2",
             image: "img/ixmati/hero-lona-stand.jpg",
             badge: "",
             stock: 999,
@@ -49,10 +46,6 @@
 
     let products = [];
     let activeCategory = "Todos";
-
-    function money(value) {
-        return new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 }).format(Number(value || 0));
-    }
 
     function readCart() {
         try {
@@ -71,14 +64,6 @@
         return String(value || "").replace(/[&<>"']/g, function (char) {
             return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char];
         });
-    }
-
-    function productPriceLabel(product) {
-        if (product.priceLabel) return product.priceLabel;
-        if (product.priceMax && Number(product.priceMax) > Number(product.price)) {
-            return money(product.price) + " - " + money(product.priceMax);
-        }
-        return Number(product.price || 0) > 0 ? "Desde " + money(product.price) : "Cotizar";
     }
 
     function categories() {
@@ -138,7 +123,6 @@
                 '<div class="shop-tags">' + fields + "</div>",
                 '<div class="shop-stock">' + escapeHtml(stockLabel) + " · mínimo " + escapeHtml(product.minQuantity || 1) + " " + escapeHtml(product.unit || "pieza") + "</div>",
                 '<div class="d-flex justify-content-between align-items-center gap-2 mt-3">',
-                '<span class="fw-bold text-secondary">' + escapeHtml(productPriceLabel(product)) + "</span>",
                 '<button class="btn btn-sm btn-primary rounded-pill" type="button" data-add-cart="' + escapeHtml(product.id) + '">Agregar</button>',
                 "</div>",
                 "</div>",
@@ -160,20 +144,12 @@
             cart.push({
                 id: product.id,
                 title: product.title,
-                price: Number(product.price || 0),
-                priceLabel: productPriceLabel(product),
                 quantity: minQuantity,
                 unit: product.unit || "pieza",
                 note: ""
             });
         }
         writeCart(cart);
-    }
-
-    function cartTotal(cart) {
-        return cart.reduce(function (sum, item) {
-            return sum + (Number(item.price || 0) * Number(item.quantity || 0));
-        }, 0);
     }
 
     function renderCart() {
@@ -185,7 +161,7 @@
         if (count) count.textContent = cart.length + (cart.length === 1 ? " item" : " items");
         if (!cart.length) {
             root.innerHTML = '<p class="text-muted mb-0">Agrega productos del catálogo para armar tu solicitud.</p>';
-            if (total) total.textContent = "$0";
+            if (total) total.textContent = "Por confirmar";
             return;
         }
         root.innerHTML = cart.map(function (item) {
@@ -194,23 +170,22 @@
                 '<div class="d-flex justify-content-between gap-3">',
                 "<div>",
                 '<p class="mb-1 fw-bold">' + escapeHtml(item.quantity) + " " + escapeHtml(item.unit) + " · " + escapeHtml(item.title) + "</p>",
-                '<small class="text-muted">' + escapeHtml(item.priceLabel) + "</small>",
                 "</div>",
                 '<button class="cart-remove" type="button" data-remove-cart="' + escapeHtml(item.id) + '" aria-label="Quitar">×</button>',
                 "</div>",
                 "</div>"
             ].join("");
         }).join("");
-        if (total) total.textContent = money(cartTotal(cart));
+        if (total) total.textContent = "Por confirmar";
     }
 
     function sendCart() {
         const cart = readCart();
         const lines = cart.map(function (item) {
-            return "- " + item.quantity + " " + item.unit + " " + item.title + " (" + item.priceLabel + ")";
+            return "- " + item.quantity + " " + item.unit + " " + item.title;
         });
         const text = cart.length
-            ? "Hola Ixmati, quiero cotizar este carrito:\n" + lines.join("\n") + "\nTotal estimado: " + money(cartTotal(cart)) + "\nNecesito confirmar personalización, tiempos y entrega."
+            ? "Hola Ixmati, quiero cotizar este carrito:\n" + lines.join("\n") + "\nNecesito confirmar precio, personalización, tiempos y entrega."
             : "Hola Ixmati, quiero cotizar productos personalizados de la tienda.";
         window.open("https://wa.me/" + WA_PHONE + "?text=" + encodeURIComponent(text), "_blank");
     }
