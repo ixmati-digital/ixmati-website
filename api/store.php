@@ -44,7 +44,7 @@ function default_products(): array {
       'status' => 'active',
       'featured' => true,
       'badge' => 'Nuevo',
-      'image' => 'img/ixmati/galeria-banner.jpg',
+      'image' => 'img/optimized/home/taza.webp',
       'gallery' => [],
       'variants' => ['Taza 11 oz', 'Termo metálico', 'Cilindro'],
       'sizes' => [],
@@ -74,7 +74,7 @@ function default_products(): array {
       'status' => 'active',
       'featured' => true,
       'badge' => 'Top ventas',
-      'image' => 'img/ixmati/galeria-lona-vinil.jpg',
+      'image' => 'img/optimized/playera-bordada.webp',
       'gallery' => [],
       'variants' => ['Playera', 'Sudadera', 'Gorra'],
       'sizes' => ['CH', 'M', 'G', 'EG'],
@@ -104,7 +104,7 @@ function default_products(): array {
       'status' => 'active',
       'featured' => true,
       'badge' => '',
-      'image' => 'img/ixmati/hero-lona-stand.jpg',
+      'image' => 'img/optimized/lona-impresa.webp',
       'gallery' => [],
       'variants' => ['Lona', 'Vinil impreso', 'Microperforado'],
       'sizes' => ['Por medida'],
@@ -170,6 +170,26 @@ function read_store(string $storeFile): array {
   }
   if (!isset($data['updatedAt'])) {
     $data['updatedAt'] = gmdate('c');
+  }
+
+  // Replace the three legacy catalog placeholders when the saved Hostinger
+  // store predates the product-specific imagery shipped with the site.
+  $catalogImages = [
+    'SHOP-001' => ['img/ixmati/galeria-banner.jpg', 'img/optimized/home/taza.webp'],
+    'SHOP-002' => ['img/ixmati/galeria-lona-vinil.jpg', 'img/optimized/playera-bordada.webp'],
+    'SHOP-003' => ['img/ixmati/hero-lona-stand.jpg', 'img/optimized/lona-impresa.webp']
+  ];
+  $migrated = false;
+  foreach ($data['products'] as &$product) {
+    $id = $product['id'] ?? '';
+    if (isset($catalogImages[$id]) && ($product['image'] ?? '') === $catalogImages[$id][0]) {
+      $product['image'] = $catalogImages[$id][1];
+      $migrated = true;
+    }
+  }
+  unset($product);
+  if ($migrated) {
+    write_store($storeFile, $data);
   }
   return $data;
 }

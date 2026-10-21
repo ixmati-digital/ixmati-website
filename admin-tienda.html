@@ -444,6 +444,12 @@
                     <label>Subir imagen
                         <input id="imageFile" type="file" accept="image/png,image/jpeg,image/webp">
                     </label>
+                    <label>Fotos adicionales del mismo producto
+                        <input id="galleryFiles" type="file" accept="image/png,image/jpeg,image/webp" multiple>
+                    </label>
+                    <label>Fotos de galería (una ruta por línea; comparten el nombre del producto)
+                        <textarea id="gallery" rows="4" placeholder="Las fotos que subas aparecerán aquí"></textarea>
+                    </label>
                     <div class="row">
                         <label>Variantes
                             <textarea id="variants" rows="3" placeholder="Una por línea"></textarea>
@@ -486,7 +492,7 @@
             var fields = [
                 "id", "title", "sku", "category", "type", "status", "description", "shortDescription", "price",
                 "priceMax", "priceLabel", "stock", "minQuantity", "unit", "productionTime", "sortOrder", "badge",
-                "featured", "image", "variants", "sizes", "materials", "finishes", "customizableFields", "tags", "notes"
+                "featured", "image", "gallery", "variants", "sizes", "materials", "finishes", "customizableFields", "tags", "notes"
             ];
 
             function el(id) {
@@ -621,7 +627,7 @@
                 el("formTitle").textContent = "Editar producto";
                 fields.forEach(function (field) {
                     if (!el(field)) return;
-                    if (["variants", "sizes", "materials", "finishes", "customizableFields"].indexOf(field) !== -1) {
+                    if (["gallery", "variants", "sizes", "materials", "finishes", "customizableFields"].indexOf(field) !== -1) {
                         setList(field, product[field]);
                     } else if (field === "tags") {
                         el(field).value = Array.isArray(product.tags) ? product.tags.join(", ") : "";
@@ -656,6 +662,7 @@
                     badge: el("badge").value,
                     featured: el("featured").value === "true",
                     image: el("image").value,
+                    gallery: listFromTextarea("gallery"),
                     variants: listFromTextarea("variants"),
                     sizes: listFromTextarea("sizes"),
                     materials: listFromTextarea("materials"),
@@ -723,6 +730,28 @@
                 msg("Imagen subida.");
             }
 
+            async function uploadGalleryImages() {
+                var files = Array.from(el("galleryFiles").files || []);
+                if (!files.length) return;
+                var paths = listFromTextarea("gallery");
+                for (var i = 0; i < files.length; i += 1) {
+                    var form = new FormData();
+                    form.append("action", "uploadImage");
+                    form.append("image", files[i]);
+                    var response = await fetch(API_URL, { method: "POST", body: form });
+                    var data = await response.json();
+                    if (!response.ok) {
+                        msg(data.error || "No se pudo subir una de las fotos", true);
+                        return;
+                    }
+                    paths.push(data.path);
+                    el("gallery").value = paths.join("\n");
+                }
+                el("gallery").value = paths.join("\n");
+                el("galleryFiles").value = "";
+                msg(files.length + (files.length === 1 ? " foto adicional subida." : " fotos adicionales subidas."));
+            }
+
             function updatePreview() {
                 el("imagePreview").src = el("image").value || "img/optimized/home-hero-promo.webp";
             }
@@ -754,6 +783,7 @@
             el("newProduct").addEventListener("click", resetForm);
             el("image").addEventListener("input", updatePreview);
             el("imageFile").addEventListener("change", uploadImage);
+            el("galleryFiles").addEventListener("change", uploadGalleryImages);
             el("search").addEventListener("input", render);
             el("categoryFilter").addEventListener("change", render);
             el("statusFilter").addEventListener("change", render);

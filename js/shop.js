@@ -11,7 +11,7 @@
             title: "Tazas y termos premium",
             category: "Tazas y termos",
             description: "Sublimación envolvente, nombres y empaques listos para regalo.",
-            image: "img/ixmati/galeria-banner.jpg",
+            image: "img/optimized/home/taza.webp",
             badge: "Nuevo",
             stock: 50,
             minQuantity: 1,
@@ -23,7 +23,7 @@
             title: "Playeras y sudaderas",
             category: "Textil",
             description: "DTF y vinil textil para tirajes cortos con colores vivos.",
-            image: "img/ixmati/galeria-lona-vinil.jpg",
+            image: "img/optimized/playera-bordada.webp",
             badge: "Top ventas",
             stock: 40,
             minQuantity: 1,
@@ -35,7 +35,7 @@
             title: "Impresión comercial",
             category: "Lonas y vinil",
             description: "Lonas, vinil y microperforado con instalación supervisada.",
-            image: "img/ixmati/hero-lona-stand.jpg",
+            image: "img/optimized/lona-impresa.webp",
             badge: "",
             stock: 999,
             minQuantity: 1,
@@ -103,6 +103,7 @@
 
         root.innerHTML = rows.map(function (product, index) {
             const image = product.image || "img/optimized/home-hero-promo.webp";
+            const gallery = Array.isArray(product.gallery) ? product.gallery.filter(Boolean) : [];
             const badge = product.badge ? '<span class="shop-badge">' + escapeHtml(product.badge) + "</span>" : "";
             const stock = Number(product.stock || 0);
             const stockLabel = stock > 0 ? stock + " disponibles" : "Bajo pedido";
@@ -117,6 +118,9 @@
                 badge,
                 "</div>",
                 '<div class="shop-body">',
+                gallery.length ? '<div class="shop-gallery" aria-label="Más fotos de ' + escapeHtml(product.title) + '">' + gallery.map(function (photo, photoIndex) {
+                    return '<button class="shop-gallery-thumb" type="button" data-shop-image aria-label="Ver foto ' + (photoIndex + 2) + ' de ' + escapeHtml(product.title) + '"><img src="' + escapeHtml(photo) + '" alt=""></button>';
+                }).join("") + "</div>" : "",
                 '<div class="shop-category">' + escapeHtml(product.category || "General") + "</div>",
                 "<h4>" + escapeHtml(product.title) + "</h4>",
                 '<p class="mb-3">' + escapeHtml(product.description || product.shortDescription || "") + "</p>",
@@ -208,6 +212,14 @@
     }
 
     document.addEventListener("click", function (event) {
+        const galleryImage = event.target.closest("[data-shop-image]");
+        if (galleryImage) {
+            const card = galleryImage.closest(".shop-card");
+            const mainImage = card && card.querySelector(".shop-img > img");
+            const thumbnail = galleryImage.querySelector("img");
+            if (mainImage && thumbnail) mainImage.src = thumbnail.src;
+            return;
+        }
         const filter = event.target.closest("[data-category]");
         if (filter) {
             activeCategory = filter.getAttribute("data-category") || "Todos";
